@@ -48,7 +48,13 @@ export function AuthForm({ mode }: { mode: Mode }) {
           setError(res.error);
           return;
         }
-        router.push("/dashboard");
+        const after = searchParams.get("after");
+        const plan = searchParams.get("plan");
+        if (after === "success" && plan) {
+          router.push(`/success?plan=${encodeURIComponent(plan)}`);
+        } else {
+          router.push("/dashboard");
+        }
       }
     } finally {
       setLoading(false);
