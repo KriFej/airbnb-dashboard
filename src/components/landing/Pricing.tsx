@@ -7,14 +7,14 @@ export function Pricing() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
-            Pricing
+            Tarifs
           </span>
           <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Simple plans, priced per property.
+            Des offres simples, au bien près.
           </h2>
           <p className="mt-4 text-muted">
-            Start small, scale as your portfolio grows. Every plan includes the
-            core dashboard and real-time profit calculations.
+            Commencez petit, grandissez à votre rythme. Chaque offre inclut le
+            tableau de bord complet et le calcul du bénéfice en temps réel.
           </p>
         </div>
 
@@ -24,27 +24,27 @@ export function Pricing() {
             <div className="text-sm font-medium text-muted">Starter</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-5xl font-medium tracking-tight">
-                €9.90
+                9,90 €
               </span>
-              <span className="text-sm text-muted">/ month</span>
+              <span className="text-sm text-muted">/ mois</span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              For solo hosts with one or two properties.
+              Pour les hôtes avec un ou deux biens.
             </p>
             <Button
-              href="/dashboard"
+              href="/signup?plan=starter"
               variant="secondary"
               size="lg"
               className="mt-6 w-full"
             >
-              Start with Starter
+              Choisir Starter
             </Button>
             <ul className="mt-6 space-y-3 text-sm">
               {[
-                "Up to 2 properties",
-                "Airbnb & Booking.com revenue tracking",
-                "Full profit dashboard",
-                "Data export (CSV / PDF)",
+                "Jusqu'à 2 biens",
+                "Suivi des revenus Airbnb & Booking.com",
+                "Tableau de bord complet",
+                "Export des données (CSV / PDF)",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2 text-white/90">
                   <Check
@@ -57,7 +57,7 @@ export function Pricing() {
             </ul>
           </div>
 
-          {/* Pro — highlighted green card */}
+          {/* Pro */}
           <div className="relative flex flex-col overflow-hidden rounded-2xl bg-brand-500 p-8 text-black shadow-glow md:-mt-4">
             <div
               className="pointer-events-none absolute inset-0 opacity-20"
@@ -71,31 +71,31 @@ export function Pricing() {
               <div className="flex items-center justify-between">
                 <div className="text-sm font-medium text-black/80">Pro</div>
                 <span className="inline-flex items-center gap-1 rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-medium backdrop-blur">
-                  <Sparkles size={10} /> Most popular
+                  <Sparkles size={10} /> Le plus populaire
                 </span>
               </div>
               <div className="mt-3 flex items-baseline gap-1">
                 <span className="text-5xl font-medium tracking-tight">
-                  €19.90
+                  19,90 €
                 </span>
-                <span className="text-sm text-black/70">/ month</span>
+                <span className="text-sm text-black/70">/ mois</span>
               </div>
               <p className="mt-2 text-sm text-black/80">
-                For hosts scaling from 3 to 10 properties.
+                Pour les hôtes qui passent de 3 à 10 biens.
               </p>
               <Button
-                href="/dashboard"
+                href="/signup?plan=pro"
                 size="lg"
                 className="mt-6 w-full !bg-black !text-white hover:!bg-black/90"
               >
-                Start with Pro
+                Choisir Pro
               </Button>
               <ul className="mt-6 space-y-3 text-sm">
                 {[
-                  "3 to 10 properties",
-                  "Everything in Starter",
-                  "Live booking agenda synced via iCal",
-                  "Direct Airbnb + Booking.com calendar link",
+                  "3 à 10 biens",
+                  "Tout ce qui est inclus dans Starter",
+                  "Agenda des réservations synchro iCal en direct",
+                  "Lien direct vers les calendriers Airbnb + Booking.com",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <Check size={16} className="mt-0.5 shrink-0" />
@@ -111,27 +111,27 @@ export function Pricing() {
             <div className="text-sm font-medium text-muted">Unlimited</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-5xl font-medium tracking-tight">
-                Custom
+                Sur devis
               </span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              From 11 properties and up — tailored to your portfolio.
+              À partir de 11 biens — tarif adapté à votre portefeuille.
             </p>
             <Button
-              href="mailto:hello@locpilote.app?subject=Unlimited%20quote%20request"
+              href="mailto:hello@locpilote.app?subject=Demande%20de%20devis%20Unlimited"
               variant="secondary"
               size="lg"
               className="mt-6 w-full"
               icon={<Mail size={14} />}
             >
-              Contact sales
+              Contacter l&apos;équipe
             </Button>
             <ul className="mt-6 space-y-3 text-sm">
               {[
-                "11+ properties, no limit",
-                "Everything in Pro",
-                "Custom quote based on your volume",
-                "Dedicated onboarding & support",
+                "11 biens et plus, sans limite",
+                "Tout ce qui est inclus dans Pro",
+                "Devis personnalisé selon votre volume",
+                "Onboarding et support dédiés",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2 text-white/90">
                   <Check
@@ -146,7 +146,8 @@ export function Pricing() {
         </div>
 
         <p className="mt-10 text-center text-xs text-dim">
-          All prices in EUR, billed monthly. Cancel anytime. VAT may apply.
+          Tous les tarifs en euros, facturés mensuellement. Annulation à tout
+          moment. TVA applicable selon le pays.
         </p>
       </div>
     </section>

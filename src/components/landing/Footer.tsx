@@ -8,8 +8,8 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-xs text-sm text-muted">
-              The profit dashboard for Airbnb and Booking hosts who take their
-              numbers seriously.
+              Le tableau de bord de rentabilité pour les hôtes Airbnb et
+              Booking qui prennent leurs chiffres au sérieux.
             </p>
             <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand-500">
               <svg width="44" height="44" viewBox="0 0 44 44" className="text-black">
@@ -38,35 +38,35 @@ export function Footer() {
             </div>
           </div>
           <FooterCol
-            title="Product"
+            title="Produit"
             links={[
-              { label: "Features", href: "#features" },
-              { label: "Pricing", href: "#pricing" },
-              { label: "Dashboard", href: "/dashboard" },
-              { label: "Changelog", href: "#" },
+              { label: "Fonctionnalités", href: "#features" },
+              { label: "Tarifs", href: "#pricing" },
+              { label: "Tableau de bord", href: "/dashboard" },
+              { label: "Nouveautés", href: "#" },
             ]}
           />
           <FooterCol
-            title="Company"
+            title="Entreprise"
             links={[
-              { label: "About", href: "#" },
+              { label: "À propos", href: "#" },
               { label: "Blog", href: "#" },
               { label: "Contact", href: "mailto:hello@locpilote.app" },
             ]}
           />
           <FooterCol
-            title="Legal"
+            title="Légal"
             links={[
-              { label: "Privacy", href: "#" },
-              { label: "Terms", href: "#" },
+              { label: "Confidentialité", href: "#" },
+              { label: "Conditions", href: "#" },
               { label: "Cookies", href: "#" },
             ]}
           />
         </div>
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-dim md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} locpilote. Built for hosts, by hosts.</p>
+          <p>© {new Date().getFullYear()} locpilote. Conçu pour les hôtes, par des hôtes.</p>
           <p>
-            Contact:{" "}
+            Contact&nbsp;:{" "}
             <a
               href="mailto:hello@locpilote.app"
               className="text-muted hover:text-white"

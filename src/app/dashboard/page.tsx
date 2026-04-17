@@ -19,6 +19,8 @@ import { computeKpis, formatEuro, formatPct } from "@/lib/calc";
 import { KEYS, load, loadString, save } from "@/lib/storage";
 import { Booking, DEFAULT_INPUTS, Inputs } from "@/lib/types";
 
+const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"];
+
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
   const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
@@ -26,7 +28,7 @@ export default function DashboardPage() {
   const [bookingUrl, setBookingUrl] = useState("");
   const [airbnbBookings, setAirbnbBookings] = useState<Booking[]>([]);
   const [bookingBookings, setBookingBookings] = useState<Booking[]>([]);
-  const [period, setPeriod] = useState("This month");
+  const [period, setPeriod] = useState("Ce mois-ci");
   const [active, setActive] = useState("overview");
 
   // Hydrate from localStorage after mount
@@ -68,6 +70,31 @@ export default function DashboardPage() {
       });
   }, [airbnbBookings, bookingBookings, mounted]);
 
+  // Scroll-spy: observe sections and update `active`
+  useEffect(() => {
+    if (!mounted) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-80px 0px -60% 0px", threshold: [0, 0.2, 0.4] }
+    );
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [mounted]);
+
+  const handleNavigate = (id: string) => {
+    setActive(id);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const allBookings = useMemo(
     () =>
       [...airbnbBookings, ...bookingBookings].sort((a, b) =>
@@ -80,51 +107,51 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen bg-bg">
-      <Sidebar active={active} onNavigate={setActive} />
+      <Sidebar active={active} onNavigate={handleNavigate} />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar
-          title="Overview"
-          subtitle="Your real performance, live."
+          title="Vue d'ensemble"
+          subtitle="Votre vraie performance, en direct."
           period={period}
           onPeriod={setPeriod}
         />
 
         <main className="flex-1 space-y-6 p-6 md:p-8">
           {/* KPI row */}
-          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <section id="overview" className="scroll-mt-24 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <KpiCard
-              label="Gross revenue"
+              label="Revenu brut"
               value={formatEuro(kpis.grossRevenue)}
               icon={<Wallet size={14} />}
               hint="Airbnb + Booking"
             />
             <KpiCard
-              label="Total expenses"
+              label="Dépenses totales"
               value={formatEuro(kpis.totalExpenses + kpis.platformFees)}
               icon={<Receipt size={14} />}
-              hint={`incl. ${formatEuro(kpis.platformFees)} fees`}
+              hint={`dont ${formatEuro(kpis.platformFees)} de frais`}
               tone="danger"
               delta="−"
             />
             <KpiCard
-              label="Net profit"
+              label="Bénéfice net"
               value={formatEuro(kpis.netProfit)}
               tone="green"
               delta={period}
               icon={<TrendingUp size={12} />}
-              hint="After fees and expenses"
+              hint="Après frais et dépenses"
             />
             <KpiCard
-              label="Fees & cost ratio"
+              label="Ratio frais et coûts"
               value={formatPct(kpis.feesLostPct)}
               icon={<Percent size={14} />}
-              hint="of gross revenue"
+              hint="du revenu brut"
             />
           </section>
 
-          {/* iCal + Forecast */}
-          <section className="grid gap-5 lg:grid-cols-[1fr_360px]">
+          {/* Biens (placeholder avant Lot C) + iCal + Forecast */}
+          <section id="properties" className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_360px]">
             <ICalImport
               airbnbUrl={airbnbUrl}
               bookingUrl={bookingUrl}
@@ -145,16 +172,27 @@ export default function DashboardPage() {
             />
           </section>
 
-          {/* Inputs */}
-          <InputsPanel
-            inputs={inputs}
-            onChange={(patch) => setInputs((prev) => ({ ...prev, ...patch }))}
-          />
+          {/* Dépenses */}
+          <section id="expenses" className="scroll-mt-24">
+            <InputsPanel
+              inputs={inputs}
+              onChange={(patch) => setInputs((prev) => ({ ...prev, ...patch }))}
+            />
+          </section>
 
-          {/* Calendar + Upcoming */}
-          <section className="grid gap-5 lg:grid-cols-[1fr_380px]">
+          {/* Agenda */}
+          <section id="agenda" className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_380px]">
             <BookingsCalendar bookings={allBookings} />
             <BookingsList bookings={allBookings} />
+          </section>
+
+          {/* Paramètres */}
+          <section id="settings" className="scroll-mt-24 rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-sm font-medium text-white">Paramètres</h3>
+            <p className="mt-1 text-xs text-muted">
+              Gérez votre compte et vos préférences. D&apos;autres réglages
+              arrivent bientôt.
+            </p>
           </section>
         </main>
       </div>

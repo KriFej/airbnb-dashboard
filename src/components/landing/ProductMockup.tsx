@@ -21,12 +21,12 @@ export function ProductMockup() {
             <Logo className="mb-6" />
             <nav className="space-y-1 text-xs">
               <Item icon={<Home size={14} />} active>
-                Overview
+                Vue d&apos;ensemble
               </Item>
-              <Item icon={<Calendar size={14} />}>Bookings</Item>
-              <Item icon={<Wallet size={14} />}>Expenses</Item>
-              <Item icon={<PieChart size={14} />}>Analytics</Item>
-              <Item icon={<Settings size={14} />}>Settings</Item>
+              <Item icon={<Calendar size={14} />}>Agenda</Item>
+              <Item icon={<Wallet size={14} />}>Dépenses</Item>
+              <Item icon={<PieChart size={14} />}>Biens</Item>
+              <Item icon={<Settings size={14} />}>Paramètres</Item>
             </nav>
           </aside>
 
@@ -34,20 +34,20 @@ export function ProductMockup() {
           <div className="p-5">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <div className="text-sm font-medium">Overview</div>
-                <div className="text-[11px] text-muted">April 2026</div>
+                <div className="text-sm font-medium">Vue d&apos;ensemble</div>
+                <div className="text-[11px] text-muted">Avril 2026</div>
               </div>
               <div className="h-7 w-24 rounded-full border border-border bg-black/40" />
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-              <Kpi label="Revenue" value="€4,500" />
-              <Kpi label="Expenses" value="€620" />
-              <Kpi label="Net Profit" value="€3,195" green />
-              <Kpi label="Fees lost" value="28%" />
+              <Kpi label="Revenu" value="4 500 €" />
+              <Kpi label="Dépenses" value="620 €" />
+              <Kpi label="Bénéfice net" value="3 195 €" green />
+              <Kpi label="Frais perdus" value="28 %" />
             </div>
             <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[1fr_220px]">
               <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
-                <div className="mb-3 text-[11px] text-muted">Bookings</div>
+                <div className="mb-3 text-[11px] text-muted">Réservations</div>
                 <div className="flex items-end gap-1.5 h-16">
                   {[40, 65, 30, 80, 55, 95, 70, 90, 45, 85, 60, 100].map(
                     (h, i) => (
@@ -61,11 +61,11 @@ export function ProductMockup() {
                 </div>
               </div>
               <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
-                <div className="text-[11px] text-muted">Forecast</div>
+                <div className="text-[11px] text-muted">Prévision</div>
                 <div className="mt-2 text-2xl font-medium text-brand-500">
-                  €3,890
+                  3 890 €
                 </div>
-                <div className="text-[11px] text-muted">end of month</div>
+                <div className="text-[11px] text-muted">fin de mois</div>
               </div>
             </div>
           </div>

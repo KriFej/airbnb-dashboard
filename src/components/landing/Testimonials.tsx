@@ -3,29 +3,29 @@ import { Star } from "lucide-react";
 const TESTIMONIALS = [
   {
     name: "Camille D.",
-    role: "Host · Lisbon · 2 properties",
-    body: "I thought I was making €4k/month. After plugging my expenses into locpilote I realized my real net was €2.1k. Priceless.",
+    role: "Hôte · Lisbonne · 2 biens",
+    body: "Je pensais gagner 4 000 €/mois. Après avoir rempli mes dépenses dans locpilote, j'ai vu que mon vrai net était à 2 100 €. Inestimable.",
     initials: "CD",
     color: "#22C55E",
   },
   {
     name: "Marco R.",
-    role: "Host · Milan · 1 property",
-    body: "The iCal sync took me 20 seconds. The forecast card told me I'd hit my best month ever before it happened.",
+    role: "Hôte · Milan · 1 bien",
+    body: "La synchro iCal m'a pris 20 secondes. La carte de prévision m'a annoncé mon meilleur mois avant même la fin.",
     initials: "MR",
     color: "#4ADE80",
   },
   {
     name: "Sophie L.",
-    role: "Host · Paris · 4 properties",
-    body: "Finally a dashboard that subtracts fees. I export nothing, I sync nothing, and I see everything.",
+    role: "Hôte · Paris · 4 biens",
+    body: "Enfin un tableau de bord qui déduit les frais. Je n'exporte rien, je ne synchronise rien, et je vois tout.",
     initials: "SL",
     color: "#86EFAC",
   },
   {
     name: "Alex V.",
-    role: "Host · Barcelona · 1 property",
-    body: "Replaced my three spreadsheets. The net profit card is the only number I care about.",
+    role: "Hôte · Barcelone · 1 bien",
+    body: "J'ai remplacé mes trois tableurs. La carte bénéfice net est le seul chiffre qui m'intéresse.",
     initials: "AV",
     color: "#16A34A",
   },
@@ -37,12 +37,12 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
-            Testimonials
+            Témoignages
           </span>
           <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Hosts who finally
+            Des hôtes qui connaissent
             <br />
-            know their numbers.
+            enfin leurs chiffres.
           </h2>
         </div>
 
@@ -58,7 +58,7 @@ export function Testimonials() {
                 ))}
               </div>
               <blockquote className="mt-4 flex-1 text-sm text-white/90">
-                &ldquo;{t.body}&rdquo;
+                &laquo;&nbsp;{t.body}&nbsp;&raquo;
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3">
                 <span

@@ -2,28 +2,36 @@ import { Plus } from "lucide-react";
 
 const FAQS = [
   {
-    q: "How much does locpilote cost?",
-    a: "Three plans: Starter at €9.90/month (1 to 2 properties), Pro at €19.90/month (3 to 10 properties) and Unlimited on quote for 11 properties and up. All plans are monthly, cancel anytime.",
+    q: "Combien coûte locpilote ?",
+    a: "Trois offres : Starter à 9,90 €/mois (1 à 2 biens), Pro à 19,90 €/mois (3 à 10 biens) et Unlimited sur devis à partir de 11 biens. Toutes les offres sont mensuelles, résiliables à tout moment.",
   },
   {
-    q: "How does the iCal integration work?",
-    a: "Open your Airbnb or Booking calendar, copy the iCal export URL, paste it in the dashboard. locpilote fetches your bookings (via a CORS proxy if needed) and renders them instantly.",
+    q: "Comment fonctionne l'intégration iCal ?",
+    a: "Ouvrez votre calendrier Airbnb ou Booking, copiez l'URL d'export iCal, collez-la dans le tableau de bord. locpilote récupère vos réservations (via proxy CORS si nécessaire) et les affiche instantanément.",
   },
   {
-    q: "Where is my data stored?",
-    a: "Only in your browser's localStorage. locpilote has no backend, no database, no analytics. Clear your site data and everything is gone.",
+    q: "Comment trouver mon URL iCal sur Airbnb ?",
+    a: "Dans l'app ou le site Airbnb : Calendrier → sélectionnez votre logement → Disponibilité → Exporter le calendrier. Copiez l'URL .ics qui s'affiche et collez-la dans locpilote.",
   },
   {
-    q: "Does it work with Booking.com?",
-    a: "Yes — any calendar source that exports an iCal (.ics) URL is supported: Airbnb, Booking.com, Vrbo, Hostaway, Smoobu, Google Calendar, etc.",
+    q: "Comment trouver mon URL iCal sur Booking.com ?",
+    a: "Dans l'Extranet Booking.com : Tarifs et disponibilités → Calendrier → onglet Synchroniser les calendriers → copiez l'URL iCal de sortie et collez-la dans locpilote.",
   },
   {
-    q: "Can I track multiple properties?",
-    a: "Starter covers 1-2 properties, Pro covers 3-10 with the live iCal-synced booking agenda, and Unlimited is tailored for portfolios of 11+ properties (custom quote).",
+    q: "Où sont stockées mes données ?",
+    a: "Uniquement dans le localStorage de votre navigateur. locpilote n'a pas de backend, pas de base de données, pas d'analytics. Videz les données du site et tout disparaît.",
   },
   {
-    q: "How accurate is the net profit number?",
-    a: "As accurate as the inputs you provide. locpilote subtracts platform fees (percentage per channel) and fixed monthly expenses. Garbage in, garbage out — fill it seriously.",
+    q: "Est-ce que ça marche avec Booking.com ?",
+    a: "Oui — toute source de calendrier qui exporte une URL iCal (.ics) est compatible : Airbnb, Booking.com, Vrbo, Hostaway, Smoobu, Google Calendar, etc.",
+  },
+  {
+    q: "Puis-je suivre plusieurs biens ?",
+    a: "Starter couvre 1 à 2 biens, Pro couvre 3 à 10 avec l'agenda des réservations synchro iCal en direct, Unlimited est conçu pour les portefeuilles de 11 biens et plus (devis personnalisé).",
+  },
+  {
+    q: "Le bénéfice net est-il précis ?",
+    a: "Aussi précis que les données que vous saisissez. locpilote déduit les frais de plateforme (en % par canal) et les dépenses mensuelles fixes. À remplir sérieusement pour un résultat fiable.",
   },
 ];
 
@@ -36,7 +44,7 @@ export function FAQ() {
             FAQ
           </span>
           <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Questions, answered.
+            Questions, réponses.
           </h2>
         </div>
 

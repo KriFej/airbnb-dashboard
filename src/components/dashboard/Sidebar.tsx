@@ -3,10 +3,10 @@
 import {
   Calendar,
   Home,
-  LineChart,
   LogOut,
   LucideIcon,
   Settings,
+  Building2,
   Wallet,
 } from "lucide-react";
 import { Logo } from "../ui/Logo";
@@ -15,11 +15,11 @@ import Link from "next/link";
 type Item = { id: string; icon: LucideIcon; label: string };
 
 const NAV: Item[] = [
-  { id: "overview", icon: Home, label: "Overview" },
-  { id: "bookings", icon: Calendar, label: "Bookings" },
-  { id: "expenses", icon: Wallet, label: "Expenses" },
-  { id: "analytics", icon: LineChart, label: "Analytics" },
-  { id: "settings", icon: Settings, label: "Settings" },
+  { id: "overview", icon: Home, label: "Vue d'ensemble" },
+  { id: "properties", icon: Building2, label: "Biens" },
+  { id: "agenda", icon: Calendar, label: "Agenda" },
+  { id: "expenses", icon: Wallet, label: "Dépenses" },
+  { id: "settings", icon: Settings, label: "Paramètres" },
 ];
 
 export function Sidebar({
@@ -63,8 +63,8 @@ export function Sidebar({
             YO
           </div>
           <div className="flex-1 overflow-hidden">
-            <div className="truncate text-sm font-medium">Your host</div>
-            <div className="truncate text-xs text-muted">Free plan</div>
+            <div className="truncate text-sm font-medium">Votre hôte</div>
+            <div className="truncate text-xs text-muted">Offre gratuite</div>
           </div>
           <LogOut size={14} className="text-dim" />
         </div>

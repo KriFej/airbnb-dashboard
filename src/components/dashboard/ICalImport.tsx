@@ -41,12 +41,12 @@ export function ICalImport({
       <div className="flex items-center gap-2">
         <RefreshCw size={16} className="text-brand-500" />
         <h3 className="text-sm font-medium text-white">
-          iCal calendar sync
+          Synchronisation des calendriers iCal
         </h3>
       </div>
       <p className="mt-1 text-xs text-muted">
-        Paste your iCal export URL from each platform — we fetch them (via
-        proxy if needed) and merge your bookings.
+        Collez l&apos;URL d&apos;export iCal de chaque plateforme — nous les
+        récupérons (via proxy si besoin) et fusionnons vos réservations.
       </p>
 
       <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -75,8 +75,8 @@ export function ICalImport({
       </div>
 
       <p className="mt-4 text-xs text-dim">
-        Tip: Airbnb → Calendar → Availability → Export. Booking.com → Extranet →
-        Calendar → Sync calendars → Export.
+        Astuce : Airbnb → Calendrier → Disponibilité → Exporter. Booking.com →
+        Extranet → Calendrier → Synchroniser les calendriers → Exporter.
       </p>
     </section>
   );
@@ -107,7 +107,7 @@ function SourceRow({
 
   async function sync() {
     if (!url.trim()) {
-      setStatus({ kind: "error", message: "Paste a URL first." });
+      setStatus({ kind: "error", message: "Collez d'abord une URL." });
       return;
     }
     setStatus({ kind: "loading" });
@@ -118,7 +118,7 @@ function SourceRow({
       setStatus({
         kind: "success",
         count: bookings.length,
-        at: new Date().toLocaleTimeString("en-US", {
+        at: new Date().toLocaleTimeString("fr-FR", {
           hour: "2-digit",
           minute: "2-digit",
         }),
@@ -126,7 +126,7 @@ function SourceRow({
     } catch (e) {
       setStatus({
         kind: "error",
-        message: e instanceof Error ? e.message : "Unknown error",
+        message: e instanceof Error ? e.message : "Erreur inconnue",
       });
     }
   }
@@ -140,7 +140,7 @@ function SourceRow({
         </div>
         {cachedCount > 0 && (
           <span className="rounded-full bg-black/60 border border-border px-2 py-0.5 text-[10px] text-muted">
-            {cachedCount} bookings
+            {cachedCount} réservations
           </span>
         )}
       </div>
@@ -170,7 +170,7 @@ function SourceRow({
           ) : (
             <RefreshCw size={12} />
           )}
-          {status.kind === "loading" ? "Syncing" : "Sync"}
+          {status.kind === "loading" ? "Synchro…" : "Synchroniser"}
         </button>
       </div>
 
@@ -184,7 +184,7 @@ function StatusLine({ status }: { status: Status }) {
     return (
       <div className="mt-2 flex items-center gap-1.5 text-[11px] text-brand-400">
         <CheckCircle2 size={12} />
-        Synced {status.count} bookings at {status.at}
+        {status.count} réservations synchronisées à {status.at}
       </div>
     );
   }

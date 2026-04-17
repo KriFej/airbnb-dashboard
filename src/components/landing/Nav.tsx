@@ -8,21 +8,26 @@ export function Nav() {
         <Logo />
         <nav className="hidden items-center gap-8 text-sm text-muted md:flex">
           <a href="#features" className="hover:text-white transition-colors">
-            Features
+            Fonctionnalités
           </a>
           <a href="#pricing" className="hover:text-white transition-colors">
-            Pricing
+            Tarifs
           </a>
           <a href="#testimonials" className="hover:text-white transition-colors">
-            Testimonials
+            Témoignages
           </a>
           <a href="#faq" className="hover:text-white transition-colors">
             FAQ
           </a>
         </nav>
-        <Button href="/dashboard" size="md">
-          Open Dashboard
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button href="/login" variant="secondary" size="md">
+            Connexion
+          </Button>
+          <Button href="/signup" size="md">
+            Commencer
+          </Button>
+        </div>
       </div>
     </header>
   );

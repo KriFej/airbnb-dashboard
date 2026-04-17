@@ -14,7 +14,7 @@ export function ForecastCard({ forecast, netProfit }: Props) {
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="flex items-center gap-2">
         <TrendingUp size={16} className="text-brand-500" />
-        <h3 className="text-sm font-medium text-white">End-of-month forecast</h3>
+        <h3 className="text-sm font-medium text-white">Prévision fin de mois</h3>
       </header>
       <div className="mt-4 flex items-baseline gap-3">
         <span className="text-4xl font-medium tracking-tight text-brand-500">
@@ -22,7 +22,7 @@ export function ForecastCard({ forecast, netProfit }: Props) {
         </span>
         {gap > 0 && (
           <span className="text-xs text-muted">
-            +{formatEuro(gap)} from current
+            +{formatEuro(gap)} à venir
           </span>
         )}
       </div>
@@ -33,8 +33,8 @@ export function ForecastCard({ forecast, netProfit }: Props) {
         />
       </div>
       <div className="mt-2 flex items-center justify-between text-xs text-muted">
-        <span>Realised: {formatEuro(netProfit)}</span>
-        <span>Projected: {formatEuro(forecast)}</span>
+        <span>Réalisé : {formatEuro(netProfit)}</span>
+        <span>Projeté : {formatEuro(forecast)}</span>
       </div>
     </section>
   );

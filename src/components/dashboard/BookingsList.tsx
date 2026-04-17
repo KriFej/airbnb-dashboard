@@ -1,6 +1,7 @@
 "use client";
 
 import { differenceInDays, format, isAfter, parseISO } from "date-fns";
+import { fr } from "date-fns/locale";
 import { CalendarDays, CalendarRange } from "lucide-react";
 import { Booking } from "@/lib/types";
 
@@ -20,12 +21,13 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="mb-4 flex items-center gap-2">
         <CalendarDays size={16} className="text-brand-500" />
-        <h3 className="text-sm font-medium text-white">Upcoming stays</h3>
+        <h3 className="text-sm font-medium text-white">Prochains séjours</h3>
       </header>
 
       {upcoming.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted">
-          No upcoming bookings yet. Sync your iCal to populate this list.
+          Aucune réservation à venir. Synchronisez votre iCal pour remplir
+          cette liste.
         </div>
       ) : (
         <ul className="divide-y divide-border">
@@ -47,13 +49,14 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
                       {b.summary}
                     </div>
                     <div className="text-xs text-muted">
-                      {format(start, "MMM d")} → {format(end, "MMM d, yyyy")}
+                      {format(start, "d MMM", { locale: fr })} →{" "}
+                      {format(end, "d MMM yyyy", { locale: fr })}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 text-right">
                   <span className="text-xs text-muted">
-                    {nights} {nights > 1 ? "nights" : "night"}
+                    {nights} {nights > 1 ? "nuits" : "nuit"}
                   </span>
                   <span
                     className={`rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${
@@ -64,7 +67,7 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
                         : "border-border bg-black/60 text-muted"
                     }`}
                   >
-                    {b.source ?? "other"}
+                    {b.source ?? "autre"}
                   </span>
                 </div>
               </li>

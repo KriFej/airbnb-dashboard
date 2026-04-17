@@ -9,21 +9,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "locpilote — Your real Airbnb & Booking net profit, visible.",
+  title: "locpilote — Votre vrai bénéfice net Airbnb & Booking, enfin visible.",
   description:
-    "The profit dashboard for Airbnb & Booking.com hosts. Track real net revenue, expenses, platform fees and sync both iCal calendars in seconds. Free, no signup.",
+    "Le tableau de bord de rentabilité pour les hôtes Airbnb & Booking.com. Suivez votre vrai revenu net, vos dépenses, les frais de plateforme et synchronisez vos calendriers iCal en quelques secondes.",
   keywords: [
-    "airbnb dashboard",
-    "airbnb net profit",
-    "booking.com revenue",
-    "ical integration",
-    "short term rental analytics",
+    "tableau de bord airbnb",
+    "bénéfice net airbnb",
+    "revenu booking.com",
+    "intégration ical",
+    "location courte durée",
     "locpilote",
   ],
   openGraph: {
-    title: "locpilote — Your real Airbnb & Booking net profit, visible.",
+    title: "locpilote — Votre vrai bénéfice net Airbnb & Booking, enfin visible.",
     description:
-      "Track real net revenue, expenses and fees. Sync Airbnb + Booking iCal in one click. Free, no signup.",
+      "Suivez votre vrai revenu net, vos dépenses et les frais de plateforme. Synchronisez Airbnb + Booking en un clic.",
     type: "website",
   },
 };
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="fr" className={inter.variable}>
       <body className="font-sans bg-bg text-white antialiased">{children}</body>
     </html>
   );

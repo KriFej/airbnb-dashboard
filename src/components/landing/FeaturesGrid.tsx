@@ -10,33 +10,33 @@ import {
 const FEATURES = [
   {
     icon: Wallet,
-    title: "Real net revenue",
-    body: "See exactly what reaches your bank after Airbnb and Booking fees.",
+    title: "Revenu net réel",
+    body: "Voyez exactement ce qui arrive sur votre compte après les frais Airbnb et Booking.",
   },
   {
     icon: Receipt,
-    title: "Expense split",
-    body: "Credit, electricity, water, internet, cleaning — tracked in seconds.",
+    title: "Détail des dépenses",
+    body: "Crédit, électricité, eau, internet, ménage — tout est suivi en quelques secondes.",
   },
   {
     icon: RefreshCw,
-    title: "iCal sync",
-    body: "Paste your iCal URL once. Bookings appear in your calendar automatically.",
+    title: "Synchro iCal",
+    body: "Collez votre URL iCal une fois. Vos réservations apparaissent automatiquement.",
   },
   {
     icon: Calendar,
-    title: "Visual calendar",
-    body: "Month view that highlights occupied nights and upcoming stays.",
+    title: "Calendrier visuel",
+    body: "Vue mensuelle qui met en évidence les nuits occupées et les prochains séjours.",
   },
   {
     icon: TrendingUp,
-    title: "End-of-month forecast",
-    body: "Projected profit based on current bookings and future stays.",
+    title: "Prévision fin de mois",
+    body: "Bénéfice projeté à partir de vos réservations actuelles et futures.",
   },
   {
     icon: LineChart,
-    title: "Multi-platform ready",
-    body: "Works with Airbnb, Booking.com and any iCal-compatible source.",
+    title: "Multi-plateforme",
+    body: "Fonctionne avec Airbnb, Booking.com et toute source compatible iCal.",
   },
 ];
 
@@ -46,12 +46,12 @@ export function FeaturesGrid() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
-            Features
+            Fonctionnalités
           </span>
           <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Everything a host needs,
+            Tout ce dont un hôte a besoin,
             <br />
-            nothing they don&apos;t.
+            rien de superflu.
           </h2>
         </div>
 

@@ -9,7 +9,7 @@ type Props = {
   onPeriod: (p: string) => void;
 };
 
-const PERIODS = ["This month", "Last 30 days", "Year to date"];
+export const PERIODS = ["Ce mois-ci", "30 derniers jours", "Depuis le début de l'année"];
 
 export function Topbar({ title, subtitle, period, onPeriod }: Props) {
   return (
@@ -25,7 +25,7 @@ export function Topbar({ title, subtitle, period, onPeriod }: Props) {
             {period}
             <ChevronDown size={14} className="text-muted" />
           </summary>
-          <div className="absolute right-0 z-40 mt-2 w-48 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
+          <div className="absolute right-0 z-40 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
             {PERIODS.map((p) => (
               <button
                 key={p}

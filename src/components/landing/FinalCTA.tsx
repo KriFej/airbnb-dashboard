@@ -9,29 +9,29 @@ export function FinalCTA() {
           <div className="pointer-events-none absolute inset-x-0 -bottom-40 h-80 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(34,197,94,0.35),transparent_70%)]" />
           <div className="relative">
             <h2 className="text-4xl font-medium tracking-tight md:text-5xl">
-              Start tracking your
+              Commencez à suivre votre
               <br />
-              real profit today.
+              vrai bénéfice dès aujourd&apos;hui.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted">
-              Open the dashboard, paste your iCal, fill your expenses. You&apos;ll
-              know your true net in under 2 minutes.
+              Créez votre compte, collez votre iCal, remplissez vos dépenses.
+              Vous aurez votre vrai net en moins de 2 minutes.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
-                href="/dashboard"
+                href="/signup"
                 size="lg"
                 icon={<ArrowRight size={16} />}
               >
-                Open Dashboard
+                Commencer
               </Button>
               <Button href="#features" variant="secondary" size="lg">
-                See features
+                Voir les fonctionnalités
               </Button>
             </div>
             <p className="mt-5 text-xs text-dim">
-              Plans from €9.90/month · Cancel anytime · 11+ properties? Contact
-              us.
+              Offres à partir de 9,90 €/mois · Annulation à tout moment · 11
+              biens et plus ? Contactez-nous.
             </p>
           </div>
         </div>
