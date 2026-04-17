@@ -145,8 +145,8 @@ export default function DashboardPage() {
     );
   }
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.replace("/login");
   };
 

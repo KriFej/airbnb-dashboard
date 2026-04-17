@@ -1,42 +1,80 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import {
-  clearSession,
-  createUser,
-  getSession,
-  setSession,
-  verifyCredentials,
-} from "@/lib/auth";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+type AuthResult = { ok: true } | { ok: false; error: string };
+
+function translateError(message: string | undefined): string {
+  if (!message) return "Une erreur est survenue.";
+  const m = message.toLowerCase();
+  if (m.includes("invalid login credentials"))
+    return "Email ou mot de passe incorrect.";
+  if (m.includes("user already registered"))
+    return "Un compte existe déjà avec cet email.";
+  if (m.includes("password should be at least"))
+    return "Le mot de passe doit contenir au moins 6 caractères.";
+  if (m.includes("unable to validate email"))
+    return "Email invalide.";
+  if (m.includes("email not confirmed"))
+    return "Email non confirmé — vérifie ta boîte mail.";
+  return message;
+}
 
 export function useAuth() {
+  const supabase = useMemo(() => createClient(), []);
+  const [userId, setUserId] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const s = getSession();
-    setEmail(s?.email ?? null);
-    setReady(true);
-  }, []);
+    let active = true;
 
-  const signup = useCallback(async (mail: string, password: string) => {
-    const res = await createUser(mail, password);
-    return res;
-  }, []);
+    supabase.auth.getUser().then(({ data }) => {
+      if (!active) return;
+      setUserId(data.user?.id ?? null);
+      setEmail(data.user?.email ?? null);
+      setReady(true);
+    });
 
-  const login = useCallback(async (mail: string, password: string) => {
-    const res = await verifyCredentials(mail, password);
-    if (res.ok) {
-      setSession(mail.trim().toLowerCase());
-      setEmail(mail.trim().toLowerCase());
-    }
-    return res;
-  }, []);
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserId(session?.user?.id ?? null);
+      setEmail(session?.user?.email ?? null);
+    });
 
-  const logout = useCallback(() => {
-    clearSession();
-    setEmail(null);
-  }, []);
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
-  return { email, ready, signup, login, logout };
+  const signup = useCallback(
+    async (mail: string, password: string): Promise<AuthResult> => {
+      const { error } = await supabase.auth.signUp({
+        email: mail.trim().toLowerCase(),
+        password,
+      });
+      if (error) return { ok: false, error: translateError(error.message) };
+      return { ok: true };
+    },
+    [supabase],
+  );
+
+  const login = useCallback(
+    async (mail: string, password: string): Promise<AuthResult> => {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: mail.trim().toLowerCase(),
+        password,
+      });
+      if (error) return { ok: false, error: translateError(error.message) };
+      return { ok: true };
+    },
+    [supabase],
+  );
+
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
+  }, [supabase]);
+
+  return { userId, email, ready, signup, login, logout };
 }
