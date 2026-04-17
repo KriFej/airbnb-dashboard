@@ -3,79 +3,93 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  Building2,
   Loader2,
   Percent,
   Receipt,
   TrendingUp,
   Wallet,
 } from "lucide-react";
+import { AddPropertyModal } from "@/components/dashboard/AddPropertyModal";
 import { BookingsCalendar } from "@/components/dashboard/BookingsCalendar";
 import { BookingsList } from "@/components/dashboard/BookingsList";
 import { ForecastCard } from "@/components/dashboard/ForecastCard";
 import { ICalImport } from "@/components/dashboard/ICalImport";
 import { InputsPanel } from "@/components/dashboard/InputsPanel";
 import { KpiCard } from "@/components/dashboard/KpiCard";
+import { PlanBanner } from "@/components/dashboard/PlanBanner";
+import { PropertyList } from "@/components/dashboard/PropertyList";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { Topbar } from "@/components/dashboard/Topbar";
+import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
 import { useAuth } from "@/hooks/useAuth";
-import { computeKpis, formatEuro, formatPct } from "@/lib/calc";
-import { KEYS, load, loadString, save } from "@/lib/storage";
-import { Booking, DEFAULT_INPUTS, Inputs } from "@/lib/types";
+import { usePlan } from "@/hooks/usePlan";
+import {
+  computeAggregateKpis,
+  formatEuro,
+  formatPct,
+} from "@/lib/calc";
+import { canAddProperty, propertiesKey } from "@/lib/plan";
+import { KEYS } from "@/lib/storage";
+import {
+  Booking,
+  DEFAULT_INPUTS,
+  Inputs,
+  Property,
+  makeProperty,
+} from "@/lib/types";
 
 const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"];
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { email, ready, logout } = useAuth();
+  const { email, ready: authReady, logout } = useAuth();
+  const { plan, ready: planReady, limit, label: planLabel } = usePlan(email);
+
   const [mounted, setMounted] = useState(false);
-  const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
-  const [airbnbUrl, setAirbnbUrl] = useState("");
-  const [bookingUrl, setBookingUrl] = useState("");
-  const [airbnbBookings, setAirbnbBookings] = useState<Booking[]>([]);
-  const [bookingBookings, setBookingBookings] = useState<Booking[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [period, setPeriod] = useState("Ce mois-ci");
   const [active, setActive] = useState("overview");
+  const [showAdd, setShowAdd] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
-  // Hydrate from localStorage after mount
+  // Hydrate from localStorage (and migrate legacy single-property data)
   useEffect(() => {
-    setInputs(load<Inputs>(KEYS.inputs, DEFAULT_INPUTS));
-    setAirbnbUrl(loadString(KEYS.icalAirbnb));
-    setBookingUrl(loadString(KEYS.icalBooking));
+    if (!authReady || !email) return;
     try {
-      const cached = window.localStorage.getItem(KEYS.bookings);
-      if (cached) {
-        const parsed = JSON.parse(cached) as {
-          airbnb?: Booking[];
-          booking?: Booking[];
-        };
-        if (parsed.airbnb) setAirbnbBookings(parsed.airbnb);
-        if (parsed.booking) setBookingBookings(parsed.booking);
+      const raw = window.localStorage.getItem(propertiesKey(email));
+      if (raw) {
+        const parsed = JSON.parse(raw) as Property[];
+        setProperties(parsed);
+        if (parsed.length > 0) setSelectedId(parsed[0].id);
+      } else {
+        const migrated = migrateLegacy();
+        if (migrated) {
+          setProperties([migrated]);
+          setSelectedId(migrated.id);
+        }
       }
     } catch {
       /* ignore */
     }
     setMounted(true);
-  }, []);
+  }, [authReady, email]);
 
   // Persist
   useEffect(() => {
-    if (mounted) save(KEYS.inputs, inputs);
-  }, [inputs, mounted]);
-  useEffect(() => {
-    if (mounted) save(KEYS.icalAirbnb, airbnbUrl);
-  }, [airbnbUrl, mounted]);
-  useEffect(() => {
-    if (mounted) save(KEYS.icalBooking, bookingUrl);
-  }, [bookingUrl, mounted]);
-  useEffect(() => {
-    if (mounted)
-      save(KEYS.bookings, {
-        airbnb: airbnbBookings,
-        booking: bookingBookings,
-      });
-  }, [airbnbBookings, bookingBookings, mounted]);
+    if (!mounted || !email) return;
+    try {
+      window.localStorage.setItem(
+        propertiesKey(email),
+        JSON.stringify(properties)
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [properties, mounted, email]);
 
-  // Scroll-spy: observe sections and update `active`
+  // Scroll-spy
   useEffect(() => {
     if (!mounted) return;
     const observer = new IntersectionObserver(
@@ -100,22 +114,30 @@ export default function DashboardPage() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const allBookings = useMemo(
-    () =>
-      [...airbnbBookings, ...bookingBookings].sort((a, b) =>
-        a.start.localeCompare(b.start)
-      ),
-    [airbnbBookings, bookingBookings]
+  // Auth redirect
+  useEffect(() => {
+    if (authReady && !email) router.replace("/login");
+  }, [authReady, email, router]);
+
+  const aggregate = useMemo(
+    () => computeAggregateKpis(properties),
+    [properties]
   );
 
-  const kpis = useMemo(() => computeKpis(inputs), [inputs]);
+  const allBookings = useMemo(
+    () =>
+      properties
+        .flatMap((p) => [...p.airbnbBookings, ...p.bookingBookings])
+        .sort((a, b) => a.start.localeCompare(b.start)),
+    [properties]
+  );
 
-  // Redirect unauthenticated users
-  useEffect(() => {
-    if (ready && !email) router.replace("/login");
-  }, [ready, email, router]);
+  const selected = useMemo(
+    () => properties.find((p) => p.id === selectedId) ?? null,
+    [properties, selectedId]
+  );
 
-  if (!ready || !email) {
+  if (!authReady || !email || !planReady) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-bg text-muted">
         <Loader2 size={20} className="animate-spin" />
@@ -128,12 +150,71 @@ export default function DashboardPage() {
     router.replace("/login");
   };
 
+  const handleTriggerAdd = () => {
+    if (canAddProperty(plan, properties.length)) {
+      setShowAdd(true);
+    } else {
+      setShowUpgrade(true);
+    }
+  };
+
+  const handleCreateProperty = (name: string) => {
+    const p = makeProperty(name);
+    setProperties((prev) => [...prev, p]);
+    setSelectedId(p.id);
+    setShowAdd(false);
+  };
+
+  const patchSelectedInputs = (patch: Partial<Inputs>) => {
+    if (!selectedId) return;
+    setProperties((prev) =>
+      prev.map((p) =>
+        p.id === selectedId
+          ? { ...p, inputs: { ...p.inputs, ...patch } }
+          : p
+      )
+    );
+  };
+
+  const patchSelectedIcalUrl = (
+    source: "airbnb" | "booking",
+    url: string
+  ) => {
+    if (!selectedId) return;
+    setProperties((prev) =>
+      prev.map((p) =>
+        p.id === selectedId
+          ? source === "airbnb"
+            ? { ...p, airbnbUrl: url }
+            : { ...p, bookingUrl: url }
+          : p
+      )
+    );
+  };
+
+  const patchSelectedIcalBookings = (
+    source: "airbnb" | "booking",
+    bookings: Booking[]
+  ) => {
+    if (!selectedId) return;
+    setProperties((prev) =>
+      prev.map((p) =>
+        p.id === selectedId
+          ? source === "airbnb"
+            ? { ...p, airbnbBookings: bookings }
+            : { ...p, bookingBookings: bookings }
+          : p
+      )
+    );
+  };
+
   return (
     <div className="flex min-h-screen bg-bg">
       <Sidebar
         active={active}
         onNavigate={handleNavigate}
         userEmail={email}
+        planLabel={planLabel}
         onLogout={handleLogout}
       />
 
@@ -146,84 +227,237 @@ export default function DashboardPage() {
         />
 
         <main className="flex-1 space-y-6 p-6 md:p-8">
-          {/* KPI row */}
-          <section id="overview" className="scroll-mt-24 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <KpiCard
-              label="Revenu brut"
-              value={formatEuro(kpis.grossRevenue)}
-              icon={<Wallet size={14} />}
-              hint="Airbnb + Booking"
-            />
-            <KpiCard
-              label="Dépenses totales"
-              value={formatEuro(kpis.totalExpenses + kpis.platformFees)}
-              icon={<Receipt size={14} />}
-              hint={`dont ${formatEuro(kpis.platformFees)} de frais`}
-              tone="danger"
-              delta="−"
-            />
-            <KpiCard
-              label="Bénéfice net"
-              value={formatEuro(kpis.netProfit)}
-              tone="green"
-              delta={period}
-              icon={<TrendingUp size={12} />}
-              hint="Après frais et dépenses"
-            />
-            <KpiCard
-              label="Ratio frais et coûts"
-              value={formatPct(kpis.feesLostPct)}
-              icon={<Percent size={14} />}
-              hint="du revenu brut"
-            />
+          {/* Overview */}
+          <section id="overview" className="scroll-mt-24 space-y-4">
+            <PlanBanner plan={plan} count={properties.length} limit={limit} />
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <KpiCard
+                label="Revenu brut"
+                value={formatEuro(aggregate.grossRevenue)}
+                icon={<Wallet size={14} />}
+                hint="Tous biens confondus"
+              />
+              <KpiCard
+                label="Dépenses totales"
+                value={formatEuro(
+                  aggregate.totalExpenses + aggregate.platformFees
+                )}
+                icon={<Receipt size={14} />}
+                hint={`dont ${formatEuro(aggregate.platformFees)} de frais`}
+                tone="danger"
+                delta="−"
+              />
+              <KpiCard
+                label="Bénéfice net"
+                value={formatEuro(aggregate.netProfit)}
+                tone="green"
+                delta={period}
+                icon={<TrendingUp size={12} />}
+                hint="Après frais et dépenses"
+              />
+              <KpiCard
+                label="Ratio frais et coûts"
+                value={formatPct(aggregate.feesLostPct)}
+                icon={<Percent size={14} />}
+                hint="du revenu brut"
+              />
+            </div>
           </section>
 
-          {/* Biens (placeholder avant Lot C) + iCal + Forecast */}
-          <section id="properties" className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_360px]">
-            <ICalImport
-              airbnbUrl={airbnbUrl}
-              bookingUrl={bookingUrl}
-              onUrlChange={(src, url) =>
-                src === "airbnb" ? setAirbnbUrl(url) : setBookingUrl(url)
-              }
-              onBookingsChange={(src, b) =>
-                src === "airbnb"
-                  ? setAirbnbBookings(b)
-                  : setBookingBookings(b)
-              }
-              airbnbCount={airbnbBookings.length}
-              bookingCount={bookingBookings.length}
+          {/* Biens + Prévision */}
+          <section
+            id="properties"
+            className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_360px]"
+          >
+            <PropertyList
+              properties={properties}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
+              onAddClick={handleTriggerAdd}
             />
             <ForecastCard
-              forecast={kpis.forecast}
-              netProfit={kpis.netProfit}
+              forecast={aggregate.forecast}
+              netProfit={aggregate.netProfit}
             />
           </section>
 
           {/* Dépenses */}
-          <section id="expenses" className="scroll-mt-24">
-            <InputsPanel
-              inputs={inputs}
-              onChange={(patch) => setInputs((prev) => ({ ...prev, ...patch }))}
+          <section id="expenses" className="scroll-mt-24 space-y-4">
+            <SelectedHeader
+              icon={<Building2 size={14} />}
+              label="Dépenses du bien"
+              selectedName={selected?.name}
+              onChange={setSelectedId}
+              properties={properties}
+              selectedId={selectedId}
             />
+            {selected ? (
+              <InputsPanel
+                inputs={selected.inputs}
+                onChange={patchSelectedInputs}
+              />
+            ) : (
+              <EmptyState>
+                Créez un bien pour saisir ses revenus et ses dépenses.
+              </EmptyState>
+            )}
           </section>
 
           {/* Agenda */}
-          <section id="agenda" className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_380px]">
+          <section
+            id="agenda"
+            className="scroll-mt-24 grid gap-5 lg:grid-cols-[1fr_380px]"
+          >
             <BookingsCalendar bookings={allBookings} />
             <BookingsList bookings={allBookings} />
           </section>
 
           {/* Paramètres */}
-          <section id="settings" className="scroll-mt-24 rounded-2xl border border-border bg-card p-6">
-            <h3 className="text-sm font-medium text-white">Paramètres</h3>
-            <p className="mt-1 text-xs text-muted">
-              Gérez votre compte et vos préférences. D&apos;autres réglages
-              arrivent bientôt.
-            </p>
+          <section id="settings" className="scroll-mt-24 space-y-4">
+            <SelectedHeader
+              icon={<Building2 size={14} />}
+              label="Synchronisation iCal du bien"
+              selectedName={selected?.name}
+              onChange={setSelectedId}
+              properties={properties}
+              selectedId={selectedId}
+            />
+            {selected ? (
+              <ICalImport
+                airbnbUrl={selected.airbnbUrl}
+                bookingUrl={selected.bookingUrl}
+                onUrlChange={patchSelectedIcalUrl}
+                onBookingsChange={patchSelectedIcalBookings}
+                airbnbCount={selected.airbnbBookings.length}
+                bookingCount={selected.bookingBookings.length}
+              />
+            ) : (
+              <EmptyState>
+                Ajoutez un bien pour y connecter un calendrier iCal.
+              </EmptyState>
+            )}
+
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <h3 className="text-sm font-medium text-white">Compte</h3>
+              <p className="mt-1 text-xs text-muted">
+                Connecté en tant que <span className="text-white">{email}</span>.
+              </p>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="mt-4 inline-flex h-10 items-center rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
+              >
+                Se déconnecter
+              </button>
+            </div>
           </section>
         </main>
       </div>
+
+      <AddPropertyModal
+        open={showAdd}
+        onClose={() => setShowAdd(false)}
+        onCreate={handleCreateProperty}
+      />
+      <UpgradeModal
+        open={showUpgrade}
+        onClose={() => setShowUpgrade(false)}
+        plan={plan}
+        limit={limit}
+      />
     </div>
   );
+}
+
+function SelectedHeader({
+  icon,
+  label,
+  selectedName,
+  onChange,
+  properties,
+  selectedId,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  selectedName?: string;
+  onChange: (id: string) => void;
+  properties: Property[];
+  selectedId: string | null;
+}) {
+  if (properties.length === 0) return null;
+  return (
+    <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 md:flex-row md:items-center">
+      <div className="flex items-center gap-2 text-sm text-muted">
+        <span className="text-brand-400">{icon}</span>
+        <span>{label}</span>
+        {selectedName && (
+          <span className="ml-1 text-white">· {selectedName}</span>
+        )}
+      </div>
+      <select
+        value={selectedId ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-9 rounded-full border border-border bg-[#0E0E0E] px-3 text-xs text-white focus:border-brand-500/60 focus:outline-none"
+      >
+        {properties.map((p) => (
+          <option key={p.id} value={p.id}>
+            {p.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function EmptyState({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-sm text-muted">
+      {children}
+    </div>
+  );
+}
+
+function migrateLegacy(): Property | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const rawInputs = window.localStorage.getItem(KEYS.inputs);
+    const rawAirbnbUrl = window.localStorage.getItem(KEYS.icalAirbnb);
+    const rawBookingUrl = window.localStorage.getItem(KEYS.icalBooking);
+    const rawBookings = window.localStorage.getItem(KEYS.bookings);
+    const hasSomething =
+      rawInputs || rawAirbnbUrl || rawBookingUrl || rawBookings;
+    if (!hasSomething) return null;
+
+    const p = makeProperty("Mon bien");
+    if (rawInputs) {
+      try {
+        p.inputs = { ...DEFAULT_INPUTS, ...(JSON.parse(rawInputs) as Inputs) };
+      } catch {
+        /* ignore */
+      }
+    }
+    if (rawAirbnbUrl) p.airbnbUrl = rawAirbnbUrl;
+    if (rawBookingUrl) p.bookingUrl = rawBookingUrl;
+    if (rawBookings) {
+      try {
+        const parsed = JSON.parse(rawBookings) as {
+          airbnb?: Booking[];
+          booking?: Booking[];
+        };
+        if (parsed.airbnb) p.airbnbBookings = parsed.airbnb;
+        if (parsed.booking) p.bookingBookings = parsed.booking;
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // Clean legacy keys so this only runs once
+    window.localStorage.removeItem(KEYS.inputs);
+    window.localStorage.removeItem(KEYS.icalAirbnb);
+    window.localStorage.removeItem(KEYS.icalBooking);
+    window.localStorage.removeItem(KEYS.bookings);
+    return p;
+  } catch {
+    return null;
+  }
 }

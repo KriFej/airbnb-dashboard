@@ -32,6 +32,16 @@ export type Booking = {
   source?: "airbnb" | "booking" | "other";
 };
 
+export type Property = {
+  id: string;
+  name: string;
+  inputs: Inputs;
+  airbnbUrl: string;
+  bookingUrl: string;
+  airbnbBookings: Booking[];
+  bookingBookings: Booking[];
+};
+
 export type KpiData = {
   grossRevenue: number;
   platformFees: number;
@@ -40,3 +50,18 @@ export type KpiData = {
   feesLostPct: number;
   forecast: number;
 };
+
+export function makeProperty(name: string): Property {
+  return {
+    id:
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2),
+    name,
+    inputs: { ...DEFAULT_INPUTS },
+    airbnbUrl: "",
+    bookingUrl: "",
+    airbnbBookings: [],
+    bookingBookings: [],
+  };
+}

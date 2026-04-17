@@ -1,4 +1,4 @@
-import { Inputs, KpiData } from "./types";
+import { Inputs, KpiData, Property } from "./types";
 
 export function computeKpis(i: Inputs): KpiData {
   const grossRevenue = i.airbnb + i.booking;
@@ -25,9 +25,36 @@ export function computeKpis(i: Inputs): KpiData {
   };
 }
 
+export function computePropertyKpis(p: Property): KpiData {
+  return computeKpis(p.inputs);
+}
+
+export function computeAggregateKpis(properties: Property[]): KpiData {
+  const agg: KpiData = {
+    grossRevenue: 0,
+    platformFees: 0,
+    totalExpenses: 0,
+    netProfit: 0,
+    feesLostPct: 0,
+    forecast: 0,
+  };
+  for (const p of properties) {
+    const k = computePropertyKpis(p);
+    agg.grossRevenue += k.grossRevenue;
+    agg.platformFees += k.platformFees;
+    agg.totalExpenses += k.totalExpenses;
+    agg.netProfit += k.netProfit;
+    agg.forecast += k.forecast;
+  }
+  const totalCost = agg.platformFees + agg.totalExpenses;
+  agg.feesLostPct =
+    agg.grossRevenue > 0 ? (totalCost / agg.grossRevenue) * 100 : 0;
+  return agg;
+}
+
 export function formatEuro(n: number): string {
   const rounded = Math.round(n);
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("fr-FR", {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
@@ -35,5 +62,5 @@ export function formatEuro(n: number): string {
 }
 
 export function formatPct(n: number): string {
-  return `${Math.round(n)}%`;
+  return `${Math.round(n)} %`;
 }
