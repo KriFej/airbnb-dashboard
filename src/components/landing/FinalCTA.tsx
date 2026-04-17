@@ -30,7 +30,8 @@ export function FinalCTA() {
               </Button>
             </div>
             <p className="mt-5 text-xs text-dim">
-              Free · No signup · Your data stays on your device
+              Plans from €9.90/month · Cancel anytime · 11+ properties? Contact
+              us.
             </p>
           </div>
         </div>

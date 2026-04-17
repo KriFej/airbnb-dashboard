@@ -32,7 +32,7 @@ export function Hero() {
             </Button>
           </div>
           <p className="mt-4 text-xs text-dim">
-            Free · No signup · Your data stays on your device
+            Starts at €9.90/month · Cancel anytime · Setup in under 2 minutes
           </p>
         </div>
         <div className="mt-16 md:mt-20">
