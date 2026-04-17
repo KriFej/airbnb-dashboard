@@ -106,9 +106,9 @@ export function Pricing() {
             </div>
           </div>
 
-          {/* Enterprise */}
+          {/* Unlimited */}
           <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
-            <div className="text-sm font-medium text-muted">Enterprise</div>
+            <div className="text-sm font-medium text-muted">Unlimited</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-5xl font-medium tracking-tight">
                 Custom
@@ -118,7 +118,7 @@ export function Pricing() {
               From 11 properties and up — tailored to your portfolio.
             </p>
             <Button
-              href="mailto:hello@locpilote.app?subject=Enterprise%20quote%20request"
+              href="mailto:hello@locpilote.app?subject=Unlimited%20quote%20request"
               variant="secondary"
               size="lg"
               className="mt-6 w-full"

@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 const FAQS = [
   {
     q: "How much does locpilote cost?",
-    a: "Three plans: Starter at €9.90/month (1 to 2 properties), Pro at €19.90/month (3 to 10 properties) and Enterprise on quote for 11 properties and up. All plans are monthly, cancel anytime.",
+    a: "Three plans: Starter at €9.90/month (1 to 2 properties), Pro at €19.90/month (3 to 10 properties) and Unlimited on quote for 11 properties and up. All plans are monthly, cancel anytime.",
   },
   {
     q: "How does the iCal integration work?",
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Can I track multiple properties?",
-    a: "Starter covers 1-2 properties, Pro covers 3-10 with the live iCal-synced booking agenda, and Enterprise is tailored for portfolios of 11+ properties (custom quote).",
+    a: "Starter covers 1-2 properties, Pro covers 3-10 with the live iCal-synced booking agenda, and Unlimited is tailored for portfolios of 11+ properties (custom quote).",
   },
   {
     q: "How accurate is the net profit number?",
