@@ -25,10 +25,19 @@ const NAV: Item[] = [
 export function Sidebar({
   active,
   onNavigate,
+  userEmail,
+  planLabel,
+  onLogout,
 }: {
   active: string;
   onNavigate: (id: string) => void;
+  userEmail?: string;
+  planLabel?: string;
+  onLogout?: () => void;
 }) {
+  const initials = userEmail
+    ? userEmail.slice(0, 2).toUpperCase()
+    : "YO";
   return (
     <aside className="hidden md:flex md:flex-col w-[240px] shrink-0 border-r border-border bg-surface">
       <div className="flex h-16 items-center border-b border-border px-5">
@@ -60,13 +69,26 @@ export function Sidebar({
       <div className="border-t border-border p-3">
         <div className="flex items-center gap-3 rounded-xl bg-card p-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
-            YO
+            {initials}
           </div>
           <div className="flex-1 overflow-hidden">
-            <div className="truncate text-sm font-medium">Votre hôte</div>
-            <div className="truncate text-xs text-muted">Offre gratuite</div>
+            <div className="truncate text-sm font-medium">
+              {userEmail ?? "Votre hôte"}
+            </div>
+            <div className="truncate text-xs text-muted">
+              {planLabel ?? "Sans offre"}
+            </div>
           </div>
-          <LogOut size={14} className="text-dim" />
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="text-dim hover:text-white"
+              aria-label="Se déconnecter"
+            >
+              <LogOut size={14} />
+            </button>
+          )}
         </div>
       </div>
     </aside>

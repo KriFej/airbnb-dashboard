@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
+  Loader2,
   Percent,
   Receipt,
   TrendingUp,
@@ -15,6 +17,7 @@ import { InputsPanel } from "@/components/dashboard/InputsPanel";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { Topbar } from "@/components/dashboard/Topbar";
+import { useAuth } from "@/hooks/useAuth";
 import { computeKpis, formatEuro, formatPct } from "@/lib/calc";
 import { KEYS, load, loadString, save } from "@/lib/storage";
 import { Booking, DEFAULT_INPUTS, Inputs } from "@/lib/types";
@@ -22,6 +25,8 @@ import { Booking, DEFAULT_INPUTS, Inputs } from "@/lib/types";
 const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"];
 
 export default function DashboardPage() {
+  const router = useRouter();
+  const { email, ready, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
   const [airbnbUrl, setAirbnbUrl] = useState("");
@@ -105,9 +110,32 @@ export default function DashboardPage() {
 
   const kpis = useMemo(() => computeKpis(inputs), [inputs]);
 
+  // Redirect unauthenticated users
+  useEffect(() => {
+    if (ready && !email) router.replace("/login");
+  }, [ready, email, router]);
+
+  if (!ready || !email) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-bg text-muted">
+        <Loader2 size={20} className="animate-spin" />
+      </div>
+    );
+  }
+
+  const handleLogout = () => {
+    logout();
+    router.replace("/login");
+  };
+
   return (
     <div className="flex min-h-screen bg-bg">
-      <Sidebar active={active} onNavigate={handleNavigate} />
+      <Sidebar
+        active={active}
+        onNavigate={handleNavigate}
+        userEmail={email}
+        onLogout={handleLogout}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar
