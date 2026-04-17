@@ -18,6 +18,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sentTo, setSentTo] = useState<string | null>(null);
 
   const isSignup = mode === "signup";
   const title = isSignup ? "Créer un compte" : "Se connecter";
@@ -39,9 +40,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           setError(res.error);
           return;
         }
-        const plan = searchParams.get("plan");
-        const next = plan ? `/login?plan=${plan}` : "/login?created=1";
-        router.push(next);
+        setSentTo(email);
       } else {
         const res = await login(email, password);
         if (!res.ok) {
@@ -69,6 +68,25 @@ export function AuthForm({ mode }: { mode: Mode }) {
         </Link>
 
         <div className="rounded-2xl border border-border bg-card p-8">
+          {sentTo ? (
+            <>
+              <h1 className="text-2xl font-medium tracking-tight">
+                Vérifiez votre email
+              </h1>
+              <p className="mt-2 text-sm text-muted">
+                Un lien de confirmation a été envoyé à{" "}
+                <span className="text-white">{sentTo}</span>. Cliquez dessus
+                pour activer votre compte.
+              </p>
+              <Link
+                href="/login"
+                className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium text-white hover:bg-white/5"
+              >
+                Retour à la connexion
+              </Link>
+            </>
+          ) : (
+            <>
           <h1 className="text-2xl font-medium tracking-tight">{title}</h1>
           <p className="mt-1 text-sm text-muted">
             {isSignup
@@ -76,9 +94,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
               : "Accédez à votre tableau de bord locpilote."}
           </p>
 
-          {searchParams.get("created") === "1" && !isSignup && (
-            <div className="mt-4 rounded-lg border border-brand-500/30 bg-brand-500/10 px-3 py-2 text-xs text-brand-400">
-              Compte créé — vous pouvez maintenant vous connecter.
+          {searchParams.get("error") === "confirm" && !isSignup && (
+            <div className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-400">
+              Lien de confirmation invalide ou expiré. Réessayez la connexion.
             </div>
           )}
 
@@ -140,11 +158,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {switchCta}
             </Link>
           </p>
+            </>
+          )}
         </div>
-
-        <p className="mt-6 text-center text-[11px] text-dim">
-          Démo — les comptes sont stockés localement dans votre navigateur.
-        </p>
       </div>
     </div>
   );

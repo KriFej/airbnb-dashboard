@@ -53,6 +53,12 @@ export function useAuth() {
       const { error } = await supabase.auth.signUp({
         email: mail.trim().toLowerCase(),
         password,
+        options: {
+          emailRedirectTo:
+            typeof window !== "undefined"
+              ? `${window.location.origin}/auth/confirm`
+              : undefined,
+        },
       });
       if (error) return { ok: false, error: translateError(error.message) };
       return { ok: true };
