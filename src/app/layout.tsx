@@ -9,20 +9,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Profitly — Your real Airbnb net profit, visible.",
+  title: "locpilote — Your real Airbnb & Booking net profit, visible.",
   description:
-    "The profit dashboard for Airbnb & Booking hosts. Track real net revenue, expenses, platform fees and sync your iCal calendar in seconds. Free, no signup.",
+    "The profit dashboard for Airbnb & Booking.com hosts. Track real net revenue, expenses, platform fees and sync both iCal calendars in seconds. Free, no signup.",
   keywords: [
     "airbnb dashboard",
     "airbnb net profit",
     "booking.com revenue",
     "ical integration",
     "short term rental analytics",
+    "locpilote",
   ],
   openGraph: {
-    title: "Profitly — Your real Airbnb net profit, visible.",
+    title: "locpilote — Your real Airbnb & Booking net profit, visible.",
     description:
-      "Track real net revenue, expenses and fees. Sync iCal in one click. Free, no signup.",
+      "Track real net revenue, expenses and fees. Sync Airbnb + Booking iCal in one click. Free, no signup.",
     type: "website",
   },
 };

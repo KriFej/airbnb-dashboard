@@ -4,7 +4,7 @@ const TESTIMONIALS = [
   {
     name: "Camille D.",
     role: "Host · Lisbon · 2 properties",
-    body: "I thought I was making €4k/month. After plugging my expenses into Profitly I realized my real net was €2.1k. Priceless.",
+    body: "I thought I was making €4k/month. After plugging my expenses into locpilote I realized my real net was €2.1k. Priceless.",
     initials: "CD",
     color: "#22C55E",
   },

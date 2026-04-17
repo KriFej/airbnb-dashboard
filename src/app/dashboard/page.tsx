@@ -22,18 +22,28 @@ import { Booking, DEFAULT_INPUTS, Inputs } from "@/lib/types";
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
   const [inputs, setInputs] = useState<Inputs>(DEFAULT_INPUTS);
-  const [icalUrl, setIcalUrl] = useState("");
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [airbnbUrl, setAirbnbUrl] = useState("");
+  const [bookingUrl, setBookingUrl] = useState("");
+  const [airbnbBookings, setAirbnbBookings] = useState<Booking[]>([]);
+  const [bookingBookings, setBookingBookings] = useState<Booking[]>([]);
   const [period, setPeriod] = useState("This month");
   const [active, setActive] = useState("overview");
 
-  // Hydrate from localStorage after mount (avoids SSR mismatch)
+  // Hydrate from localStorage after mount
   useEffect(() => {
     setInputs(load<Inputs>(KEYS.inputs, DEFAULT_INPUTS));
-    setIcalUrl(loadString(KEYS.icalUrl));
+    setAirbnbUrl(loadString(KEYS.icalAirbnb));
+    setBookingUrl(loadString(KEYS.icalBooking));
     try {
       const cached = window.localStorage.getItem(KEYS.bookings);
-      if (cached) setBookings(JSON.parse(cached));
+      if (cached) {
+        const parsed = JSON.parse(cached) as {
+          airbnb?: Booking[];
+          booking?: Booking[];
+        };
+        if (parsed.airbnb) setAirbnbBookings(parsed.airbnb);
+        if (parsed.booking) setBookingBookings(parsed.booking);
+      }
     } catch {
       /* ignore */
     }
@@ -45,11 +55,26 @@ export default function DashboardPage() {
     if (mounted) save(KEYS.inputs, inputs);
   }, [inputs, mounted]);
   useEffect(() => {
-    if (mounted) save(KEYS.icalUrl, icalUrl);
-  }, [icalUrl, mounted]);
+    if (mounted) save(KEYS.icalAirbnb, airbnbUrl);
+  }, [airbnbUrl, mounted]);
   useEffect(() => {
-    if (mounted) save(KEYS.bookings, bookings);
-  }, [bookings, mounted]);
+    if (mounted) save(KEYS.icalBooking, bookingUrl);
+  }, [bookingUrl, mounted]);
+  useEffect(() => {
+    if (mounted)
+      save(KEYS.bookings, {
+        airbnb: airbnbBookings,
+        booking: bookingBookings,
+      });
+  }, [airbnbBookings, bookingBookings, mounted]);
+
+  const allBookings = useMemo(
+    () =>
+      [...airbnbBookings, ...bookingBookings].sort((a, b) =>
+        a.start.localeCompare(b.start)
+      ),
+    [airbnbBookings, bookingBookings]
+  );
 
   const kpis = useMemo(() => computeKpis(inputs), [inputs]);
 
@@ -101,10 +126,18 @@ export default function DashboardPage() {
           {/* iCal + Forecast */}
           <section className="grid gap-5 lg:grid-cols-[1fr_360px]">
             <ICalImport
-              url={icalUrl}
-              onUrl={setIcalUrl}
-              onBookings={setBookings}
-              bookingsCount={bookings.length}
+              airbnbUrl={airbnbUrl}
+              bookingUrl={bookingUrl}
+              onUrlChange={(src, url) =>
+                src === "airbnb" ? setAirbnbUrl(url) : setBookingUrl(url)
+              }
+              onBookingsChange={(src, b) =>
+                src === "airbnb"
+                  ? setAirbnbBookings(b)
+                  : setBookingBookings(b)
+              }
+              airbnbCount={airbnbBookings.length}
+              bookingCount={bookingBookings.length}
             />
             <ForecastCard
               forecast={kpis.forecast}
@@ -120,8 +153,8 @@ export default function DashboardPage() {
 
           {/* Calendar + Upcoming */}
           <section className="grid gap-5 lg:grid-cols-[1fr_380px]">
-            <BookingsCalendar bookings={bookings} />
-            <BookingsList bookings={bookings} />
+            <BookingsCalendar bookings={allBookings} />
+            <BookingsList bookings={allBookings} />
           </section>
         </main>
       </div>

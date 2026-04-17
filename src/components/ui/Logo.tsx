@@ -24,7 +24,7 @@ export function Logo({ className = "" }: { className?: string }) {
         />
       </svg>
       <span className="text-[17px] font-semibold tracking-tight text-white">
-        Profitly
+        locpilote
       </span>
     </div>
   );

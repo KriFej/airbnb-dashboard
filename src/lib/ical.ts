@@ -36,8 +36,12 @@ export async function fetchICal(url: string): Promise<string> {
 /**
  * Parse a subset of iCalendar: VEVENT blocks with SUMMARY, DTSTART, DTEND, UID.
  * Handles all-day (DTSTART;VALUE=DATE:YYYYMMDD) and timestamp (YYYYMMDDTHHMMSSZ) forms.
+ * If `forceSource` is provided, tag every booking with that source.
  */
-export function parseICS(text: string): Booking[] {
+export function parseICS(
+  text: string,
+  forceSource?: "airbnb" | "booking" | "other"
+): Booking[] {
   const unfolded = text.replace(/\r?\n[ \t]/g, "");
   const blocks = unfolded.split("BEGIN:VEVENT").slice(1);
   const bookings: Booking[] = [];
@@ -59,7 +63,7 @@ export function parseICS(text: string): Booking[] {
       summary: summary.trim(),
       start: dtstart,
       end: dtend,
-      source: detectSource(summary, uid),
+      source: forceSource ?? detectSource(summary, uid),
     });
   }
 

@@ -19,7 +19,7 @@ export function Hero() {
             <span className="text-muted">net profit, finally visible.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base text-muted md:text-lg">
-            Revenue minus fees minus expenses. Profitly turns your Airbnb and
+            Revenue minus fees minus expenses. locpilote turns your Airbnb and
             Booking calendars into a single dashboard that tells you what you
             actually earn — in real time.
           </p>

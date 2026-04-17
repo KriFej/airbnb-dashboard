@@ -51,7 +51,7 @@ export function Footer() {
             links={[
               { label: "About", href: "#" },
               { label: "Blog", href: "#" },
-              { label: "Contact", href: "mailto:hello@profitly.app" },
+              { label: "Contact", href: "mailto:hello@locpilote.app" },
             ]}
           />
           <FooterCol
@@ -64,14 +64,14 @@ export function Footer() {
           />
         </div>
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-dim md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Profitly. Built for hosts, by hosts.</p>
+          <p>© {new Date().getFullYear()} locpilote. Built for hosts, by hosts.</p>
           <p>
             Contact:{" "}
             <a
-              href="mailto:hello@profitly.app"
+              href="mailto:hello@locpilote.app"
               className="text-muted hover:text-white"
             >
-              hello@profitly.app
+              hello@locpilote.app
             </a>
           </p>
         </div>

@@ -10,7 +10,7 @@ export function FeatureSplit() {
             Access your real profitability
           </h2>
           <p className="mt-4 text-muted">
-            Stop celebrating vanity revenue. Profitly subtracts fees, cleaning,
+            Stop celebrating vanity revenue. locpilote subtracts fees, cleaning,
             utilities and credit, so you see the number that ends up in your
             bank account.
           </p>

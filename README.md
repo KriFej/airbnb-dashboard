@@ -1,4 +1,4 @@
-# Profitly — Airbnb Net Profit Dashboard
+# locpilote — Airbnb & Booking Net Profit Dashboard
 
 A modern, dark-mode SaaS dashboard for Airbnb & Booking.com hosts who want to
 see their **real net profit** after platform fees and operating expenses.

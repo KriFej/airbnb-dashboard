@@ -2,16 +2,16 @@ import { Plus } from "lucide-react";
 
 const FAQS = [
   {
-    q: "Is Profitly really free?",
+    q: "Is locpilote really free?",
     a: "Yes. The Host plan is 100% free and will remain free. No credit card, no signup. A paid Studio plan is coming for multi-property hosts who need cloud sync.",
   },
   {
     q: "How does the iCal integration work?",
-    a: "Open your Airbnb or Booking calendar, copy the iCal export URL, paste it in the dashboard. Profitly fetches your bookings (via a CORS proxy if needed) and renders them instantly.",
+    a: "Open your Airbnb or Booking calendar, copy the iCal export URL, paste it in the dashboard. locpilote fetches your bookings (via a CORS proxy if needed) and renders them instantly.",
   },
   {
     q: "Where is my data stored?",
-    a: "Only in your browser's localStorage. Profitly has no backend, no database, no analytics. Clear your site data and everything is gone.",
+    a: "Only in your browser's localStorage. locpilote has no backend, no database, no analytics. Clear your site data and everything is gone.",
   },
   {
     q: "Does it work with Booking.com?",
@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: "How accurate is the net profit number?",
-    a: "As accurate as the inputs you provide. Profitly subtracts platform fees (percentage per channel) and fixed monthly expenses. Garbage in, garbage out — fill it seriously.",
+    a: "As accurate as the inputs you provide. locpilote subtracts platform fees (percentage per channel) and fixed monthly expenses. Garbage in, garbage out — fill it seriously.",
   },
 ];
 
