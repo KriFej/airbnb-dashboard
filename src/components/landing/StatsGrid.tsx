@@ -15,10 +15,11 @@ export function StatsGrid() {
           </div>
 
           {/* Card 2 */}
-          <div className="flex flex-col justify-center rounded-2xl border border-border bg-card p-8 min-h-[240px]">
-            <div className="text-6xl font-medium tracking-tight">0 €</div>
-            <p className="mt-3 text-sm text-muted">
-              De frais cachés. Chaque centime dépensé est visible, catégorisé et déduit de votre bénéfice.
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-brand-500/40 bg-card p-8 min-h-[240px] text-center ring-1 ring-brand-500/20">
+            <div className="text-7xl font-medium tracking-tight text-brand-400">0 €</div>
+            <div className="mt-1 text-xs uppercase tracking-widest text-brand-500">de frais cachés</div>
+            <p className="mt-4 max-w-[200px] text-sm text-muted">
+              Chaque centime dépensé est visible, catégorisé et déduit de votre bénéfice.
             </p>
           </div>
 

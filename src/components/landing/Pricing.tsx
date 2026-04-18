@@ -10,12 +10,8 @@ export function Pricing() {
             Tarifs
           </span>
           <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Des offres simples, au bien près.
+            Des offres simples.
           </h2>
-          <p className="mt-4 text-muted">
-            Commencez petit, grandissez à votre rythme. Chaque offre inclut le
-            tableau de bord complet et le calcul du bénéfice en temps réel.
-          </p>
         </div>
 
         <div className="mx-auto mt-14 grid max-w-6xl gap-5 md:grid-cols-3">
