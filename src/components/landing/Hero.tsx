@@ -14,14 +14,10 @@ export function Hero() {
             Nouveau · synchro iCal en temps réel Airbnb & Booking
           </Chip>
           <h1 className="mt-6 text-5xl font-medium tracking-tight text-white md:text-7xl">
-            Votre vrai bénéfice
-            <br />
-            <span className="text-muted">net Airbnb, enfin visible.</span>
+            Ce que vous gagnez vraiment,<br />enfin en un coup d'œil.
           </h1>
-          <p className="mt-6 max-w-2xl text-base text-muted md:text-lg">
-            Revenus moins frais moins dépenses. locpilote transforme vos
-            calendriers Airbnb et Booking en un seul tableau de bord qui vous
-            montre ce que vous gagnez vraiment — en temps réel.
+          <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
+            Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre bénéfice net en temps réel.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/signup" size="lg" icon={<ArrowRight size={16} />}>
