@@ -47,17 +47,11 @@ export function ProductMockup() {
             </div>
             <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[1fr_220px]">
               <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
-                <div className="mb-3 text-[11px] text-muted">Réservations</div>
-                <div className="flex items-end gap-1.5 h-16">
-                  {[40, 65, 30, 80, 55, 95, 70, 90, 45, 85, 60, 100].map(
-                    (h, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 rounded-sm bg-brand-500/80"
-                        style={{ height: `${h}%` }}
-                      />
-                    )
-                  )}
+                <div className="mb-3 text-[11px] text-muted">Prochaines réservations</div>
+                <div className="space-y-2">
+                  <BookingRow guest="Camille M." dates="18 → 22 avr." amount="412 €" />
+                  <BookingRow guest="Thomas R." dates="24 → 27 avr." amount="318 €" />
+                  <BookingRow guest="Léa D." dates="29 avr. → 3 mai" amount="540 €" />
                 </div>
               </div>
               <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
@@ -92,6 +86,26 @@ function Item({
     >
       {icon}
       {children}
+    </div>
+  );
+}
+
+function BookingRow({
+  guest,
+  dates,
+  amount,
+}: {
+  guest: string;
+  dates: string;
+  amount: string;
+}) {
+  return (
+    <div className="flex items-center justify-between rounded-lg border border-border bg-black/40 px-3 py-2">
+      <div>
+        <div className="text-[11px] font-medium text-white">{guest}</div>
+        <div className="text-[10px] text-muted">{dates}</div>
+      </div>
+      <div className="text-[11px] font-medium text-brand-400">{amount}</div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ const FAQS = [
   },
   {
     q: "Comment fonctionne l'intégration iCal ?",
-    a: "Ouvrez votre calendrier Airbnb ou Booking, copiez l'URL d'export iCal, collez-la dans le tableau de bord. locpilote récupère vos réservations (via proxy CORS si nécessaire) et les affiche instantanément.",
+    a: "Ouvrez votre calendrier Airbnb ou Booking, copiez l'URL d'export iCal, collez-la dans le tableau de bord. locpilote récupère vos réservations et les affiche instantanément.",
   },
   {
     q: "Comment trouver mon URL iCal sur Airbnb ?",
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: "Où sont stockées mes données ?",
-    a: "Uniquement dans le localStorage de votre navigateur. locpilote n'a pas de backend, pas de base de données, pas d'analytics. Videz les données du site et tout disparaît.",
+    a: "Sur des serveurs Supabase situés en Union européenne, chiffrées et accessibles uniquement par vous. Vous pouvez exporter ou supprimer votre compte à tout moment.",
   },
   {
     q: "Est-ce que ça marche avec Booking.com ?",

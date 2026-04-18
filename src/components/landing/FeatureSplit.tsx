@@ -17,7 +17,7 @@ export function FeatureSplit() {
 
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {/* Green feature card */}
-          <div className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-black">
+          <div className="relative flex flex-col justify-center overflow-hidden rounded-2xl bg-brand-500 p-8 text-black min-h-[360px]">
             <div
               className="pointer-events-none absolute inset-0 opacity-20"
               style={{
@@ -30,8 +30,8 @@ export function FeatureSplit() {
               <span className="inline-flex items-center gap-1.5 rounded-full bg-black/20 px-3 py-1 text-xs font-medium backdrop-blur">
                 <TrendingUp size={12} /> Le profit d&apos;abord
               </span>
-              <h3 className="mt-40 max-w-md text-2xl font-medium md:text-3xl">
-                Conçu pour les hôtes qui veulent du bénéfice, pas du revenu brut.
+              <h3 className="mt-6 max-w-md text-2xl font-medium md:text-3xl">
+                Votre vrai bénéfice, sans les chiffres qui flattent.
               </h3>
               <p className="mt-3 max-w-md text-sm text-black/70">
                 Chaque KPI, graphique et prévision est calculé sur le net —

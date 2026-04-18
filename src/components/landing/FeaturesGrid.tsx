@@ -1,10 +1,10 @@
 import {
-  Calendar,
   RefreshCw,
   LineChart,
   Receipt,
   TrendingUp,
   Wallet,
+  Building2,
 } from "lucide-react";
 
 const FEATURES = [
@@ -24,9 +24,9 @@ const FEATURES = [
     body: "Collez votre URL iCal une fois. Vos réservations apparaissent automatiquement.",
   },
   {
-    icon: Calendar,
-    title: "Calendrier visuel",
-    body: "Vue mensuelle qui met en évidence les nuits occupées et les prochains séjours.",
+    icon: Building2,
+    title: "Multi-biens",
+    body: "Gérez plusieurs logements depuis un seul tableau de bord, chacun avec ses propres chiffres.",
   },
   {
     icon: TrendingUp,
