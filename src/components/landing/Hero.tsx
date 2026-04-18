@@ -14,7 +14,7 @@ export function Hero() {
             Nouveau · synchro iCal en temps réel Airbnb & Booking
           </Chip>
           <h1 className="mt-6 text-5xl font-medium tracking-tight text-white md:text-7xl">
-            Ce que vous gagnez vraiment,<br />enfin en un coup d'œil.
+            Ce que vous gagnez vraiment,<br />en un coup d'œil.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
             Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre bénéfice net en temps réel.

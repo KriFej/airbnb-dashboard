@@ -65,10 +65,23 @@ export function useAuth() {
         },
       });
       if (error) return { ok: false, error: translateError(error.message) };
+      // Notification propriétaire (fire & forget)
+      fetch("/api/notify/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: mail.trim().toLowerCase() }),
+      }).catch(() => {});
       return { ok: true };
     },
     [supabase],
   );
+
+  const deleteAccount = useCallback(async (): Promise<AuthResult> => {
+    const res = await fetch("/api/account/delete", { method: "DELETE" });
+    if (!res.ok) return { ok: false, error: "Erreur lors de la suppression du compte." };
+    await supabase.auth.signOut();
+    return { ok: true };
+  }, [supabase]);
 
   const login = useCallback(
     async (mail: string, password: string): Promise<AuthResult> => {
@@ -86,5 +99,5 @@ export function useAuth() {
     await supabase.auth.signOut();
   }, [supabase]);
 
-  return { userId, email, ready, signup, login, logout };
+  return { userId, email, ready, signup, login, logout, deleteAccount };
 }

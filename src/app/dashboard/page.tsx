@@ -43,7 +43,7 @@ const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"]
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { email, ready: authReady, logout } = useAuth();
+  const { email, ready: authReady, logout, deleteAccount } = useAuth();
   const { plan, ready: planReady, limit, label: planLabel } = usePlan(email);
 
   const [mounted, setMounted] = useState(false);
@@ -342,13 +342,26 @@ export default function DashboardPage() {
               <p className="mt-1 text-xs text-muted">
                 Connecté en tant que <span className="text-white">{email}</span>.
               </p>
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="mt-4 inline-flex h-10 items-center rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
-              >
-                Se déconnecter
-              </button>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="inline-flex h-10 items-center rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
+                >
+                  Se déconnecter
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!confirm("Supprimer définitivement votre compte ? Cette action est irréversible.")) return;
+                    await deleteAccount();
+                    router.replace("/");
+                  }}
+                  className="inline-flex h-10 items-center rounded-full border border-red-500/30 bg-red-500/10 px-4 text-xs font-medium text-red-400 hover:bg-red-500/20"
+                >
+                  Supprimer mon compte
+                </button>
+              </div>
             </div>
           </section>
         </main>
