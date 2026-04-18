@@ -18,6 +18,10 @@ function translateError(message: string | undefined): string {
     return "Email invalide.";
   if (m.includes("email not confirmed"))
     return "Email non confirmé — vérifie ta boîte mail.";
+  if (m.includes("token has expired") || m.includes("otp expired"))
+    return "Le lien a expiré, recommencez.";
+  if (m.includes("same password"))
+    return "Le nouveau mot de passe doit être différent.";
   return message;
 }
 
