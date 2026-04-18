@@ -15,9 +15,9 @@ export function ProductMockup() {
         </div>
 
         {/* App body */}
-        <div className="grid grid-cols-[180px_1fr] min-h-[360px] md:min-h-[440px]">
+        <div className="grid md:grid-cols-[180px_1fr] min-h-[360px] md:min-h-[440px]">
           {/* Sidebar mini */}
-          <aside className="border-r border-border bg-[#0B0B0B] p-4">
+          <aside className="hidden md:block border-r border-border bg-[#0B0B0B] p-4">
             <Logo className="mb-6" />
             <nav className="space-y-1 text-xs">
               <Item icon={<Home size={14} />} active>

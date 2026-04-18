@@ -45,26 +45,11 @@ export function StatsGrid() {
 
           {/* Card 3 */}
           <div className="relative overflow-hidden rounded-2xl bg-brand-500 p-6 text-black">
-            <div className="flex -space-x-2">
-              {["#fca5a5", "#fcd34d", "#93c5fd", "#c4b5fd"].map((c, i) => (
-                <div
-                  key={i}
-                  className="h-8 w-8 rounded-full border-2 border-brand-500"
-                  style={{ background: c }}
-                />
-              ))}
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-brand-500 bg-black text-[10px] font-medium text-white">
-                +12
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-black/80">
-              Nos utilisateurs sont répartis sur plusieurs continents.
-            </p>
-            <div className="mt-20 flex items-center gap-2">
+            <div className="mt-4 flex items-center gap-2">
               <Users size={18} />
               <h3 className="text-xl font-medium">Analyse et insights</h3>
             </div>
-            <p className="mt-2 text-sm text-black/80">
+            <p className="mt-3 text-sm text-black/80">
               Prévisions mensuelles, taux d&apos;occupation et bénéfice net —
               tout dans une vue claire.
             </p>

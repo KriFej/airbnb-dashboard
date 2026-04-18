@@ -53,11 +53,6 @@ export function FeatureSplit() {
                 <PlayCircle size={40} className="text-white" strokeWidth={1.2} />
               </button>
               <p className="mt-6 text-sm text-muted">Démo produit en 90 s</p>
-              <div className="mt-10 grid w-full max-w-sm grid-cols-3 gap-3">
-                <Stat n="1,8 M €" l="suivis chaque mois" />
-                <Stat n="38" l="pays" />
-                <Stat n="4,9 ★" l="note hôtes" />
-              </div>
             </div>
           </div>
         </div>

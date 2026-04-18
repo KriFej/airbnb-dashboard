@@ -226,7 +226,7 @@ export default function DashboardPage() {
           onPeriod={setPeriod}
         />
 
-        <main className="flex-1 space-y-6 p-6 md:p-8">
+        <main className="flex-1 space-y-6 p-6 pb-24 md:p-8 md:pb-8">
           {/* Overview */}
           <section id="overview" className="scroll-mt-24 space-y-4">
             <PlanBanner plan={plan} count={properties.length} limit={limit} />

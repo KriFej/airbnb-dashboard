@@ -39,13 +39,64 @@ export function Sidebar({
     ? userEmail.slice(0, 2).toUpperCase()
     : "YO";
   return (
-    <aside className="hidden md:flex md:flex-col w-[240px] shrink-0 border-r border-border bg-surface">
-      <div className="flex h-16 items-center border-b border-border px-5">
-        <Link href="/">
-          <Logo />
-        </Link>
-      </div>
-      <nav className="flex-1 space-y-1 p-3">
+    <>
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex md:flex-col w-[240px] shrink-0 border-r border-border bg-surface">
+        <div className="flex h-16 items-center border-b border-border px-5">
+          <Link href="/">
+            <Logo />
+          </Link>
+        </div>
+        <nav className="flex-1 space-y-1 p-3">
+          {NAV.map((item) => {
+            const Icon = item.icon;
+            const isActive = active === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onNavigate(item.id)}
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
+                  isActive
+                    ? "bg-brand-500/10 text-brand-400"
+                    : "text-muted hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                <Icon size={16} />
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+        <div className="border-t border-border p-3">
+          <div className="flex items-center gap-3 rounded-xl bg-card p-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
+              {initials}
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <div className="truncate text-sm font-medium">
+                {userEmail ?? "Votre hôte"}
+              </div>
+              <div className="truncate text-xs text-muted">
+                {planLabel ?? "Sans offre"}
+              </div>
+            </div>
+            {onLogout && (
+              <button
+                type="button"
+                onClick={onLogout}
+                className="text-dim hover:text-white"
+                aria-label="Se déconnecter"
+              >
+                <LogOut size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+      </aside>
+
+      {/* Mobile bottom nav */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-border bg-surface">
         {NAV.map((item) => {
           const Icon = item.icon;
           const isActive = active === item.id;
@@ -54,43 +105,16 @@ export function Sidebar({
               key={item.id}
               type="button"
               onClick={() => onNavigate(item.id)}
-              className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
-                isActive
-                  ? "bg-brand-500/10 text-brand-400"
-                  : "text-muted hover:bg-white/5 hover:text-white"
+              className={`flex flex-1 flex-col items-center gap-1 py-3 text-[10px] transition-colors ${
+                isActive ? "text-brand-400" : "text-dim"
               }`}
             >
-              <Icon size={16} />
+              <Icon size={20} />
               {item.label}
             </button>
           );
         })}
       </nav>
-      <div className="border-t border-border p-3">
-        <div className="flex items-center gap-3 rounded-xl bg-card p-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
-            {initials}
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <div className="truncate text-sm font-medium">
-              {userEmail ?? "Votre hôte"}
-            </div>
-            <div className="truncate text-xs text-muted">
-              {planLabel ?? "Sans offre"}
-            </div>
-          </div>
-          {onLogout && (
-            <button
-              type="button"
-              onClick={onLogout}
-              className="text-dim hover:text-white"
-              aria-label="Se déconnecter"
-            >
-              <LogOut size={14} />
-            </button>
-          )}
-        </div>
-      </div>
-    </aside>
+    </>
   );
 }
