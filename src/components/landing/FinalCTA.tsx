@@ -9,9 +9,9 @@ export function FinalCTA() {
           <div className="pointer-events-none absolute inset-x-0 -bottom-40 h-80 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(34,197,94,0.35),transparent_70%)]" />
           <div className="relative">
             <h2 className="text-4xl font-medium tracking-tight md:text-5xl">
-              Commencez à suivre votre
+              Savez-vous vraiment
               <br />
-              vrai bénéfice dès aujourd&apos;hui.
+              ce que vous gagnez ?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted">
               Créez votre compte, collez votre iCal, remplissez vos dépenses.
