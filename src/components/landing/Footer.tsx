@@ -57,9 +57,8 @@ export function Footer() {
           <FooterCol
             title="Légal"
             links={[
-              { label: "Confidentialité", href: "#" },
-              { label: "Conditions", href: "#" },
-              { label: "Cookies", href: "#" },
+              { label: "Confidentialité", href: "/legal/privacy" },
+              { label: "Conditions d'utilisation", href: "/legal/terms" },
             ]}
           />
         </div>

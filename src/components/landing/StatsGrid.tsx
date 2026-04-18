@@ -36,10 +36,9 @@ export function StatsGrid() {
                 />
               ))}
             </div>
-            <div className="mt-6 text-6xl font-medium tracking-tight">90 %</div>
+            <div className="mt-6 text-6xl font-medium tracking-tight">0 €</div>
             <p className="mt-2 text-sm text-muted">
-              De temps en moins sur les tableurs — votre flux iCal et vos
-              dépenses font les calculs à votre place.
+              De frais cachés. Chaque centime dépensé est visible, catégorisé et déduit de votre bénéfice.
             </p>
           </div>
 
