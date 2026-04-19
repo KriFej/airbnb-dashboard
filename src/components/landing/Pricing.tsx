@@ -28,8 +28,7 @@ export function Pricing() {
               Pour les hôtes avec un ou deux biens.
             </p>
             <Button
-              href="https://buy.stripe.com/TODO-starter"
-              external
+              href="/api/checkout?plan=starter"
               variant="secondary"
               size="lg"
               className="mt-6 w-full"
@@ -81,8 +80,7 @@ export function Pricing() {
                 Pour les hôtes qui passent de 3 à 10 biens.
               </p>
               <Button
-                href="https://buy.stripe.com/TODO-pro"
-                external
+                href="/api/checkout?plan=pro"
                 size="lg"
                 className="mt-6 w-full !bg-black !text-white hover:!bg-black/90"
               >

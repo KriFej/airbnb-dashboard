@@ -58,7 +58,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
         }
         const after = searchParams.get("after");
         const plan = searchParams.get("plan");
-        if (after === "success" && plan) {
+        if (after === "checkout" && plan) {
+          router.push(`/api/checkout?plan=${encodeURIComponent(plan)}`);
+        } else if (after === "success" && plan) {
           router.push(`/success?plan=${encodeURIComponent(plan)}`);
         } else {
           router.push("/dashboard");

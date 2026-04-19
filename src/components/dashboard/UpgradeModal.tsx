@@ -61,11 +61,15 @@ export function UpgradeModal({ open, onClose, plan, limit }: Props) {
             Fermer
           </button>
           <Link
-            href="/#pricing"
+            href={
+              plan === "starter"
+                ? "/api/checkout?plan=pro"
+                : "/api/checkout?plan=starter"
+            }
             onClick={onClose}
             className="inline-flex h-10 items-center rounded-full bg-brand-500 px-4 text-xs font-medium text-black hover:bg-brand-400"
           >
-            Voir les offres
+            {plan ? "Passer à l'offre supérieure" : "Choisir une offre"}
           </Link>
         </div>
       </div>
