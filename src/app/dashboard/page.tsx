@@ -24,16 +24,15 @@ import { Topbar } from "@/components/dashboard/Topbar";
 import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
 import { useAuth } from "@/hooks/useAuth";
 import { usePlan } from "@/hooks/usePlan";
+import { useProperties } from "@/hooks/useProperties";
 import {
   computeAggregateKpis,
   formatEuro,
   formatPct,
 } from "@/lib/calc";
-import { canAddProperty, propertiesKey } from "@/lib/plan";
-import { KEYS } from "@/lib/storage";
+import { canAddProperty } from "@/lib/plan";
 import {
   Booking,
-  DEFAULT_INPUTS,
   Inputs,
   Property,
   makeProperty,
@@ -43,55 +42,33 @@ const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"]
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { email, ready: authReady, logout, deleteAccount } = useAuth();
+  const { userId, email, ready: authReady, logout, deleteAccount } = useAuth();
   const { plan, ready: planReady, limit, label: planLabel } = usePlan(email);
+  const { properties, setProperties, ready: propsReady } = useProperties(
+    userId,
+    email,
+  );
 
-  const [mounted, setMounted] = useState(false);
-  const [properties, setProperties] = useState<Property[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [period, setPeriod] = useState("Ce mois-ci");
   const [active, setActive] = useState("overview");
   const [showAdd, setShowAdd] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
 
-  // Hydrate from localStorage (and migrate legacy single-property data)
+  // Sélectionne le premier bien dès que les données sont prêtes
   useEffect(() => {
-    if (!authReady || !email) return;
-    try {
-      const raw = window.localStorage.getItem(propertiesKey(email));
-      if (raw) {
-        const parsed = JSON.parse(raw) as Property[];
-        setProperties(parsed);
-        if (parsed.length > 0) setSelectedId(parsed[0].id);
-      } else {
-        const migrated = migrateLegacy();
-        if (migrated) {
-          setProperties([migrated]);
-          setSelectedId(migrated.id);
-        }
-      }
-    } catch {
-      /* ignore */
+    if (!propsReady) return;
+    if (properties.length > 0 && !selectedId) {
+      setSelectedId(properties[0].id);
     }
-    setMounted(true);
-  }, [authReady, email]);
-
-  // Persist
-  useEffect(() => {
-    if (!mounted || !email) return;
-    try {
-      window.localStorage.setItem(
-        propertiesKey(email),
-        JSON.stringify(properties)
-      );
-    } catch {
-      /* ignore */
+    if (properties.length === 0 && selectedId) {
+      setSelectedId(null);
     }
-  }, [properties, mounted, email]);
+  }, [propsReady, properties, selectedId]);
 
   // Scroll-spy
   useEffect(() => {
-    if (!mounted) return;
+    if (!propsReady) return;
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -106,7 +83,7 @@ export default function DashboardPage() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [mounted]);
+  }, [propsReady]);
 
   const handleNavigate = (id: string) => {
     setActive(id);
@@ -137,7 +114,7 @@ export default function DashboardPage() {
     [properties, selectedId]
   );
 
-  if (!authReady || !email || !planReady) {
+  if (!authReady || !email || !planReady || !propsReady) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-bg text-muted">
         <Loader2 size={20} className="animate-spin" />
@@ -430,47 +407,3 @@ function EmptyState({ children }: { children: React.ReactNode }) {
   );
 }
 
-function migrateLegacy(): Property | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const rawInputs = window.localStorage.getItem(KEYS.inputs);
-    const rawAirbnbUrl = window.localStorage.getItem(KEYS.icalAirbnb);
-    const rawBookingUrl = window.localStorage.getItem(KEYS.icalBooking);
-    const rawBookings = window.localStorage.getItem(KEYS.bookings);
-    const hasSomething =
-      rawInputs || rawAirbnbUrl || rawBookingUrl || rawBookings;
-    if (!hasSomething) return null;
-
-    const p = makeProperty("Mon bien");
-    if (rawInputs) {
-      try {
-        p.inputs = { ...DEFAULT_INPUTS, ...(JSON.parse(rawInputs) as Inputs) };
-      } catch {
-        /* ignore */
-      }
-    }
-    if (rawAirbnbUrl) p.airbnbUrl = rawAirbnbUrl;
-    if (rawBookingUrl) p.bookingUrl = rawBookingUrl;
-    if (rawBookings) {
-      try {
-        const parsed = JSON.parse(rawBookings) as {
-          airbnb?: Booking[];
-          booking?: Booking[];
-        };
-        if (parsed.airbnb) p.airbnbBookings = parsed.airbnb;
-        if (parsed.booking) p.bookingBookings = parsed.booking;
-      } catch {
-        /* ignore */
-      }
-    }
-
-    // Clean legacy keys so this only runs once
-    window.localStorage.removeItem(KEYS.inputs);
-    window.localStorage.removeItem(KEYS.icalAirbnb);
-    window.localStorage.removeItem(KEYS.icalBooking);
-    window.localStorage.removeItem(KEYS.bookings);
-    return p;
-  } catch {
-    return null;
-  }
-}
