@@ -104,5 +104,23 @@ export function useAuth() {
     await supabase.auth.signOut();
   }, [supabase]);
 
-  return { userId, email, ready, signup, login, logout, deleteAccount };
+  const resendConfirmation = useCallback(
+    async (mail: string): Promise<AuthResult> => {
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email: mail.trim().toLowerCase(),
+        options: {
+          emailRedirectTo:
+            typeof window !== "undefined"
+              ? `${window.location.origin}/auth/confirm`
+              : undefined,
+        },
+      });
+      if (error) return { ok: false, error: translateError(error.message) };
+      return { ok: true };
+    },
+    [supabase],
+  );
+
+  return { userId, email, ready, signup, login, logout, deleteAccount, resendConfirmation };
 }

@@ -40,7 +40,7 @@ export function KpiCard({
               </span>
             )}
           </div>
-          <div className="mt-8 text-4xl font-medium tracking-tight md:text-5xl">
+          <div className="mt-8 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
             {value}
           </div>
           {hint && <div className="mt-1 text-xs text-black/70">{hint}</div>}
@@ -58,7 +58,7 @@ export function KpiCard({
         <span className="text-xs text-muted">{label}</span>
         {icon && <span className="text-muted">{icon}</span>}
       </div>
-      <div className="mt-3 text-3xl font-medium tracking-tight">{value}</div>
+      <div className="mt-3 text-2xl font-medium tracking-tight sm:text-3xl">{value}</div>
       <div className="mt-1 flex items-center gap-2 text-xs">
         {delta && <span className={deltaColor}>{delta}</span>}
         {hint && <span className="text-dim">{hint}</span>}

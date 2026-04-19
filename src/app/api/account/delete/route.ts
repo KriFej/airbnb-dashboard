@@ -36,7 +36,7 @@ export async function DELETE() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "locpilote <onboarding@resend.dev>",
+        from: "locpilote <hello@locpilote.com>",
         to: ownerEmail,
         subject: `Désinscription — ${user.email}`,
         html: `

@@ -1,6 +1,6 @@
 "use client";
 
-import { Building2, Plus, TrendingUp, Wallet } from "lucide-react";
+import { Building2, Plus, Trash2, TrendingUp, Wallet } from "lucide-react";
 import { computePropertyKpis, formatEuro } from "@/lib/calc";
 import { Property } from "@/lib/types";
 
@@ -9,6 +9,7 @@ type Props = {
   selectedId: string | null;
   onSelect: (id: string) => void;
   onAddClick: () => void;
+  onDelete: (id: string) => void;
 };
 
 export function PropertyList({
@@ -16,6 +17,7 @@ export function PropertyList({
   selectedId,
   onSelect,
   onAddClick,
+  onDelete,
 }: Props) {
   if (properties.length === 0) {
     return (
@@ -79,8 +81,39 @@ export function PropertyList({
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
                   <Building2 size={14} />
                 </span>
-                <span className="truncate text-sm font-medium text-white">
+                <span className="flex-1 truncate text-sm font-medium text-white">
                   {p.name}
+                </span>
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (
+                      confirm(
+                        `Supprimer le bien « ${p.name} » ? Toutes ses données (dépenses, iCal) seront perdues.`,
+                      )
+                    ) {
+                      onDelete(p.id);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      if (
+                        confirm(
+                          `Supprimer le bien « ${p.name} » ? Toutes ses données (dépenses, iCal) seront perdues.`,
+                        )
+                      ) {
+                        onDelete(p.id);
+                      }
+                    }
+                  }}
+                  aria-label={`Supprimer ${p.name}`}
+                  className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg text-dim transition-colors hover:bg-red-500/10 hover:text-red-400"
+                >
+                  <Trash2 size={13} />
                 </span>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-3 text-xs">

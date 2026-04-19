@@ -142,6 +142,11 @@ export default function DashboardPage() {
     setShowAdd(false);
   };
 
+  const handleDeleteProperty = (id: string) => {
+    setProperties((prev) => prev.filter((p) => p.id !== id));
+    if (selectedId === id) setSelectedId(null);
+  };
+
   const patchSelectedInputs = (patch: Partial<Inputs>) => {
     if (!selectedId) return;
     setProperties((prev) =>
@@ -251,6 +256,7 @@ export default function DashboardPage() {
               selectedId={selectedId}
               onSelect={setSelectedId}
               onAddClick={handleTriggerAdd}
+              onDelete={handleDeleteProperty}
             />
             <ForecastCard
               forecast={aggregate.forecast}

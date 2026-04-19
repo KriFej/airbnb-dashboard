@@ -14,11 +14,14 @@ export async function fetchICal(url: string): Promise<string> {
     // CORS or network — fall through to proxy
   }
 
-  // Fallback: allorigins proxy
+  // Fallback: our own server-side proxy (avoids CORS and allorigins dependency)
   try {
-    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    const proxy = `/api/ical?url=${encodeURIComponent(url)}`;
     const res = await fetch(proxy, { cache: "no-store" });
-    if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error((body as { error?: string }).error ?? `Proxy HTTP ${res.status}`);
+    }
     const text = await res.text();
     if (!text.includes("BEGIN:VCALENDAR")) {
       throw new Error("Response is not a valid iCal file");

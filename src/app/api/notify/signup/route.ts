@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit, getIp } from "@/lib/rateLimit";
 
 const OWNER_HTML = (email: string, date: string) => `
 <!DOCTYPE html>
@@ -123,8 +124,16 @@ const WELCOME_HTML = (email: string) => `
 </html>`;
 
 export async function POST(req: NextRequest) {
+  const ip = getIp(req);
+  if (!rateLimit(`signup:${ip}`, 5, 60_000)) {
+    return NextResponse.json({ error: "Trop de requêtes" }, { status: 429 });
+  }
+
   try {
     const { email } = await req.json();
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return NextResponse.json({ ok: true }); // silent reject
+    }
     const date = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
 
     const resendKey = process.env.RESEND_API_KEY;

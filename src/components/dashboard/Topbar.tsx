@@ -1,6 +1,7 @@
 "use client";
 
-import { CalendarRange, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { CalendarRange, ChevronDown, Home } from "lucide-react";
 
 type Props = {
   title: string;
@@ -14,9 +15,18 @@ export const PERIODS = ["Ce mois-ci", "30 derniers jours", "Depuis le début de 
 export function Topbar({ title, subtitle, period, onPeriod }: Props) {
   return (
     <div className="flex flex-col gap-4 border-b border-border bg-bg/60 px-6 py-5 backdrop-blur md:flex-row md:items-center md:justify-between md:px-8">
-      <div>
-        <h1 className="text-2xl font-medium tracking-tight">{title}</h1>
-        <p className="mt-1 text-sm text-muted">{subtitle}</p>
+      <div className="flex items-start gap-3">
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-border-hover hover:text-white md:hidden"
+        >
+          <Home size={15} />
+        </Link>
+        <div>
+          <h1 className="text-xl font-medium tracking-tight sm:text-2xl">{title}</h1>
+          <p className="mt-0.5 text-xs text-muted sm:mt-1 sm:text-sm">{subtitle}</p>
+        </div>
       </div>
       <div className="relative">
         <details className="group inline-block">

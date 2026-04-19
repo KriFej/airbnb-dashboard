@@ -12,7 +12,7 @@ type Mode = "login" | "signup";
 export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { signup, login } = useAuth();
+  const { signup, login, resendConfirmation } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [sentTo, setSentTo] = useState<string | null>(null);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendDone, setResendDone] = useState(false);
 
   const isSignup = mode === "signup";
   const title = isSignup ? "Créer un compte" : "Se connecter";
@@ -85,12 +87,32 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 <span className="text-white">{sentTo}</span>. Cliquez dessus
                 pour activer votre compte.
               </p>
-              <Link
-                href="/login"
-                className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium text-white hover:bg-white/5"
-              >
-                Retour à la connexion
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/login"
+                  className="inline-flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium text-white hover:bg-white/5"
+                >
+                  Retour à la connexion
+                </Link>
+                <button
+                  type="button"
+                  disabled={resendLoading || resendDone}
+                  onClick={async () => {
+                    setResendLoading(true);
+                    await resendConfirmation(sentTo);
+                    setResendLoading(false);
+                    setResendDone(true);
+                  }}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border px-5 text-sm font-medium text-muted hover:bg-white/5 disabled:opacity-60"
+                >
+                  {resendLoading ? (
+                    <Loader2 size={14} className="animate-spin" />
+                  ) : (
+                    <Mail size={14} />
+                  )}
+                  {resendDone ? "Email renvoyé !" : "Renvoyer l'email"}
+                </button>
+              </div>
             </>
           ) : (
             <>
