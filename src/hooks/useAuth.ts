@@ -54,7 +54,7 @@ export function useAuth() {
 
   const signup = useCallback(
     async (mail: string, password: string): Promise<AuthResult> => {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: mail.trim().toLowerCase(),
         password,
         options: {
@@ -65,6 +65,11 @@ export function useAuth() {
         },
       });
       if (error) return { ok: false, error: translateError(error.message) };
+      // Supabase silently "succeeds" for duplicate emails when confirm is enabled.
+      // Detect it via empty identities array.
+      if (data.user && data.user.identities?.length === 0) {
+        return { ok: false, error: "Un compte existe déjà avec cet email." };
+      }
       // Notification propriétaire (fire & forget)
       fetch("/api/notify/signup", {
         method: "POST",
