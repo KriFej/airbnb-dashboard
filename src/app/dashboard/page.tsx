@@ -323,6 +323,7 @@ export default function DashboardPage() {
             />
             {selected ? (
               <ICalImport
+                plan={plan}
                 airbnbUrl={selected.airbnbUrl}
                 bookingUrl={selected.bookingUrl}
                 onUrlChange={patchSelectedIcalUrl}

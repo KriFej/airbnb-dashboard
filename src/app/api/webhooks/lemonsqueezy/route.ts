@@ -13,11 +13,13 @@ function lsStatusToDb(status: LSStatus): string {
 }
 
 function variantToPlan(variantId: number): Plan {
-  const starter = parseInt(process.env.LEMONSQUEEZY_VARIANT_STARTER ?? "0");
-  const pro = parseInt(process.env.LEMONSQUEEZY_VARIANT_PRO ?? "0");
-  if (starter && variantId === starter) return "starter";
-  if (pro && variantId === pro) return "pro";
-  return null;
+  const ids: Record<string, Plan> = {
+    [process.env.LEMONSQUEEZY_VARIANT_STARTER ?? ""]: "starter",
+    [process.env.LEMONSQUEEZY_VARIANT_STARTER_ANNUAL ?? ""]: "starter",
+    [process.env.LEMONSQUEEZY_VARIANT_PRO ?? ""]: "pro",
+    [process.env.LEMONSQUEEZY_VARIANT_PRO_ANNUAL ?? ""]: "pro",
+  };
+  return ids[String(variantId)] ?? null;
 }
 
 const HANDLED_EVENTS = new Set([

@@ -1,7 +1,20 @@
-import { Check, Mail, Sparkles } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Check, Mail, Sparkles, Zap } from "lucide-react";
 import { Button } from "../ui/Button";
 
+type Billing = "monthly" | "annual";
+
+const MONTHLY = { starter: "9,90 €", pro: "19,90 €" };
+const ANNUAL = { starter: "99 €", pro: "199 €" };
+const ANNUAL_MONTHLY = { starter: "8,25 €", pro: "16,58 €" };
+
 export function Pricing() {
+  const [billing, setBilling] = useState<Billing>("monthly");
+  const annual = billing === "annual";
+  const prices = annual ? ANNUAL : MONTHLY;
+
   return (
     <section id="pricing" className="border-t border-border/60 py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -14,21 +27,78 @@ export function Pricing() {
           </h2>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-6xl gap-5 md:grid-cols-3">
+        {/* Toggle mensuel / annuel */}
+        <div className="mt-8 flex justify-center">
+          <div className="inline-flex items-center rounded-full border border-border bg-card p-1">
+            <button
+              type="button"
+              onClick={() => setBilling("monthly")}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                !annual ? "bg-white text-black" : "text-muted hover:text-white"
+              }`}
+            >
+              Mensuel
+            </button>
+            <button
+              type="button"
+              onClick={() => setBilling("annual")}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                annual ? "bg-white text-black" : "text-muted hover:text-white"
+              }`}
+            >
+              Annuel
+              <span className="rounded-full bg-brand-500 px-2 py-0.5 text-[10px] font-semibold text-black">
+                −2 mois
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-10 grid max-w-6xl gap-5 md:grid-cols-2 xl:grid-cols-4">
+
+          {/* Gratuit */}
+          <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
+            <div className="text-sm font-medium text-muted">Gratuit</div>
+            <div className="mt-3 flex items-baseline gap-1">
+              <span className="text-5xl font-medium tracking-tight">0 €</span>
+              <span className="text-sm text-muted">/ mois</span>
+            </div>
+            <p className="mt-2 text-sm text-muted">Pour découvrir sans engagement.</p>
+            <Button href="/signup" variant="secondary" size="lg" className="mt-6 w-full">
+              Commencer gratuitement
+            </Button>
+            <ul className="mt-6 space-y-3 text-sm">
+              {[
+                "1 bien inclus",
+                "Tableau de bord complet",
+                "Calcul bénéfice net en temps réel",
+                "Export CSV",
+              ].map((f) => (
+                <li key={f} className="flex items-start gap-2 text-white/70">
+                  <Check size={16} className="mt-0.5 shrink-0 text-white/40" />
+                  <span>{f}</span>
+                </li>
+              ))}
+              <li className="flex items-start gap-2 text-white/30 line-through">
+                <Check size={16} className="mt-0.5 shrink-0" />
+                <span>Synchronisation iCal</span>
+              </li>
+            </ul>
+          </div>
+
           {/* Starter */}
           <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
             <div className="text-sm font-medium text-muted">Starter</div>
             <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-5xl font-medium tracking-tight">
-                9,90 €
-              </span>
-              <span className="text-sm text-muted">/ mois</span>
+              <span className="text-5xl font-medium tracking-tight">{prices.starter}</span>
+              <span className="text-sm text-muted">/ {annual ? "an" : "mois"}</span>
             </div>
-            <p className="mt-2 text-sm text-muted">
-              Pour les hôtes avec un ou deux biens.
-            </p>
+            {annual && (
+              <p className="mt-1 text-xs text-brand-400">soit {ANNUAL_MONTHLY.starter} / mois</p>
+            )}
+            <p className="mt-2 text-sm text-muted">Pour les hôtes avec 1 ou 2 biens.</p>
             <Button
-              href="/api/checkout?plan=starter"
+              href={`/api/checkout?plan=starter${annual ? "-annual" : ""}`}
               variant="secondary"
               size="lg"
               className="mt-6 w-full"
@@ -38,15 +108,12 @@ export function Pricing() {
             <ul className="mt-6 space-y-3 text-sm">
               {[
                 "Jusqu'à 2 biens",
-                "Suivi des revenus Airbnb & Booking.com",
+                "Synchronisation iCal Airbnb & Booking.com",
                 "Tableau de bord complet",
-                "Export des données (CSV / PDF)",
+                "Export CSV",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2 text-white/90">
-                  <Check
-                    size={16}
-                    className="mt-0.5 shrink-0 text-brand-500"
-                  />
+                  <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -54,7 +121,7 @@ export function Pricing() {
           </div>
 
           {/* Pro */}
-          <div className="relative flex flex-col overflow-hidden rounded-2xl bg-brand-500 p-8 text-black shadow-glow md:-mt-4">
+          <div className="relative flex flex-col overflow-hidden rounded-2xl bg-brand-500 p-8 text-black shadow-glow xl:-mt-4">
             <div
               className="pointer-events-none absolute inset-0 opacity-20"
               style={{
@@ -71,16 +138,15 @@ export function Pricing() {
                 </span>
               </div>
               <div className="mt-3 flex items-baseline gap-1">
-                <span className="text-5xl font-medium tracking-tight">
-                  19,90 €
-                </span>
-                <span className="text-sm text-black/70">/ mois</span>
+                <span className="text-5xl font-medium tracking-tight">{prices.pro}</span>
+                <span className="text-sm text-black/70">/ {annual ? "an" : "mois"}</span>
               </div>
-              <p className="mt-2 text-sm text-black/80">
-                Pour les hôtes qui passent de 3 à 10 biens.
-              </p>
+              {annual && (
+                <p className="mt-1 text-xs text-black/70">soit {ANNUAL_MONTHLY.pro} / mois</p>
+              )}
+              <p className="mt-2 text-sm text-black/80">Pour les hôtes de 3 à 10 biens.</p>
               <Button
-                href="/api/checkout?plan=pro"
+                href={`/api/checkout?plan=pro${annual ? "-annual" : ""}`}
                 size="lg"
                 className="mt-6 w-full !bg-black !text-white hover:!bg-black/90"
               >
@@ -90,8 +156,8 @@ export function Pricing() {
                 {[
                   "3 à 10 biens",
                   "Tout ce qui est inclus dans Starter",
-                  "Agenda des réservations synchro iCal en direct",
-                  "Lien direct vers les calendriers Airbnb + Booking.com",
+                  "Agenda des réservations iCal en direct",
+                  "Lien direct Airbnb + Booking.com",
                 ].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <Check size={16} className="mt-0.5 shrink-0" />
@@ -106,15 +172,13 @@ export function Pricing() {
           <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
             <div className="text-sm font-medium text-muted">Unlimited</div>
             <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-5xl font-medium tracking-tight">
-                Sur devis
-              </span>
+              <span className="text-4xl font-medium tracking-tight">Sur devis</span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              À partir de 11 biens — tarif adapté à votre portefeuille.
+              À partir de 11 biens — tarif adapté à votre volume.
             </p>
             <Button
-              href="mailto:hello@locpilote.app?subject=Demande%20de%20devis%20Unlimited"
+              href="mailto:hello@locpilote.com?subject=Demande%20de%20devis%20Unlimited"
               variant="secondary"
               size="lg"
               className="mt-6 w-full"
@@ -130,10 +194,7 @@ export function Pricing() {
                 "Onboarding et support dédiés",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2 text-white/90">
-                  <Check
-                    size={16}
-                    className="mt-0.5 shrink-0 text-brand-500"
-                  />
+                  <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
               ))}
@@ -142,8 +203,13 @@ export function Pricing() {
         </div>
 
         <p className="mt-10 text-center text-xs text-dim">
-          Tous les tarifs en euros, facturés mensuellement. Annulation à tout
-          moment. TVA applicable selon le pays.
+          Tous les tarifs en euros, TVA incluse. Annulation à tout moment.{" "}
+          {annual && (
+            <span className="text-brand-400">
+              <Zap size={10} className="mr-0.5 inline" />
+              Facturation annuelle — 2 mois offerts par rapport au mensuel.
+            </span>
+          )}
         </p>
       </div>
     </section>

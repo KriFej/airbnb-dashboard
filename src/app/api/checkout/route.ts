@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const CHECKOUT_URLS: Record<string, string> = {
-  starter: process.env.LEMONSQUEEZY_CHECKOUT_STARTER ?? "",
-  pro: process.env.LEMONSQUEEZY_CHECKOUT_PRO ?? "",
-};
+function getCheckoutUrl(plan: string): string {
+  const map: Record<string, string | undefined> = {
+    starter: process.env.LEMONSQUEEZY_CHECKOUT_STARTER,
+    "starter-annual": process.env.LEMONSQUEEZY_CHECKOUT_STARTER_ANNUAL,
+    pro: process.env.LEMONSQUEEZY_CHECKOUT_PRO,
+    "pro-annual": process.env.LEMONSQUEEZY_CHECKOUT_PRO_ANNUAL,
+  };
+  return map[plan] ?? "";
+}
 
 export async function GET(req: NextRequest) {
   const plan = req.nextUrl.searchParams.get("plan") ?? "starter";
-  const baseUrl = CHECKOUT_URLS[plan];
+  const baseUrl = getCheckoutUrl(plan);
 
   if (!baseUrl) {
-    // URL pas encore configurée → renvoie vers pricing
     return NextResponse.redirect(new URL("/#pricing", req.url));
   }
 

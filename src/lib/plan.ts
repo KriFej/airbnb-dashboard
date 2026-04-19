@@ -13,17 +13,21 @@ export const PLAN_LABELS: Record<NonNullable<Plan>, string> = {
 };
 
 export function planLabel(plan: Plan): string {
-  if (!plan) return "Sans offre";
+  if (!plan) return "Gratuit";
   return `Offre ${PLAN_LABELS[plan]}`;
 }
 
 export function maxProperties(plan: Plan): number {
-  if (!plan) return 0;
+  if (!plan) return 1; // tier gratuit = 1 bien
   return LIMITS[plan];
 }
 
 export function canAddProperty(plan: Plan, currentCount: number): boolean {
   return currentCount < maxProperties(plan);
+}
+
+export function canUseICal(plan: Plan): boolean {
+  return plan !== null;
 }
 
 export function isValidPlan(value: string | null): value is NonNullable<Plan> {
