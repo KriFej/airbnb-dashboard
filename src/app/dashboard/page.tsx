@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Building2,
+  Download,
   Loader2,
   Percent,
   Receipt,
@@ -11,6 +12,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { AddPropertyModal } from "@/components/dashboard/AddPropertyModal";
+import { OnboardingModal } from "@/components/dashboard/OnboardingModal";
 import { BookingsCalendar } from "@/components/dashboard/BookingsCalendar";
 import { BookingsList } from "@/components/dashboard/BookingsList";
 import { ForecastCard } from "@/components/dashboard/ForecastCard";
@@ -30,6 +32,7 @@ import {
   formatEuro,
   formatPct,
 } from "@/lib/calc";
+import { exportPropertiesToCsv } from "@/lib/csv";
 import { canAddProperty } from "@/lib/plan";
 import {
   Booking,
@@ -43,7 +46,7 @@ const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"]
 export default function DashboardPage() {
   const router = useRouter();
   const { userId, email, ready: authReady, logout, deleteAccount } = useAuth();
-  const { plan, ready: planReady, limit, label: planLabel } = usePlan(email);
+  const { plan, ready: planReady, limit, label: planLabel } = usePlan(email, userId);
   const { properties, setProperties, ready: propsReady } = useProperties(
     userId,
     email,
@@ -54,6 +57,7 @@ export default function DashboardPage() {
   const [active, setActive] = useState("overview");
   const [showAdd, setShowAdd] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
 
   // Sélectionne le premier bien dès que les données sont prêtes
   useEffect(() => {
@@ -211,7 +215,19 @@ export default function DashboardPage() {
         <main className="flex-1 space-y-6 p-6 pb-24 md:p-8 md:pb-8">
           {/* Overview */}
           <section id="overview" className="scroll-mt-24 space-y-4">
-            <PlanBanner plan={plan} count={properties.length} limit={limit} />
+            <div className="flex items-center justify-between gap-3">
+              <PlanBanner plan={plan} count={properties.length} limit={limit} />
+              {properties.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => exportPropertiesToCsv(properties)}
+                  className="inline-flex shrink-0 h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-xs text-muted transition-colors hover:border-border-hover hover:text-white"
+                >
+                  <Download size={13} />
+                  <span className="hidden sm:inline">Exporter CSV</span>
+                </button>
+              )}
+            </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <KpiCard
                 label="Revenu brut"
@@ -361,6 +377,9 @@ export default function DashboardPage() {
         plan={plan}
         limit={limit}
       />
+      {showOnboarding && (
+        <OnboardingModal onDone={() => setShowOnboarding(false)} />
+      )}
     </div>
   );
 }
