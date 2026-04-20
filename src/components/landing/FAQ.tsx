@@ -6,6 +6,10 @@ const FAQS = [
     a: "Trois offres : Starter à 9,90 €/mois (1 à 2 biens), Pro à 19,90 €/mois (3 à 10 biens) et Unlimited sur devis à partir de 11 biens. Toutes les offres sont mensuelles, résiliables à tout moment.",
   },
   {
+    q: "C'est quoi un iCal ?",
+    a: "Un iCal (ou .ics) est un lien que génèrent Airbnb et Booking.com pour exporter votre calendrier de réservations. En le collant dans locpilote, vos réservations s'importent automatiquement — sans saisie manuelle.",
+  },
+  {
     q: "Comment fonctionne l'intégration iCal ?",
     a: "Ouvrez votre calendrier Airbnb ou Booking, copiez l'URL d'export iCal, collez-la dans le tableau de bord. locpilote récupère vos réservations et les affiche instantanément.",
   },

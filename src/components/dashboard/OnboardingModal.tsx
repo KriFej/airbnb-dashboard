@@ -9,17 +9,17 @@ const STEPS = [
   {
     icon: Building2,
     title: "Ajoutez votre premier bien",
-    desc: "Cliquez sur « Ajouter un bien » dans la section Biens et donnez-lui un nom.",
+    desc: "Cliquez sur « + Ajouter un bien » dans la section Biens ci-dessous et donnez-lui un nom (ex: \"Appartement Lyon\").",
   },
   {
     icon: CalendarDays,
-    title: "Connectez votre iCal",
-    desc: "Dans Paramètres, collez votre lien iCal Airbnb ou Booking.com pour importer vos réservations automatiquement.",
+    title: "Connectez votre calendrier Airbnb",
+    desc: "Dans Airbnb : Calendrier → votre logement → Disponibilité → Exporter le calendrier. Copiez l'URL et collez-la dans la section iCal.",
   },
   {
     icon: Wallet,
-    title: "Renseignez vos dépenses",
-    desc: "Dans Dépenses, saisissez vos charges mensuelles. Votre bénéfice net s'affiche en temps réel.",
+    title: "Saisissez vos dépenses",
+    desc: "Dans Dépenses, entrez vos charges (électricité, ménage, crédit…). Votre bénéfice net réel s'affiche instantanément.",
   },
 ];
 

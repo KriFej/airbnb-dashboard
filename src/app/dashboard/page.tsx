@@ -264,6 +264,27 @@ export default function DashboardPage() {
             </div>
           </section>
 
+          {/* Guide de démarrage — visible uniquement si aucun bien */}
+          {propsReady && properties.length === 0 && (
+            <div className="rounded-2xl border border-brand-500/20 bg-brand-500/5 p-6">
+              <p className="text-sm font-medium text-brand-400">Par où commencer ?</p>
+              <ol className="mt-4 space-y-3">
+                {[
+                  "Cliquez sur « + Ajouter un bien » ci-dessous et donnez-lui un nom.",
+                  "Copiez votre lien iCal depuis Airbnb (Calendrier → Exporter) et collez-le dans la section iCal.",
+                  "Saisissez vos dépenses mensuelles — votre bénéfice net s'affiche en temps réel.",
+                ].map((step, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-muted">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-500/20 text-[11px] font-semibold text-brand-400">
+                      {i + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
           {/* Biens + Prévision */}
           <section
             id="properties"
