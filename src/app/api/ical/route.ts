@@ -24,6 +24,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid protocol" }, { status: 400 });
   }
 
+  const ALLOWED_HOSTS = [
+    "airbnb.com", "www.airbnb.com",
+    "booking.com", "www.booking.com",
+    "vrbo.com", "www.vrbo.com",
+    "homeaway.com", "www.homeaway.com",
+    "hostaway.com", "www.hostaway.com",
+    "smoobu.com", "www.smoobu.com",
+    "calendar.google.com",
+    "outlook.live.com", "outlook.office.com",
+    "app.guesty.com",
+    "app.lodgify.com",
+  ];
+  if (!ALLOWED_HOSTS.includes(parsed.hostname)) {
+    return NextResponse.json({ error: "Domain not allowed" }, { status: 403 });
+  }
+
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10_000);

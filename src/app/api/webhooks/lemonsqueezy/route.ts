@@ -2,6 +2,9 @@ import { createHmac } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { Plan } from "@/lib/plan";
+import { rateLimit, getIp } from "@/lib/rateLimit";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 type LSStatus = "active" | "cancelled" | "expired" | "past_due" | "paused" | "unpaid";
 
@@ -32,6 +35,11 @@ const HANDLED_EVENTS = new Set([
 ]);
 
 export async function POST(req: NextRequest) {
+  const ip = getIp(req);
+  if (!rateLimit(`lswh:${ip}`, 30, 60_000)) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
+
   const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
   if (!secret) {
     return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
@@ -62,8 +70,8 @@ export async function POST(req: NextRequest) {
   }
 
   const userId = payload.meta.custom_data?.user_id;
-  if (!userId) {
-    return NextResponse.json({ error: "No user_id in custom_data" }, { status: 400 });
+  if (!userId || !UUID_RE.test(userId)) {
+    return NextResponse.json({ error: "Invalid or missing user_id" }, { status: 400 });
   }
 
   const attrs = payload.data.attributes;
