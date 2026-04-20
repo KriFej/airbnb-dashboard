@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
+import { PcBanner } from "@/components/ui/PcBanner";
 import { AddPropertyModal } from "@/components/dashboard/AddPropertyModal";
 import { OnboardingModal } from "@/components/dashboard/OnboardingModal";
 import { BookingsCalendar } from "@/components/dashboard/BookingsCalendar";
@@ -41,7 +42,7 @@ import {
   makeProperty,
 } from "@/lib/types";
 
-const SECTION_IDS = ["overview", "properties", "agenda", "expenses", "settings"];
+const SECTION_IDS = ["overview", "properties", "settings", "expenses", "agenda"];
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -205,6 +206,7 @@ export default function DashboardPage() {
       />
 
       <div className="flex min-w-0 flex-1 flex-col">
+        <PcBanner />
         <Topbar
           title="Vue d'ensemble"
           subtitle="Votre vraie performance, en direct."
@@ -280,6 +282,33 @@ export default function DashboardPage() {
             />
           </section>
 
+          {/* Paramètres iCal */}
+          <section id="settings" className="scroll-mt-24 space-y-4">
+            <SelectedHeader
+              icon={<Building2 size={14} />}
+              label="Synchronisation iCal du bien"
+              selectedName={selected?.name}
+              onChange={setSelectedId}
+              properties={properties}
+              selectedId={selectedId}
+            />
+            {selected ? (
+              <ICalImport
+                plan={plan}
+                airbnbUrl={selected.airbnbUrl}
+                bookingUrl={selected.bookingUrl}
+                onUrlChange={patchSelectedIcalUrl}
+                onBookingsChange={patchSelectedIcalBookings}
+                airbnbCount={selected.airbnbBookings.length}
+                bookingCount={selected.bookingBookings.length}
+              />
+            ) : (
+              <EmptyState>
+                Ajoutez un bien pour y connecter un calendrier iCal.
+              </EmptyState>
+            )}
+          </section>
+
           {/* Dépenses */}
           <section id="expenses" className="scroll-mt-24 space-y-4">
             <SelectedHeader
@@ -311,32 +340,8 @@ export default function DashboardPage() {
             <BookingsList bookings={allBookings} />
           </section>
 
-          {/* Paramètres */}
-          <section id="settings" className="scroll-mt-24 space-y-4">
-            <SelectedHeader
-              icon={<Building2 size={14} />}
-              label="Synchronisation iCal du bien"
-              selectedName={selected?.name}
-              onChange={setSelectedId}
-              properties={properties}
-              selectedId={selectedId}
-            />
-            {selected ? (
-              <ICalImport
-                plan={plan}
-                airbnbUrl={selected.airbnbUrl}
-                bookingUrl={selected.bookingUrl}
-                onUrlChange={patchSelectedIcalUrl}
-                onBookingsChange={patchSelectedIcalBookings}
-                airbnbCount={selected.airbnbBookings.length}
-                bookingCount={selected.bookingBookings.length}
-              />
-            ) : (
-              <EmptyState>
-                Ajoutez un bien pour y connecter un calendrier iCal.
-              </EmptyState>
-            )}
-
+          {/* Compte */}
+          <section className="space-y-4">
             <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="text-sm font-medium text-white">Compte</h3>
               <p className="mt-1 text-xs text-muted">
