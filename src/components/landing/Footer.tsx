@@ -11,31 +11,6 @@ export function Footer() {
               Le tableau de bord de rentabilité pour les hôtes Airbnb et
               Booking qui prennent leurs chiffres au sérieux.
             </p>
-            <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand-500">
-              <svg width="44" height="44" viewBox="0 0 44 44" className="text-black">
-                <g fill="currentColor">
-                  {Array.from({ length: 16 }).map((_, i) => {
-                    const a = (i / 16) * Math.PI * 2;
-                    const x1 = 22 + Math.cos(a) * 10;
-                    const y1 = 22 + Math.sin(a) * 10;
-                    const x2 = 22 + Math.cos(a) * 18;
-                    const y2 = 22 + Math.sin(a) * 18;
-                    return (
-                      <line
-                        key={i}
-                        x1={x1}
-                        y1={y1}
-                        x2={x2}
-                        y2={y2}
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                    );
-                  })}
-                </g>
-              </svg>
-            </div>
           </div>
           <FooterCol
             title="Produit"
