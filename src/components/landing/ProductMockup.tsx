@@ -3,7 +3,11 @@ import { Logo } from "../ui/Logo";
 
 export function ProductMockup() {
   return (
-    <div className="relative mx-auto max-w-5xl">
+    <div
+      className="relative mx-auto max-w-5xl"
+      role="img"
+      aria-label="Aperçu du tableau de bord locpilote : revenus 4 500 €, dépenses 620 €, bénéfice net 3 195 €, prochaines réservations et prévision de fin de mois."
+    >
       <div className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-brand-500/10 blur-3xl" />
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
         {/* Browser chrome */}

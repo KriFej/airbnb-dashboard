@@ -25,10 +25,14 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000);
     const res = await fetch(url, {
       headers: { "User-Agent": "locpilote-ical-fetcher/1.0" },
       next: { revalidate: 0 },
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
 
     if (!res.ok) {
       return NextResponse.json(
