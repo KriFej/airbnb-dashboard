@@ -23,7 +23,7 @@ export function Hero() {
             <Button href="/signup" size="lg" icon={<ArrowRight size={16} />}>
               Commencer gratuitement
             </Button>
-            <Button href="#features" variant="secondary" size="lg">
+            <Button href="#how-it-works" variant="secondary" size="lg">
               Voir comment ça marche
             </Button>
           </div>
