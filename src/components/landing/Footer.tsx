@@ -49,7 +49,6 @@ export function Footer() {
           <FooterCol
             title="Entreprise"
             links={[
-              { label: "À propos", href: "#" },
               { label: "Blog", href: "#" },
               { label: "Contact", href: "mailto:hello@locpilote.app" },
             ]}
