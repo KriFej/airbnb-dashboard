@@ -12,14 +12,22 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob:",
+      "media-src 'self' blob:",
       "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+      "worker-src 'self' blob:",
       "frame-ancestors 'none'",
     ].join("; "),
   },
+];
+
+// Extra headers for FFmpeg SharedArrayBuffer on the video editor route
+const videoEditorHeaders = [
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
 ];
 
 const nextConfig = {
@@ -27,7 +35,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/video-editor",
+        headers: [...securityHeaders, ...videoEditorHeaders],
+      },
+      {
+        source: "/((?!video-editor).*)",
         headers: securityHeaders,
       },
     ];
