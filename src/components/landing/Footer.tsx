@@ -18,14 +18,12 @@ export function Footer() {
               { label: "Fonctionnalités", href: "#features" },
               { label: "Tarifs", href: "#pricing" },
               { label: "Tableau de bord", href: "/dashboard" },
-              { label: "Nouveautés", href: "#" },
             ]}
           />
           <FooterCol
             title="Entreprise"
             links={[
-              { label: "Blog", href: "#" },
-              { label: "Contact", href: "mailto:hello@locpilote.app" },
+              { label: "Contact", href: "mailto:hello@locpilote.com" },
             ]}
           />
           <FooterCol
@@ -41,10 +39,10 @@ export function Footer() {
           <p>
             Contact&nbsp;:{" "}
             <a
-              href="mailto:hello@locpilote.app"
+              href="mailto:hello@locpilote.com"
               className="text-muted hover:text-white"
             >
-              hello@locpilote.app
+              hello@locpilote.com
             </a>
           </p>
         </div>
