@@ -1,6 +1,6 @@
 "use client";
 
-import { Film, Loader2, Trash2, CheckCircle2 } from "lucide-react";
+import { Film, Loader2, Trash2, CheckCircle2, Mic, MicOff } from "lucide-react";
 import { VideoMeta, formatDuration, formatSize } from "@/lib/videoUtils";
 
 interface Props {
@@ -9,32 +9,26 @@ interface Props {
   thumbnail?: string;
   loading?: boolean;
   analyzed?: boolean;
+  transcript?: string;
+  transcribing?: boolean;
   onRemove: (index: number) => void;
 }
 
-export function RushCard({ rush, index, thumbnail, loading, analyzed, onRemove }: Props) {
+export function RushCard({ rush, index, thumbnail, loading, analyzed, transcript, transcribing, onRemove }: Props) {
   return (
     <div className="group relative flex gap-4 bg-card border border-border rounded-xl p-4 hover:border-border-hover transition-all">
       {/* Thumbnail */}
       <div className="relative w-28 h-16 rounded-lg overflow-hidden bg-white/5 shrink-0 flex items-center justify-center">
         {thumbnail ? (
-          <img
-            src={thumbnail}
-            alt={rush.name}
-            className="w-full h-full object-cover"
-          />
+          <img src={thumbnail} alt={rush.name} className="w-full h-full object-cover" />
         ) : loading ? (
           <Loader2 className="w-5 h-5 text-muted animate-spin" />
         ) : (
           <Film className="w-5 h-5 text-dim" />
         )}
-
-        {/* Duration badge */}
         <div className="absolute bottom-1 right-1 bg-black/80 rounded px-1 py-0.5 text-xs text-white font-mono">
           {formatDuration(rush.duration)}
         </div>
-
-        {/* Analyzed badge */}
         {analyzed && (
           <div className="absolute top-1 left-1">
             <CheckCircle2 className="w-4 h-4 text-brand-500" />
@@ -52,23 +46,48 @@ export function RushCard({ rush, index, thumbnail, loading, analyzed, onRemove }
           <span>·</span>
           <span>{formatDuration(rush.duration)}</span>
         </div>
-        <div className="mt-2">
-          {loading && (
+
+        {/* Status badges */}
+        <div className="flex items-center gap-3 mt-2 flex-wrap">
+          {loading ? (
             <span className="inline-flex items-center gap-1.5 text-xs text-muted">
               <Loader2 className="w-3 h-3 animate-spin" />
-              Extraction des frames…
+              Frames…
             </span>
-          )}
-          {analyzed && !loading && (
+          ) : analyzed ? (
             <span className="inline-flex items-center gap-1.5 text-xs text-brand-500">
               <CheckCircle2 className="w-3 h-3" />
-              Analysé par Claude
+              Analysé
+            </span>
+          ) : null}
+
+          {transcribing ? (
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted">
+              <Loader2 className="w-3 h-3 animate-spin" />
+              Transcription…
+            </span>
+          ) : transcript ? (
+            <span className="inline-flex items-center gap-1.5 text-xs text-blue-400" title={transcript}>
+              <Mic className="w-3 h-3" />
+              Audio transcrit
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-xs text-dim">
+              <MicOff className="w-3 h-3" />
+              Pas de transcription
             </span>
           )}
         </div>
+
+        {/* Transcript preview */}
+        {transcript && (
+          <p className="mt-1.5 text-xs text-dim italic line-clamp-2 leading-relaxed">
+            &ldquo;{transcript.slice(0, 120)}{transcript.length > 120 ? "…" : ""}&rdquo;
+          </p>
+        )}
       </div>
 
-      {/* Rush number */}
+      {/* Index + remove */}
       <div className="shrink-0 flex flex-col items-end gap-2">
         <span className="text-xs text-dim font-mono">#{index + 1}</span>
         <button

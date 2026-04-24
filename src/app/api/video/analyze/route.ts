@@ -6,7 +6,8 @@ export const maxDuration = 60;
 interface RushInput {
   name: string;
   duration: number;
-  frames: string[]; // base64 data URLs
+  frames: string[];       // base64 data URLs
+  transcript?: string;    // Whisper transcription (optional)
 }
 
 interface ClipSegment {
@@ -43,21 +44,29 @@ export async function POST(req: NextRequest) {
     }
 
     const client = new Anthropic({ apiKey });
-
     const contentBlocks: Anthropic.MessageParam["content"] = [];
+
+    const hasTranscripts = rushes.some((r) => r.transcript && r.transcript.trim());
 
     contentBlocks.push({
       type: "text",
       text: `Tu es un monteur vidéo professionnel expert. Tu reçois ${rushes.length} rush(es) brut(s) à monter.
 
 Style de montage demandé : ${style || "Dynamique et engageant"}
-
-Pour chaque rush, tu vas analyser les frames représentatives et créer un plan de montage intelligent.
+${hasTranscripts ? "Tu disposes également de la transcription audio de chaque rush (générée par Whisper)." : ""}
 
 Rushes disponibles :
-${rushes.map((r, i) => `Rush ${i + 1} : "${r.name}" — durée: ${r.duration.toFixed(1)}s`).join("\n")}
+${rushes
+  .map((r, i) => {
+    const lines = [`Rush ${i + 1} : "${r.name}" — durée: ${r.duration.toFixed(1)}s — ${r.frames.length} frames analysées`];
+    if (r.transcript?.trim()) {
+      lines.push(`  Transcription audio : "${r.transcript.trim().slice(0, 600)}${r.transcript.length > 600 ? "…" : ""}"`);
+    }
+    return lines.join("\n");
+  })
+  .join("\n")}
 
-Analyse maintenant les frames de chaque rush ci-dessous, puis génère un plan de montage JSON structuré.`,
+Analyse maintenant les frames visuelles et les transcriptions, puis génère un plan de montage.`,
     });
 
     // Add frames for each rush
@@ -73,44 +82,41 @@ Analyse maintenant les frames de chaque rush ci-dessous, puis génère un plan d
         const base64 = frameData.replace(/^data:image\/\w+;base64,/, "");
         contentBlocks.push({
           type: "image",
-          source: {
-            type: "base64",
-            media_type: "image/jpeg",
-            data: base64,
-          },
+          source: { type: "base64", media_type: "image/jpeg", data: base64 },
         } as Anthropic.ImageBlockParam);
+        const t = (j / Math.max(rush.frames.length - 1, 1)) * rush.duration;
         contentBlocks.push({
           type: "text",
-          text: `Frame ${j + 1}/${rush.frames.length} (à ${((j / (rush.frames.length - 1 || 1)) * rush.duration).toFixed(1)}s)`,
+          text: `Frame ${j + 1}/${rush.frames.length} (à ${t.toFixed(1)}s)`,
         });
       }
     }
 
     contentBlocks.push({
       type: "text",
-      text: `Maintenant, génère UNIQUEMENT un JSON valide (sans markdown, sans texte avant ou après) avec cette structure exacte :
+      text: `Génère UNIQUEMENT un JSON valide (sans markdown, sans texte avant ou après) :
 {
   "title": "Titre créatif de la vidéo montée",
   "synopsis": "Description en 2-3 phrases du résultat final",
   "totalDuration": <durée totale estimée en secondes>,
   "clips": [
     {
-      "rushIndex": <index du rush 0-based>,
-      "rushName": "<nom du rush>",
-      "start": <timestamp début en secondes>,
-      "end": <timestamp fin en secondes>,
-      "description": "<ce qui se passe dans ce clip>"
+      "rushIndex": <index 0-based>,
+      "rushName": "<nom>",
+      "start": <début en secondes>,
+      "end": <fin en secondes>,
+      "description": "<ce qui se passe>"
     }
   ],
-  "editingNotes": "Notes globales sur le montage, transitions suggérées, rythme"
+  "editingNotes": "Notes : transitions suggérées, rythme, ambiance sonore"
 }
 
 Règles :
-- Sélectionne les meilleurs moments de chaque rush
-- Évite les passages trop longs (max 8s par clip recommandé)
-- Crée une narration cohérente et dynamique
-- Les timestamps doivent être dans les limites de chaque rush
-- Tu peux utiliser plusieurs clips du même rush`,
+- Sélectionne les meilleurs moments (visuel ET audio si transcription disponible)
+- Max 8s par clip recommandé pour rythme dynamique
+- Les timestamps doivent rester dans la durée de chaque rush
+- Tu peux utiliser plusieurs clips du même rush
+- Utilise la transcription pour identifier les dialogues ou moments clés`,
     });
 
     const message = await client.messages.create({

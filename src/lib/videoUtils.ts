@@ -45,7 +45,7 @@ export function loadVideoMeta(file: File): Promise<VideoMeta> {
 
 export function extractFrames(
   videoMeta: VideoMeta,
-  count: number = 4,
+  count: number = 10,
   quality: number = 0.7
 ): Promise<string[]> {
   return new Promise((resolve, reject) => {
