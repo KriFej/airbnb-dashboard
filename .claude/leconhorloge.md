@@ -24,3 +24,4 @@
 1. **Changements ciblés dans des fichiers existants** = 5-10 min max, pas 20 min
 2. **Toujours lire les fichiers AVANT d'estimer** — la complexité réelle est souvent inférieure à ce qu'on imagine sans lire
 3. **Fourchette basse/haute** : ne pas dépasser 3× la fourchette basse
+| 2026-04-28 | thème clair/sombre | 25 min | 5 min | -20 min | À analyser |
