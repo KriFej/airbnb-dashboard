@@ -47,7 +47,7 @@ export function ICalImport({
         <div className="pointer-events-none select-none opacity-30 blur-[2px]">
           <div className="flex items-center gap-2">
             <RefreshCw size={16} className="text-brand-500" />
-            <h3 className="text-sm font-medium text-white">
+            <h3 className="text-sm font-medium text-fg">
               Synchronisation des calendriers iCal
             </h3>
           </div>
@@ -55,7 +55,7 @@ export function ICalImport({
             {["Airbnb", "Booking.com"].map((label) => (
               <div key={label} className="rounded-xl border border-border bg-[#0B0B0B] p-4">
                 <div className="h-4 w-20 rounded bg-white/10" />
-                <div className="mt-3 h-10 rounded-lg border border-border bg-[#0E0E0E]" />
+                <div className="mt-3 h-10 rounded-lg border border-border bg-surface" />
               </div>
             ))}
           </div>
@@ -64,7 +64,7 @@ export function ICalImport({
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
             <Lock size={20} className="text-muted" />
           </div>
-          <p className="text-sm font-medium text-white">iCal disponible dès l&apos;offre Starter</p>
+          <p className="text-sm font-medium text-fg">iCal disponible dès l&apos;offre Starter</p>
           <p className="text-xs text-muted">Synchronisez Airbnb &amp; Booking.com automatiquement</p>
           <Link
             href="/api/checkout?plan=starter"
@@ -81,7 +81,7 @@ export function ICalImport({
     <section className="rounded-2xl border border-border bg-card p-6">
       <div className="flex items-center gap-2">
         <RefreshCw size={16} className="text-brand-500" />
-        <h3 className="text-sm font-medium text-white">
+        <h3 className="text-sm font-medium text-fg">
           Synchronisation des calendriers iCal
         </h3>
       </div>
@@ -164,7 +164,7 @@ function SourceRow({
           <input
             type="url" value={url} onChange={(e) => onUrl(e.target.value)}
             placeholder={placeholder}
-            className="h-10 w-full rounded-lg border border-border bg-[#0E0E0E] pl-9 pr-3 text-xs text-white placeholder:text-dim transition-colors focus:border-brand-500/60 focus:outline-none"
+            className="h-10 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-xs text-fg placeholder:text-dim transition-colors focus:border-brand-500/60 focus:outline-none"
           />
         </div>
         <button

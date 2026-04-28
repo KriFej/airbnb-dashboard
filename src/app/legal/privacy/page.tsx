@@ -6,7 +6,7 @@ export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20 text-sm text-muted">
       <Link href="/" className="text-brand-400 hover:text-brand-300 text-xs">← Retour</Link>
-      <h1 className="mt-6 text-3xl font-medium text-white">Politique de confidentialité</h1>
+      <h1 className="mt-6 text-3xl font-medium text-fg">Politique de confidentialité</h1>
       <p className="mt-2 text-xs text-dim">Dernière mise à jour : avril 2026</p>
 
       <Section title="1. Responsable du traitement">
@@ -41,10 +41,10 @@ export default function PrivacyPage() {
 
       <Section title="6. Sous-traitants">
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong className="text-white">Supabase</strong> — hébergement base de données (UE)</li>
-          <li><strong className="text-white">Vercel</strong> — hébergement application (UE)</li>
-          <li><strong className="text-white">Stripe</strong> — paiements</li>
-          <li><strong className="text-white">Resend</strong> — envoi d&apos;emails transactionnels</li>
+          <li><strong className="text-fg">Supabase</strong> — hébergement base de données (UE)</li>
+          <li><strong className="text-fg">Vercel</strong> — hébergement application (UE)</li>
+          <li><strong className="text-fg">Stripe</strong> — paiements</li>
+          <li><strong className="text-fg">Resend</strong> — envoi d&apos;emails transactionnels</li>
         </ul>
       </Section>
 
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-8">
-      <h2 className="text-base font-medium text-white">{title}</h2>
+      <h2 className="text-base font-medium text-fg">{title}</h2>
       <div className="mt-2 space-y-2">{children}</div>
     </div>
   );

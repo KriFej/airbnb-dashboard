@@ -24,7 +24,7 @@ export default function GlobalError({
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/10">
         <AlertTriangle size={28} className="text-red-400" />
       </div>
-      <h1 className="mt-6 text-2xl font-medium text-white">Une erreur est survenue</h1>
+      <h1 className="mt-6 text-2xl font-medium text-fg">Une erreur est survenue</h1>
       <p className="mt-2 max-w-sm text-sm text-muted">
         Quelque chose s&apos;est mal passé. Réessayez ou revenez à l&apos;accueil.
       </p>
@@ -38,7 +38,7 @@ export default function GlobalError({
         </button>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-white hover:bg-white/5"
+          className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-fg hover:bg-fg/5"
         >
           Retour à l&apos;accueil
         </Link>

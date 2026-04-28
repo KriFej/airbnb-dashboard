@@ -16,7 +16,7 @@ export function PcBanner() {
       <button
         type="button"
         onClick={() => setDismissed(true)}
-        className="shrink-0 text-brand-400 hover:text-white"
+        className="shrink-0 text-brand-400 hover:text-fg"
         aria-label="Fermer"
       >
         <X size={14} />

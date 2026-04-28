@@ -47,12 +47,12 @@ export default function ForgotPasswordPage() {
               </h1>
               <p className="mt-2 text-sm text-muted">
                 Si un compte existe pour{" "}
-                <span className="text-white">{email}</span>, vous recevrez un
+                <span className="text-fg font-medium">{email}</span>, vous recevrez un
                 lien pour réinitialiser votre mot de passe.
               </p>
               <Link
                 href="/login"
-                className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium text-white hover:bg-white/5"
+                className="mt-6 inline-flex h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium text-fg hover:bg-fg/5"
               >
                 Retour à la connexion
               </Link>
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="vous@exemple.com"
-                    className="h-11 w-full rounded-xl border border-border bg-[#0E0E0E] px-3 text-sm text-white placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
+                    className="h-11 w-full rounded-xl border border-border bg-surface px-3 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
                   />
                 </label>
 

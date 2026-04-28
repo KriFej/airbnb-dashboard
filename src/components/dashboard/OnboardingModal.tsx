@@ -54,7 +54,7 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
           type="button"
           onClick={close}
           aria-label="Fermer"
-          className="absolute right-4 top-4 text-dim hover:text-white"
+          className="absolute right-4 top-4 text-dim hover:text-fg"
         >
           <X size={16} />
         </button>
@@ -75,7 +75,7 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
           <Icon size={22} />
         </div>
 
-        <h2 className="mt-4 text-lg font-medium text-white">{current.title}</h2>
+        <h2 className="mt-4 text-lg font-medium text-fg">{current.title}</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted">{current.desc}</p>
 
         <div className="mt-6 flex items-center justify-between">

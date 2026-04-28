@@ -223,7 +223,7 @@ export default function DashboardPage() {
                 <button
                   type="button"
                   onClick={() => exportPropertiesToCsv(properties)}
-                  className="inline-flex shrink-0 h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-xs text-muted transition-colors hover:border-border-hover hover:text-white"
+                  className="inline-flex shrink-0 h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-xs text-muted transition-colors hover:border-border-hover hover:text-fg"
                 >
                   <Download size={13} />
                   <span className="hidden sm:inline">Exporter CSV</span>
@@ -364,15 +364,15 @@ export default function DashboardPage() {
           {/* Compte */}
           <section className="space-y-4">
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="text-sm font-medium text-white">Compte</h3>
+              <h3 className="text-sm font-medium text-fg">Compte</h3>
               <p className="mt-1 text-xs text-muted">
-                Connecté en tant que <span className="text-white">{email}</span>.
+                Connecté en tant que <span className="text-fg font-medium">{email}</span>.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="inline-flex h-10 items-center rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
+                  className="inline-flex h-10 items-center rounded-full border border-border bg-surface px-4 text-xs font-medium text-fg hover:border-border-hover"
                 >
                   Se déconnecter
                 </button>
@@ -433,13 +433,13 @@ function SelectedHeader({
         <span className="text-brand-400">{icon}</span>
         <span>{label}</span>
         {selectedName && (
-          <span className="ml-1 text-white">· {selectedName}</span>
+          <span className="ml-1 text-fg">· {selectedName}</span>
         )}
       </div>
       <select
         value={selectedId ?? ""}
         onChange={(e) => onChange(e.target.value)}
-        className="h-9 rounded-full border border-border bg-[#0E0E0E] px-3 text-xs text-white focus:border-brand-500/60 focus:outline-none"
+        className="h-9 rounded-full border border-border bg-surface px-3 text-xs text-fg focus:border-brand-500/60 focus:outline-none"
       >
         {properties.map((p) => (
           <option key={p.id} value={p.id}>

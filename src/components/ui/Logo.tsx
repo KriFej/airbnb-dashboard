@@ -11,7 +11,7 @@ export function Logo({ className = "" }: { className?: string }) {
         <polyline points="2,11 16,2 30,11" fill="none" stroke="#000" strokeWidth="2"/>
       </svg>
       <span className="text-[17px] font-semibold tracking-tight">
-        <span className="text-white">loc</span>
+        <span className="text-fg">loc</span>
         <span className="text-brand-500">pilote</span>
       </span>
     </div>

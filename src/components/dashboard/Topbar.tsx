@@ -19,7 +19,7 @@ export function Topbar({ title, subtitle, period, onPeriod }: Props) {
         <Link
           href="/"
           aria-label="Retour à l'accueil"
-          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-border-hover hover:text-white md:hidden"
+          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-border-hover hover:text-fg md:hidden"
         >
           <Home size={15} />
         </Link>
@@ -30,7 +30,7 @@ export function Topbar({ title, subtitle, period, onPeriod }: Props) {
       </div>
       <div className="relative">
         <details className="group inline-block">
-          <summary className="flex h-10 cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 text-sm text-white hover:border-border-hover">
+          <summary className="flex h-10 cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 text-sm text-fg hover:border-border-hover">
             <CalendarRange size={14} className="text-muted" />
             {period}
             <ChevronDown size={14} className="text-muted" />
@@ -48,7 +48,7 @@ export function Topbar({ title, subtitle, period, onPeriod }: Props) {
                   if (details) details.open = false;
                 }}
                 className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm transition-colors hover:bg-card-hover ${
-                  p === period ? "text-brand-400" : "text-white"
+                  p === period ? "text-brand-400" : "text-fg"
                 }`}
               >
                 {p}

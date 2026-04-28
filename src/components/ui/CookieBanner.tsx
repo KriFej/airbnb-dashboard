@@ -38,7 +38,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={decline}
-            className="h-9 rounded-full border border-border px-4 text-xs text-muted hover:text-white"
+            className="h-9 rounded-full border border-border px-4 text-xs text-muted hover:text-fg"
           >
             Refuser
           </button>

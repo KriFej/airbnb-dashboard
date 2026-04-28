@@ -57,7 +57,7 @@ export function Testimonials() {
                   <Star key={i} size={14} fill="currentColor" stroke="none" />
                 ))}
               </div>
-              <blockquote className="mt-4 flex-1 text-sm text-white/90">
+              <blockquote className="mt-4 flex-1 text-sm text-muted">
                 &laquo;&nbsp;{t.body}&nbsp;&raquo;
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3">

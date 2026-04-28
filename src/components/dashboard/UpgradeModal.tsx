@@ -38,14 +38,14 @@ export function UpgradeModal({ open, onClose, plan, limit }: Props) {
               <Crown size={18} />
             </span>
             <div>
-              <h3 className="text-base font-medium text-white">{title}</h3>
+              <h3 className="text-base font-medium text-fg">{title}</h3>
               <p className="mt-1 text-xs text-muted">{description}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-1 text-muted hover:bg-white/5 hover:text-white"
+            className="rounded-full p-1 text-muted hover:bg-fg/5 hover:text-fg"
             aria-label="Fermer"
           >
             <X size={16} />
@@ -56,7 +56,7 @@ export function UpgradeModal({ open, onClose, plan, limit }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="h-10 rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
+            className="h-10 rounded-full border border-border bg-surface px-4 text-xs font-medium text-fg hover:border-border-hover"
           >
             Fermer
           </button>

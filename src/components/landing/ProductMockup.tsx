@@ -50,7 +50,7 @@ export function ProductMockup() {
               <Kpi label="Frais perdus" value="28 %" />
             </div>
             <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[1fr_220px]">
-              <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
+              <div className="rounded-xl border border-border bg-surface p-4">
                 <div className="mb-3 text-[11px] text-muted">Prochaines réservations</div>
                 <div className="space-y-2">
                   <BookingRow guest="Camille M." dates="18 → 22 avr." amount="412 €" />
@@ -58,7 +58,7 @@ export function ProductMockup() {
                   <BookingRow guest="Léa D." dates="29 avr. → 3 mai" amount="540 €" />
                 </div>
               </div>
-              <div className="rounded-xl border border-border bg-[#0E0E0E] p-4">
+              <div className="rounded-xl border border-border bg-surface p-4">
                 <div className="text-[11px] text-muted">Prévision</div>
                 <div className="mt-2 text-2xl font-medium text-brand-500">
                   3 890 €
@@ -106,7 +106,7 @@ function BookingRow({
   return (
     <div className="flex items-center justify-between rounded-lg border border-border bg-black/40 px-3 py-2">
       <div>
-        <div className="text-[11px] font-medium text-white">{guest}</div>
+        <div className="text-[11px] font-medium text-fg">{guest}</div>
         <div className="text-[10px] text-muted">{dates}</div>
       </div>
       <div className="text-[11px] font-medium text-brand-400">{amount}</div>
@@ -128,7 +128,7 @@ function Kpi({
       className={`rounded-xl border p-3 ${
         green
           ? "bg-brand-500 border-brand-500 text-black"
-          : "bg-[#0E0E0E] border-border"
+          : "bg-surface border-border"
       }`}
     >
       <div className={`text-[10px] ${green ? "text-black/70" : "text-muted"}`}>
@@ -136,7 +136,7 @@ function Kpi({
       </div>
       <div
         className={`mt-1 text-lg font-medium ${
-          green ? "text-black" : "text-white"
+          green ? "text-black" : "text-fg"
         }`}
       >
         {value}

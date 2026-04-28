@@ -17,7 +17,7 @@ export function PlanBanner({
     return (
       <div className="flex items-center gap-3 rounded-2xl border border-brand-500/30 bg-brand-500/10 px-4 py-3 text-sm">
         <Crown size={16} className="text-brand-400" />
-        <span className="text-white/90">Offre Unlimited active · biens illimités.</span>
+        <span className="text-fg/90">Offre Unlimited active · biens illimités.</span>
       </div>
     );
   }
@@ -27,7 +27,7 @@ export function PlanBanner({
       <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-sm md:flex-row md:items-center">
         <div className="flex items-center gap-3">
           <Gift size={16} className="text-purple-400" />
-          <span className="text-white/90">
+          <span className="text-fg/90">
             Offre Gratuite · 1 bien inclus. Passez à Starter pour iCal + 2 biens.
           </span>
         </div>
@@ -49,13 +49,13 @@ export function PlanBanner({
     <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm md:flex-row md:items-center">
       <div className="flex items-center gap-3">
         <Sparkles size={16} className="text-brand-400" />
-        <span className="text-white/90">
+        <span className="text-fg/90">
           Offre {planName} active · {count} / {limit === Infinity ? "∞" : limit} biens utilisés.
         </span>
       </div>
       <Link
         href={upgradeHref}
-        className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-medium text-white hover:border-border-hover hover:bg-card-hover"
+        className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-medium text-fg hover:border-border-hover hover:bg-card-hover"
       >
         <Zap size={11} />
         {upgradeLabel}

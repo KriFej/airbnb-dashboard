@@ -59,7 +59,7 @@ export function Sidebar({
                 className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
                   isActive
                     ? "bg-brand-500/10 text-brand-400"
-                    : "text-muted hover:bg-white/5 hover:text-white"
+                    : "text-muted hover:bg-fg/5 hover:text-fg"
                 }`}
               >
                 <Icon size={16} />
@@ -85,7 +85,7 @@ export function Sidebar({
               <button
                 type="button"
                 onClick={onLogout}
-                className="text-dim hover:text-white"
+                className="text-dim hover:text-fg"
                 aria-label="Se déconnecter"
               >
                 <LogOut size={14} />

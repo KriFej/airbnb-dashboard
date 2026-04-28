@@ -35,8 +35,8 @@ function classes(variant: Variant = "primary", size: Size = "md"): string {
     primary:
       "bg-brand-500 text-black hover:bg-brand-400 shadow-btn-glow hover:shadow-[0_10px_36px_-4px_rgba(34,197,94,0.7)]",
     secondary:
-      "bg-[#0E0E0E] text-white border border-border hover:border-border-hover hover:bg-card",
-    ghost: "text-white hover:bg-white/5",
+      "bg-surface text-fg border border-border hover:border-border-hover hover:bg-card",
+    ghost: "text-fg hover:bg-fg/5",
   };
   return `${base} ${sizes[size]} ${variants[variant]}`;
 }

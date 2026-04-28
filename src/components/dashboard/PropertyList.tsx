@@ -46,7 +46,7 @@ export function PropertyList({
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-medium text-white">Vos biens</h3>
+          <h3 className="text-sm font-medium text-fg">Vos biens</h3>
           <p className="text-xs text-muted">
             Cliquez sur un bien pour éditer ses dépenses et synchroniser son
             iCal.
@@ -71,7 +71,7 @@ export function PropertyList({
               key={p.id}
               type="button"
               onClick={() => onSelect(p.id)}
-              className={`flex flex-col rounded-xl border bg-[#0E0E0E] p-4 text-left transition-colors ${
+              className={`flex flex-col rounded-xl border bg-surface p-4 text-left transition-colors ${
                 isActive
                   ? "border-brand-500/60 ring-1 ring-brand-500/30"
                   : "border-border hover:border-border-hover"
@@ -81,7 +81,7 @@ export function PropertyList({
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
                   <Building2 size={14} />
                 </span>
-                <span className="flex-1 truncate text-sm font-medium text-white">
+                <span className="flex-1 truncate text-sm font-medium text-fg">
                   {p.name}
                 </span>
                 <span
@@ -121,7 +121,7 @@ export function PropertyList({
                   <div className="flex items-center gap-1 text-dim">
                     <Wallet size={10} /> Brut
                   </div>
-                  <div className="mt-1 text-sm text-white">
+                  <div className="mt-1 text-sm text-fg">
                     {formatEuro(k.grossRevenue)}
                   </div>
                 </div>

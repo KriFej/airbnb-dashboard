@@ -36,7 +36,7 @@ export function BookingsCalendar({ bookings }: Props) {
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="mb-5 flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-medium text-white">Calendrier des réservations</h3>
+          <h3 className="text-sm font-medium text-fg">Calendrier des réservations</h3>
           <p className="text-xs text-muted">
             Nuits occupées en vert — synchronisé depuis vos iCal.
           </p>
@@ -45,7 +45,7 @@ export function BookingsCalendar({ bookings }: Props) {
           <button
             type="button"
             onClick={() => setCursor(subMonths(cursor, 1))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-fg"
             aria-label="Mois précédent"
           >
             <ChevronLeft size={14} />
@@ -56,7 +56,7 @@ export function BookingsCalendar({ bookings }: Props) {
           <button
             type="button"
             onClick={() => setCursor(addMonths(cursor, 1))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-fg"
             aria-label="Mois suivant"
           >
             <ChevronRight size={14} />
@@ -85,8 +85,8 @@ export function BookingsCalendar({ bookings }: Props) {
                 outOfMonth
                   ? "border-border/40 text-dim"
                   : state
-                  ? "border-brand-500/40 bg-brand-500/15 text-white"
-                  : "border-border bg-[#0E0E0E] text-white"
+                  ? "border-brand-500/40 bg-brand-500/15 text-fg"
+                  : "border-border bg-surface text-fg"
               }`}
             >
               <span className={`${today ? "text-brand-500 font-semibold" : ""}`}>

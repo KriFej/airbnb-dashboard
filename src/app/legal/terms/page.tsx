@@ -6,7 +6,7 @@ export default function TermsPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-20 text-sm text-muted">
       <Link href="/" className="text-brand-400 hover:text-brand-300 text-xs">← Retour</Link>
-      <h1 className="mt-6 text-3xl font-medium text-white">Conditions générales d&apos;utilisation</h1>
+      <h1 className="mt-6 text-3xl font-medium text-fg">Conditions générales d&apos;utilisation</h1>
       <p className="mt-2 text-xs text-dim">Dernière mise à jour : avril 2026</p>
 
       <Section title="1. Objet">
@@ -61,7 +61,7 @@ export default function TermsPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mt-8">
-      <h2 className="text-base font-medium text-white">{title}</h2>
+      <h2 className="text-base font-medium text-fg">{title}</h2>
       <div className="mt-2 space-y-2">{children}</div>
     </div>
   );

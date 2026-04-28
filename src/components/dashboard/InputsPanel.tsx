@@ -22,7 +22,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
     <section className="grid gap-5 lg:grid-cols-3">
       {/* Revenus */}
       <div className="rounded-2xl border border-border bg-card p-6">
-        <h3 className="text-sm font-medium text-white">Revenus</h3>
+        <h3 className="text-sm font-medium text-fg">Revenus</h3>
         <p className="text-xs text-muted">Montants bruts par canal.</p>
         <div className="mt-5 space-y-4">
           <NumberInput
@@ -46,7 +46,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
 
       {/* Charges */}
       <div className="rounded-2xl border border-border bg-card p-6">
-        <h3 className="text-sm font-medium text-white">Dépenses</h3>
+        <h3 className="text-sm font-medium text-fg">Dépenses</h3>
         <p className="text-xs text-muted">Charges mensuelles récurrentes.</p>
         <div className="mt-5 grid grid-cols-2 gap-4">
           <NumberInput
@@ -84,7 +84,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
 
       {/* Frais plateformes */}
       <div className="rounded-2xl border border-border bg-card p-6">
-        <h3 className="text-sm font-medium text-white">Frais de plateforme</h3>
+        <h3 className="text-sm font-medium text-fg">Frais de plateforme</h3>
         <p className="text-xs text-muted">Pourcentage prélevé par canal.</p>
         <div className="mt-5 space-y-4">
           <NumberInput
@@ -102,7 +102,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
             icon={<Percent size={12} />}
           />
         </div>
-        <div className="mt-6 rounded-xl border border-border bg-[#0E0E0E] p-4">
+        <div className="mt-6 rounded-xl border border-border bg-surface p-4">
           <div className="text-[11px] uppercase tracking-widest text-dim">
             Astuce
           </div>

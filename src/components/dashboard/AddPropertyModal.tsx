@@ -40,7 +40,7 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
               <Building2 size={18} />
             </span>
             <div>
-              <h3 className="text-base font-medium text-white">
+              <h3 className="text-base font-medium text-fg">
                 Nouveau bien
               </h3>
               <p className="text-xs text-muted">
@@ -51,7 +51,7 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-1 text-muted hover:bg-white/5 hover:text-white"
+            className="rounded-full p-1 text-muted hover:bg-fg/5 hover:text-fg"
             aria-label="Fermer"
           >
             <X size={16} />
@@ -69,7 +69,7 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Appart Paris, Studio Lyon…"
-              className="h-11 w-full rounded-xl border border-border bg-[#0E0E0E] px-3 text-sm text-white placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
+              className="h-11 w-full rounded-xl border border-border bg-surface px-3 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
             />
           </label>
 
@@ -77,7 +77,7 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="h-10 rounded-full border border-border bg-[#0E0E0E] px-4 text-xs font-medium text-white hover:border-border-hover"
+              className="h-10 rounded-full border border-border bg-surface px-4 text-xs font-medium text-fg hover:border-border-hover"
             >
               Annuler
             </button>

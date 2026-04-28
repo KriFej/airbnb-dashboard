@@ -21,7 +21,7 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="mb-4 flex items-center gap-2">
         <CalendarDays size={16} className="text-brand-500" />
-        <h3 className="text-sm font-medium text-white">Prochains séjours</h3>
+        <h3 className="text-sm font-medium text-fg">Prochains séjours</h3>
       </header>
 
       {upcoming.length === 0 ? (
@@ -64,7 +64,7 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
                         ? "border-brand-500/30 bg-brand-500/10 text-brand-400"
                         : b.source === "booking"
                         ? "border-blue-400/30 bg-blue-400/10 text-blue-300"
-                        : "border-border bg-black/60 text-muted"
+                        : "border-border bg-card text-muted"
                     }`}
                   >
                     {b.source ?? "autre"}

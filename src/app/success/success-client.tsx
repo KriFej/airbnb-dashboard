@@ -68,7 +68,7 @@ export function SuccessClient() {
       </h1>
       <p className="mt-2 max-w-sm text-sm text-muted">
         Merci pour votre confiance. Votre offre est désormais active sur votre
-        compte <span className="text-white">{email}</span>.
+        compte <span className="text-fg font-medium">{email}</span>.
       </p>
       <Link
         href="/dashboard"

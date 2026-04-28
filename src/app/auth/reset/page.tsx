@@ -73,7 +73,7 @@ export default function ResetPasswordPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="6 caractères minimum"
-                  className="h-11 w-full rounded-xl border border-border bg-[#0E0E0E] px-3 pr-10 text-sm text-white placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
+                  className="h-11 w-full rounded-xl border border-border bg-surface px-3 pr-10 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
                 />
                 <button
                   type="button"
@@ -97,7 +97,7 @@ export default function ResetPasswordPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="h-11 w-full rounded-xl border border-border bg-[#0E0E0E] px-3 pr-10 text-sm text-white placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
+                  className="h-11 w-full rounded-xl border border-border bg-surface px-3 pr-10 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none"
                 />
                 <button
                   type="button"

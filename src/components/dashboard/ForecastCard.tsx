@@ -14,7 +14,7 @@ export function ForecastCard({ forecast, netProfit }: Props) {
     <section className="rounded-2xl border border-border bg-card p-6">
       <header className="flex items-center gap-2">
         <TrendingUp size={16} className="text-brand-500" />
-        <h3 className="text-sm font-medium text-white">Prévision fin de mois</h3>
+        <h3 className="text-sm font-medium text-fg">Prévision fin de mois</h3>
       </header>
       <div className="mt-4 flex items-baseline gap-3">
         <span className="text-4xl font-medium tracking-tight text-brand-500">
@@ -26,7 +26,7 @@ export function ForecastCard({ forecast, netProfit }: Props) {
           </span>
         )}
       </div>
-      <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-[#0E0E0E]">
+      <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-surface">
         <div
           className="h-full rounded-full bg-brand-500 transition-[width] duration-500"
           style={{ width: `${ratio}%` }}

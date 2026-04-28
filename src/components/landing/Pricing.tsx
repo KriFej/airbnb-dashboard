@@ -34,7 +34,7 @@ export function Pricing() {
               type="button"
               onClick={() => setBilling("monthly")}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                !annual ? "bg-white text-black" : "text-muted hover:text-white"
+                !annual ? "bg-fg text-bg" : "text-muted hover:text-fg"
               }`}
             >
               Mensuel
@@ -43,7 +43,7 @@ export function Pricing() {
               type="button"
               onClick={() => setBilling("annual")}
               className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                annual ? "bg-white text-black" : "text-muted hover:text-white"
+                annual ? "bg-fg text-bg" : "text-muted hover:text-fg"
               }`}
             >
               Annuel
@@ -75,7 +75,7 @@ export function Pricing() {
                 "Calcul bénéfice net en temps réel",
                 "Export CSV",
               ].map((f) => (
-                <li key={f} className="flex items-start gap-2 text-white/70">
+                <li key={f} className="flex items-start gap-2 text-muted">
                   <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
@@ -109,7 +109,7 @@ export function Pricing() {
                 "Tableau de bord complet",
                 "Export CSV",
               ].map((f) => (
-                <li key={f} className="flex items-start gap-2 text-white/90">
+                <li key={f} className="flex items-start gap-2 text-muted">
                   <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
@@ -190,7 +190,7 @@ export function Pricing() {
                 "Devis personnalisé selon votre volume",
                 "Onboarding et support dédiés",
               ].map((f) => (
-                <li key={f} className="flex items-start gap-2 text-white/90">
+                <li key={f} className="flex items-start gap-2 text-muted">
                   <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
