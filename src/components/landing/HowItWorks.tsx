@@ -24,13 +24,13 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="border-t border-border/60 py-24">
+    <section id="how-it-works" className="border-t border-border/60 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
             Comment ça marche
           </span>
-          <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
+          <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
             Opérationnel en 2 minutes.
           </h2>
           <p className="mt-4 text-muted">

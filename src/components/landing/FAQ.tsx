@@ -41,13 +41,13 @@ const FAQS = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="border-t border-border/60 py-24">
+    <section id="faq" className="border-t border-border/60 py-14 md:py-24">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
             FAQ
           </span>
-          <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
+          <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
             Questions, réponses.
           </h2>
         </div>

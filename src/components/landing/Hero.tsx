@@ -13,8 +13,8 @@ export function Hero() {
           <Chip icon={<Sparkles size={12} className="text-brand-500" />} tone="green">
             1 bien gratuit · Payant à partir de 2 biens
           </Chip>
-          <h1 className="mt-6 text-5xl font-medium tracking-tight text-fg md:text-7xl">
-            Arrêtez votre tableur.<br />Votre bénéfice net en 30 secondes.
+          <h1 className="mt-6 text-[2.25rem] font-medium leading-tight tracking-tight text-fg sm:text-5xl md:text-7xl">
+            Arrêtez votre tableur.<br className="hidden sm:block" />Votre bénéfice net en 30 secondes.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
             Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre vrai bénéfice net automatiquement. Sans Excel, sans prise de tête.

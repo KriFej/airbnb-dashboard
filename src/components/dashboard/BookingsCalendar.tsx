@@ -33,7 +33,7 @@ export function BookingsCalendar({ bookings }: Props) {
   const booked = useMemo(() => buildBookedMap(bookings), [bookings]);
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6">
+    <section className="rounded-2xl border border-border bg-card p-4 sm:p-6">
       <header className="mb-5 flex items-center justify-between">
         <div>
           <h3 className="text-sm font-medium text-fg">Calendrier des réservations</h3>
@@ -50,7 +50,7 @@ export function BookingsCalendar({ bookings }: Props) {
           >
             <ChevronLeft size={14} />
           </button>
-          <div className="min-w-[140px] text-center text-sm font-medium capitalize">
+          <div className="min-w-[110px] text-center text-sm font-medium capitalize">
             {format(cursor, "MMMM yyyy", { locale: fr })}
           </div>
           <button

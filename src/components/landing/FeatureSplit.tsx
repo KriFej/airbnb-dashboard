@@ -2,10 +2,10 @@ import { TrendingUp, Link2, SlidersHorizontal, BarChart3 } from "lucide-react";
 
 export function FeatureSplit() {
   return (
-    <section className="relative py-24">
+    <section className="relative py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-medium tracking-tight md:text-5xl">
+          <h2 className="text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
             Accédez à votre vraie rentabilité
           </h2>
           <p className="mt-4 text-muted">

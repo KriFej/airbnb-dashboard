@@ -19,7 +19,7 @@ type Props = {
 
 export function InputsPanel({ inputs, onChange }: Props) {
   return (
-    <section className="grid gap-5 lg:grid-cols-3">
+    <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {/* Revenus */}
       <div className="rounded-2xl border border-border bg-card p-6">
         <h3 className="text-sm font-medium text-fg">Revenus</h3>

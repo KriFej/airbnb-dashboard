@@ -214,7 +214,7 @@ export default function DashboardPage() {
           onPeriod={setPeriod}
         />
 
-        <main className="flex-1 space-y-6 p-6 pb-24 md:p-8 md:pb-8">
+        <main className="flex-1 space-y-6 p-4 pb-24 sm:p-6 md:p-8 md:pb-8">
           {/* Overview */}
           <section id="overview" className="scroll-mt-24 space-y-4">
             <div className="flex items-center justify-between gap-3">
@@ -230,7 +230,7 @@ export default function DashboardPage() {
                 </button>
               )}
             </div>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
               <KpiCard
                 label="Revenu brut"
                 value={formatEuro(aggregate.grossRevenue)}
