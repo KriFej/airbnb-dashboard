@@ -5,7 +5,9 @@
 - Répondre en français, phrases courtes, zéro mot compliqué inutile
 - Toujours donner une estimation de temps avant chaque tâche (fourchette basse/haute)
 - **AVANT chaque estimation : lire `.claude/leconhorloge.md`** pour ne pas répéter les erreurs passées
-- Si l'estimation était fausse après la tâche : logger dans `.claude/leconhorloge.md`
+- **DÉBUT de chaque tâche** : lancer `.claude/chrono.sh start "nom tâche"`
+- **FIN de chaque tâche** : lancer `.claude/chrono.sh stop "nom tâche" "estimation_min"`
+- Si écart > 2 min : automatiquement loggé dans `leconhorloge.md`
 
 ## Stack technique
 
