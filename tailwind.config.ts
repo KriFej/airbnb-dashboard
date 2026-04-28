@@ -5,12 +5,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#000000",
-        surface: "#0A0A0A",
-        card: "#111111",
-        "card-hover": "#161616",
-        border: "#1F1F1F",
-        "border-hover": "#2A2A2A",
+        bg: "var(--color-bg)",
+        surface: "var(--color-surface)",
+        card: "var(--color-card)",
+        "card-hover": "var(--color-card-hover)",
+        border: "var(--color-border)",
+        "border-hover": "var(--color-border-hover)",
+        fg: "var(--color-fg)",
         brand: {
           50: "#F0FDF4",
           400: "#4ADE80",
@@ -20,8 +21,8 @@ const config: Config = {
           900: "#14532D",
           tint: "rgba(34,197,94,0.08)",
         },
-        muted: "#A1A1AA",
-        dim: "#71717A",
+        muted: "var(--color-muted)",
+        dim: "var(--color-dim)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

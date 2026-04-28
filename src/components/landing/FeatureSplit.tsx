@@ -67,7 +67,7 @@ function Step({ n, icon, title, desc }: { n: string; icon: React.ReactNode; titl
         {icon}
       </div>
       <div>
-        <div className="text-sm font-medium text-white">{n}. {title}</div>
+        <div className="text-sm font-medium text-fg">{n}. {title}</div>
         <div className="mt-1 text-xs text-muted">{desc}</div>
       </div>
     </div>

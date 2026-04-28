@@ -56,7 +56,7 @@ export function FAQ() {
           {FAQS.map((item) => (
             <details key={item.q} className="group px-6 py-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4">
-                <span className="text-[15px] font-medium text-white">
+                <span className="text-[15px] font-medium text-fg">
                   {item.q}
                 </span>
                 <Plus

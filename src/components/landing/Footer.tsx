@@ -40,7 +40,7 @@ export function Footer() {
             Contact&nbsp;:{" "}
             <a
               href="mailto:hello@locpilote.com"
-              className="text-muted hover:text-white"
+              className="text-muted hover:text-fg"
             >
               hello@locpilote.com
             </a>
@@ -68,7 +68,7 @@ function FooterCol({
           <li key={l.label}>
             <a
               href={l.href}
-              className="text-muted transition-colors hover:text-white"
+              className="text-muted transition-colors hover:text-fg"
             >
               {l.label}
             </a>

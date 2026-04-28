@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Logo } from "../ui/Logo";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 const LINKS = [
   { href: "#features", label: "Fonctionnalités" },
@@ -22,13 +23,14 @@ export function Nav() {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 text-sm text-muted md:flex">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-white transition-colors">
+            <a key={l.href} href={l.href} className="hover:text-fg transition-colors">
               {l.label}
             </a>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Button href="/login" variant="secondary" size="md">
             Connexion
           </Button>
@@ -38,7 +40,7 @@ export function Nav() {
           {/* Hamburger */}
           <button
             type="button"
-            className="ml-1 flex md:hidden items-center justify-center rounded-lg p-2 text-muted hover:text-white"
+            className="ml-1 flex md:hidden items-center justify-center rounded-lg p-2 text-muted hover:text-fg"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -55,7 +57,7 @@ export function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-sm text-muted hover:text-white transition-colors"
+              className="text-sm text-muted hover:text-fg transition-colors"
             >
               {l.label}
             </a>

@@ -45,9 +45,9 @@ export function HowItWorks() {
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-brand-500/30 bg-brand-500/10">
                   <Icon size={20} className="text-brand-400" />
                 </div>
-                <span className="text-4xl font-medium text-white/10">{step}</span>
+                <span className="text-4xl font-medium text-fg/10">{step}</span>
               </div>
-              <h3 className="text-lg font-medium text-white">{title}</h3>
+              <h3 className="text-lg font-medium text-fg">{title}</h3>
               <p className="text-sm leading-relaxed text-muted">{desc}</p>
             </div>
           ))}
