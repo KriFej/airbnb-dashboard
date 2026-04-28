@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Leçons apprises
+
+Après chaque correction de bug ou erreur, écrire dans `leçon.md` à la racine :
+- La date et l'heure
+- Ce qui a mal tourné
+- Comment c'a été corrigé
+- La leçon à retenir pour ne pas reproduire l'erreur
+
 ## Commands
 
 ```bash
