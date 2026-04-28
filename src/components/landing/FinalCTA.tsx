@@ -30,8 +30,7 @@ export function FinalCTA() {
               </Button>
             </div>
             <p className="mt-5 text-xs text-dim">
-              Offres à partir de 9,90 €/mois · Annulation à tout moment · 11
-              biens et plus ? Contactez-nous.
+              1 bien gratuit · Payant à partir de 2 biens · 11 biens et plus ? Contactez-nous.
             </p>
           </div>
         </div>

@@ -11,13 +11,13 @@ export function Hero() {
       <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10 md:pt-28 md:pb-16">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Chip icon={<Sparkles size={12} className="text-brand-500" />} tone="green">
-            Nouveau · synchro iCal en temps réel Airbnb & Booking
+            1 bien gratuit · Payant à partir de 2 biens
           </Chip>
           <h1 className="mt-6 text-5xl font-medium tracking-tight text-white md:text-7xl">
-            Ce que vous gagnez vraiment,<br />en un coup d'œil.
+            Arrêtez votre tableur.<br />Votre bénéfice net en 30 secondes.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
-            Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre bénéfice net en temps réel.
+            Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre vrai bénéfice net automatiquement. Sans Excel, sans prise de tête.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/signup" size="lg" icon={<ArrowRight size={16} />}>
@@ -28,8 +28,7 @@ export function Hero() {
             </Button>
           </div>
           <p className="mt-4 text-xs text-dim">
-            À partir de 9,90 €/mois · Annulation à tout moment · Mise en route
-            en moins de 2 minutes
+            1 bien gratuit · Payant à partir de 2 biens · Annulation à tout moment
           </p>
         </div>
         <div className="mt-16 md:mt-20">

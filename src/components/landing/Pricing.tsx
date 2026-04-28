@@ -63,26 +63,23 @@ export function Pricing() {
               <span className="text-5xl font-medium tracking-tight">0 €</span>
               <span className="text-sm text-muted">/ mois</span>
             </div>
-            <p className="mt-2 text-sm text-muted">Pour découvrir sans engagement.</p>
+            <p className="mt-2 text-sm text-muted">1 bien, toutes les fonctionnalités. Sans carte.</p>
             <Button href="/signup" variant="secondary" size="lg" className="mt-6 w-full">
               Commencer gratuitement
             </Button>
             <ul className="mt-6 space-y-3 text-sm">
               {[
                 "1 bien inclus",
+                "Synchronisation iCal Airbnb & Booking",
                 "Tableau de bord complet",
                 "Calcul bénéfice net en temps réel",
                 "Export CSV",
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2 text-white/70">
-                  <Check size={16} className="mt-0.5 shrink-0 text-white/40" />
+                  <Check size={16} className="mt-0.5 shrink-0 text-brand-500" />
                   <span>{f}</span>
                 </li>
               ))}
-              <li className="flex items-start gap-2 text-white/30 line-through">
-                <Check size={16} className="mt-0.5 shrink-0" />
-                <span>Synchronisation iCal</span>
-              </li>
             </ul>
           </div>
 
@@ -96,7 +93,7 @@ export function Pricing() {
             {annual && (
               <p className="mt-1 text-xs text-brand-400">soit {ANNUAL_MONTHLY.starter} / mois</p>
             )}
-            <p className="mt-2 text-sm text-muted">Pour les hôtes avec 1 ou 2 biens.</p>
+            <p className="mt-2 text-sm text-muted">Pour les hôtes avec 2 ou 3 biens.</p>
             <Button
               href={`/api/checkout?plan=starter${annual ? "-annual" : ""}`}
               variant="secondary"
@@ -107,7 +104,7 @@ export function Pricing() {
             </Button>
             <ul className="mt-6 space-y-3 text-sm">
               {[
-                "Jusqu'à 2 biens",
+                "Jusqu'à 3 biens",
                 "Synchronisation iCal Airbnb & Booking.com",
                 "Tableau de bord complet",
                 "Export CSV",
@@ -144,7 +141,7 @@ export function Pricing() {
               {annual && (
                 <p className="mt-1 text-xs text-black/70">soit {ANNUAL_MONTHLY.pro} / mois</p>
               )}
-              <p className="mt-2 text-sm text-black/80">Pour les hôtes de 3 à 10 biens.</p>
+              <p className="mt-2 text-sm text-black/80">Pour les hôtes de 4 à 10 biens.</p>
               <Button
                 href={`/api/checkout?plan=pro${annual ? "-annual" : ""}`}
                 size="lg"
@@ -154,7 +151,7 @@ export function Pricing() {
               </Button>
               <ul className="mt-6 space-y-3 text-sm">
                 {[
-                  "3 à 10 biens",
+                  "4 à 10 biens",
                   "Tout ce qui est inclus dans Starter",
                   "Agenda des réservations iCal en direct",
                   "Lien direct Airbnb + Booking.com",

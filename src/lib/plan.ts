@@ -1,7 +1,7 @@
 export type Plan = "starter" | "pro" | "unlimited" | null;
 
 export const LIMITS: Record<NonNullable<Plan>, number> = {
-  starter: 2,
+  starter: 3,
   pro: 10,
   unlimited: Infinity,
 };
@@ -27,7 +27,7 @@ export function canAddProperty(plan: Plan, currentCount: number): boolean {
 }
 
 export function canUseICal(plan: Plan): boolean {
-  return plan !== null;
+  return true;
 }
 
 export function isValidPlan(value: string | null): value is NonNullable<Plan> {
