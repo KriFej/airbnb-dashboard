@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Sparkline } from "../ui/Sparkline";
 
 type Props = {
   label: string;
@@ -8,6 +9,7 @@ type Props = {
   icon?: ReactNode;
   hint?: string;
   size?: "sm" | "lg";
+  sparkline?: number[];
 };
 
 export function KpiCard({
@@ -18,6 +20,7 @@ export function KpiCard({
   icon,
   hint,
   size = "sm",
+  sparkline,
 }: Props) {
   if (tone === "green") {
     return (
@@ -29,6 +32,11 @@ export function KpiCard({
               "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.5) 0%, transparent 60%)",
           }}
         />
+        {sparkline && (
+          <div className="pointer-events-none absolute bottom-0 right-0 opacity-30">
+            <Sparkline data={sparkline} color="#000000" height={60} width={120} filled />
+          </div>
+        )}
         <div className="relative flex h-full flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-black/20 px-2.5 py-1 text-[11px] font-medium backdrop-blur">
@@ -57,18 +65,25 @@ export function KpiCard({
     tone === "danger"
       ? "text-red-400 bg-red-500/10"
       : "text-brand-400 bg-brand-500/10";
+  const sparkColor =
+    tone === "danger" ? "#F87171" : "#22C55E";
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 h-full transition-colors hover:border-border-hover">
-      <div className="flex items-start justify-between gap-2">
+    <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 h-full transition-colors hover:border-border-hover">
+      {sparkline && (
+        <div className="pointer-events-none absolute bottom-0 right-0 opacity-20">
+          <Sparkline data={sparkline} color={sparkColor} height={56} width={110} filled />
+        </div>
+      )}
+      <div className="relative flex items-start justify-between gap-2">
         <span className="text-xs font-medium text-muted">{label}</span>
         {icon && (
-          <span className={`flex h-7 w-7 items-center justify-center rounded-lg ${accentColor}`}>
+          <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${accentColor}`}>
             {icon}
           </span>
         )}
       </div>
-      <div>
+      <div className="relative">
         <div className={`mt-4 font-semibold tracking-tight ${isLg ? "text-3xl xl:text-4xl" : "text-2xl xl:text-3xl"}`}>
           {value}
         </div>

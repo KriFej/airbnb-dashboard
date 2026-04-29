@@ -119,6 +119,22 @@ export default function DashboardPage() {
     [properties, selectedId]
   );
 
+  // Sparkline: last 8 weeks of booking count per week
+  const revenueSparkline = useMemo(() => {
+    if (allBookings.length === 0) return undefined;
+    const weeks = 8;
+    const now = Date.now();
+    const msPerWeek = 7 * 24 * 3600 * 1000;
+    return Array.from({ length: weeks }, (_, i) => {
+      const weekStart = now - (weeks - i) * msPerWeek;
+      const weekEnd = weekStart + msPerWeek;
+      return allBookings.filter((b) => {
+        const t = new Date(b.start).getTime();
+        return t >= weekStart && t < weekEnd;
+      }).length;
+    });
+  }, [allBookings]);
+
   if (!authReady || !email || !planReady || !propsReady) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-bg text-muted">
@@ -276,6 +292,7 @@ export default function DashboardPage() {
                   icon={<TrendingUp size={12} />}
                   hint="Après frais et dépenses"
                   size="lg"
+                  sparkline={revenueSparkline}
                 />
               </div>
               {/* Revenu brut */}
@@ -285,6 +302,7 @@ export default function DashboardPage() {
                   value={formatEuro(aggregate.grossRevenue)}
                   icon={<Wallet size={14} />}
                   hint="Tous biens confondus"
+                  sparkline={revenueSparkline}
                 />
               </div>
               {/* Dépenses */}
@@ -296,6 +314,7 @@ export default function DashboardPage() {
                   hint={`dont ${formatEuro(aggregate.platformFees)} de frais`}
                   tone="danger"
                   delta="−"
+                  sparkline={revenueSparkline}
                 />
               </div>
             </div>
