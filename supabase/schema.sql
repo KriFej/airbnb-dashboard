@@ -37,18 +37,29 @@ create index if not exists properties_user_id_idx on public.properties(user_id);
 -- -----------------------------------------------------------------
 --  Table: subscriptions
 --  Source de vérité pour le plan actif. Alimentée par le webhook
---  Stripe — jamais par le client.
+--  Lemon Squeezy — jamais par le client.
 -- -----------------------------------------------------------------
 create table if not exists public.subscriptions (
   user_id              uuid primary key references auth.users(id) on delete cascade,
   plan                 text check (plan in ('starter','pro','unlimited')),
   status               text not null default 'inactive'
                        check (status in ('active','inactive','past_due','canceled')),
-  stripe_customer_id   text,
-  stripe_subscription_id text,
+  ls_customer_id       text,
+  ls_subscription_id   text,
+  ls_variant_id        text,
   current_period_end   timestamptz,
   updated_at           timestamptz not null default now()
 );
+
+-- Migration : supprime les anciennes colonnes Stripe si elles existent encore
+do $$ begin
+  if exists (select 1 from information_schema.columns where table_schema='public' and table_name='subscriptions' and column_name='stripe_customer_id') then
+    alter table public.subscriptions drop column stripe_customer_id;
+  end if;
+  if exists (select 1 from information_schema.columns where table_schema='public' and table_name='subscriptions' and column_name='stripe_subscription_id') then
+    alter table public.subscriptions drop column stripe_subscription_id;
+  end if;
+end $$;
 
 -- -----------------------------------------------------------------
 --  Trigger: updated_at auto
