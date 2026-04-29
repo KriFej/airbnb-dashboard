@@ -195,6 +195,12 @@ export default function DashboardPage() {
     );
   };
 
+  // First name from email
+  const firstName = email ? email.split("@")[0].split(".")[0] : null;
+  const displayName = firstName
+    ? firstName.charAt(0).toUpperCase() + firstName.slice(1)
+    : null;
+
   return (
     <div className="flex min-h-screen bg-bg">
       <Sidebar
@@ -212,9 +218,36 @@ export default function DashboardPage() {
           subtitle="Votre vraie performance, en direct."
           period={period}
           onPeriod={setPeriod}
+          plan={planLabel}
         />
 
         <main className="flex-1 space-y-6 p-4 pb-24 sm:p-6 md:p-8 md:pb-8">
+          {/* Greeting + quick stats row */}
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs text-muted">Bienvenue,</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-fg sm:text-3xl md:text-4xl">
+                {displayName ?? email?.split("@")[0] ?? "votre hôte"} 👋
+              </h2>
+            </div>
+            <div className="flex items-center gap-6 text-right">
+              <div>
+                <div className="text-2xl font-semibold text-fg md:text-3xl">{properties.length}</div>
+                <div className="text-xs text-muted">bien{properties.length > 1 ? "s" : ""}</div>
+              </div>
+              <div className="h-8 w-px bg-border" />
+              <div>
+                <div className="text-2xl font-semibold text-brand-500 md:text-3xl">{formatEuro(aggregate.netProfit)}</div>
+                <div className="text-xs text-muted">net ce mois</div>
+              </div>
+              <div className="h-8 w-px bg-border" />
+              <div>
+                <div className="text-2xl font-semibold text-fg md:text-3xl">{allBookings.length}</div>
+                <div className="text-xs text-muted">réservation{allBookings.length > 1 ? "s" : ""}</div>
+              </div>
+            </div>
+          </div>
+
           {/* Overview */}
           <section id="overview" className="scroll-mt-24 space-y-4">
             <div className="flex items-center justify-between gap-3">
@@ -230,37 +263,41 @@ export default function DashboardPage() {
                 </button>
               )}
             </div>
+
+            {/* Bento KPI grid */}
             <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-              <KpiCard
-                label="Revenu brut"
-                value={formatEuro(aggregate.grossRevenue)}
-                icon={<Wallet size={14} />}
-                hint="Tous biens confondus"
-              />
-              <KpiCard
-                label="Dépenses totales"
-                value={formatEuro(
-                  aggregate.totalExpenses + aggregate.platformFees
-                )}
-                icon={<Receipt size={14} />}
-                hint={`dont ${formatEuro(aggregate.platformFees)} de frais`}
-                tone="danger"
-                delta="−"
-              />
-              <KpiCard
-                label="Bénéfice net"
-                value={formatEuro(aggregate.netProfit)}
-                tone="green"
-                delta={period}
-                icon={<TrendingUp size={12} />}
-                hint="Après frais et dépenses"
-              />
-              <KpiCard
-                label="Ratio frais et coûts"
-                value={formatPct(aggregate.feesLostPct)}
-                icon={<Percent size={14} />}
-                hint="du revenu brut"
-              />
+              {/* Bénéfice net — featured, spans 2 cols on xl */}
+              <div className="col-span-2 min-h-[140px] xl:col-span-2">
+                <KpiCard
+                  label="Bénéfice net"
+                  value={formatEuro(aggregate.netProfit)}
+                  tone="green"
+                  delta={period}
+                  icon={<TrendingUp size={12} />}
+                  hint="Après frais et dépenses"
+                  size="lg"
+                />
+              </div>
+              {/* Revenu brut */}
+              <div className="min-h-[140px]">
+                <KpiCard
+                  label="Revenu brut"
+                  value={formatEuro(aggregate.grossRevenue)}
+                  icon={<Wallet size={14} />}
+                  hint="Tous biens confondus"
+                />
+              </div>
+              {/* Dépenses */}
+              <div className="min-h-[140px]">
+                <KpiCard
+                  label="Dépenses totales"
+                  value={formatEuro(aggregate.totalExpenses + aggregate.platformFees)}
+                  icon={<Receipt size={14} />}
+                  hint={`dont ${formatEuro(aggregate.platformFees)} de frais`}
+                  tone="danger"
+                  delta="−"
+                />
+              </div>
             </div>
           </section>
 
