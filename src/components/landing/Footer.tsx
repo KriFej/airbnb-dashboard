@@ -1,7 +1,30 @@
-import { ArrowRight } from "lucide-react";
+"use client";
+
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 import { Logo } from "../ui/Logo";
 
 export function Footer() {
+  const [newsEmail, setNewsEmail] = useState("");
+  const [newsDone, setNewsDone] = useState(false);
+  const [newsLoading, setNewsLoading] = useState(false);
+
+  async function handleNewsletter(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newsEmail) return;
+    setNewsLoading(true);
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsEmail }),
+      });
+      setNewsDone(true);
+    } finally {
+      setNewsLoading(false);
+    }
+  }
+
   return (
     <footer className="border-t border-border/40">
       {/* Newsletter band */}
@@ -13,23 +36,33 @@ export function Footer() {
               Conseils rentabilité, nouvelles fonctionnalités, actus locpilote.
             </p>
           </div>
+          {newsDone ? (
+            <div className="flex items-center gap-2 text-sm text-brand-400">
+              <CheckCircle2 size={16} /> Inscription confirmée, merci !
+            </div>
+          ) : (
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleNewsletter}
             className="flex w-full max-w-sm gap-2"
           >
             <input
               type="email"
+              required
+              value={newsEmail}
+              onChange={(e) => setNewsEmail(e.target.value)}
               placeholder="votre@email.com"
               className="h-11 flex-1 rounded-xl border border-border bg-surface px-3 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none focus:ring-1 focus:ring-brand-500/20 min-w-0"
             />
             <button
               type="submit"
-              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-black transition-colors hover:bg-brand-400"
+              disabled={newsLoading}
+              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-black transition-colors hover:bg-brand-400 disabled:opacity-60"
             >
               <ArrowRight size={14} />
               <span className="hidden sm:inline">S&apos;inscrire</span>
             </button>
           </form>
+          )}
         </div>
       </div>
 

@@ -71,7 +71,7 @@ export function Topbar({ title, subtitle, period, onPeriod, plan }: Props) {
         {/* Upgrade button — only for free users */}
         {isFree && (
           <Link
-            href="#pricing"
+            href="/#pricing"
             className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-brand-400"
           >
             <Zap size={12} fill="currentColor" />

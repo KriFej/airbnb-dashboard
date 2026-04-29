@@ -93,7 +93,7 @@ export function Sidebar({
               Jusqu&apos;à 10 biens, synchro automatique et plus.
             </p>
             <Link
-              href="#pricing"
+              href="/#pricing"
               className="mt-3 flex items-center justify-center rounded-lg bg-brand-500 py-2 text-xs font-semibold text-black transition-colors hover:bg-brand-400"
             >
               Voir les offres
