@@ -39,3 +39,4 @@
 | 2026-04-28 | responsive improvements | 8-12 min | 4 min | -4 min | À analyser |
 | 2026-04-29 | bannière mobile + textes courts | 5-8 min | 1 min | -4 min | À analyser |
 | 2026-04-29 | logo + style apple + bannière | 6-10 min | 1 min | -5 min | À analyser |
+| 2026-04-29 | dashboard bento redesign | 8 min | 1 min | -7 min | À analyser |
