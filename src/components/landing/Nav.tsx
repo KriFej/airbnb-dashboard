@@ -9,6 +9,7 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 const LINKS = [
   { href: "#features", label: "Fonctionnalités" },
   { href: "#pricing", label: "Tarifs" },
+  { href: "/simulateur", label: "Simulateur" },
   { href: "#faq", label: "FAQ" },
 ];
 
