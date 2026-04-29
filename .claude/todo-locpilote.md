@@ -51,35 +51,20 @@
 
 ---
 
-## 🗓️ PROMPT CLAUDE CHAT — Google Calendar
+## 🗓️ PROMPT CLAUDE CHAT — Ajouter les tâches dans Google Calendar
 
-> Colle ce prompt dans claude.ai pour planifier l'intégration Google Calendar.
+> Colle ce prompt dans claude.ai pour qu'il crée les événements dans ton Google Calendar.
 
 ```
-Tu es un expert Next.js 14 App Router + Supabase.
+Ajoute ces tâches dans mon Google Calendar pour ce weekend (samedi 3 mai et dimanche 4 mai 2026).
 
-Je construis "locpilote", un SaaS de rentabilité pour les hôtes Airbnb/Booking.com.
-Stack : Next.js 14 App Router, Supabase Auth + RLS, Tailwind CSS, Vercel.
+Tâches :
+1. Confirmer email OVH — vérifier krinopro@gmail.com et cliquer le lien de confirmation (deadline 2 juin 2026). Samedi matin 9h, 15 min.
+2. Intégrer Microsoft Clarity — créer compte sur clarity.microsoft.com et ajouter le script sur locpilote.com. Samedi matin 10h, 30 min.
+3. Créer compte Lemon Squeezy — créer 4 produits (Starter mensuel/annuel, Pro mensuel/annuel) et configurer le webhook. Samedi après-midi 14h, 1h.
+4. Déployer sur Vercel — merger la branche claude/saas-app-nextjs-m3T5M et vérifier le site locpilote.com. Dimanche matin 10h, 30 min.
 
-Actuellement, les hôtes synchronisent leurs réservations via iCal (URL en lecture seule).
-Je veux ajouter une intégration Google Calendar pour :
-1. Lire les réservations depuis un calendrier Google (lecture seule, via OAuth)
-2. Optionnellement : écrire les réservations locpilote dans un calendrier Google
-
-Contexte technique :
-- Les réservations sont des objets { uid, summary, start, end, source } stockés localement
-- Les biens (Property) ont déjà airbnbUrl, bookingUrl, airbnbBookings, bookingBookings
-- Auth gérée par Supabase (pas de NextAuth)
-- Pas de base de données SQL propre, données stockées via Supabase Realtime/localStorage
-
-Questions :
-1. Quelle est la meilleure approche pour Google Calendar OAuth avec Supabase Auth (provider Google ou OAuth séparé) ?
-2. Quels fichiers créer/modifier ? (route API, composant ICalImport, types)
-3. Faut-il Google Calendar API v3 ou une lib ?
-4. Comment gérer le refresh token en production sur Vercel ?
-5. Plan d'implémentation étape par étape.
-
-Donne-moi un plan détaillé avant d'écrire du code.
+Pour chaque tâche, génère un lien Google Calendar quick-add cliquable.
 ```
 
 ---
