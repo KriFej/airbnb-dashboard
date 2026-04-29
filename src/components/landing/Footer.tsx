@@ -1,28 +1,65 @@
+import { ArrowRight } from "lucide-react";
 import { Logo } from "../ui/Logo";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-6 py-10 md:py-16">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr]">
+    <footer className="border-t border-border/40">
+      {/* Newsletter band */}
+      <div className="border-b border-border/40 bg-brand-500/[0.04]">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-10 sm:flex-row sm:items-center">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm text-muted">
-              Le tableau de bord de rentabilité pour les hôtes Airbnb et
-              Booking qui prennent leurs chiffres au sérieux.
+            <h3 className="text-base font-semibold text-fg">Restez informé</h3>
+            <p className="mt-1 text-sm text-muted">
+              Conseils rentabilité, nouvelles fonctionnalités, actus locpilote.
             </p>
           </div>
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="flex w-full max-w-sm gap-2"
+          >
+            <input
+              type="email"
+              placeholder="votre@email.com"
+              className="h-11 flex-1 rounded-xl border border-border bg-surface px-3 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none focus:ring-1 focus:ring-brand-500/20 min-w-0"
+            />
+            <button
+              type="submit"
+              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-black transition-colors hover:bg-brand-400"
+            >
+              <ArrowRight size={14} />
+              <span className="hidden sm:inline">S&apos;inscrire</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Main footer */}
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div>
+            <Logo />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
+              Le tableau de bord de rentabilité pour les hôtes Airbnb et Booking qui prennent leurs chiffres au sérieux.
+            </p>
+            <p className="mt-4 text-xs text-dim">
+              hello@locpilote.com
+            </p>
+          </div>
+
           <FooterCol
             title="Produit"
             links={[
               { label: "Fonctionnalités", href: "#features" },
               { label: "Tarifs", href: "#pricing" },
+              { label: "Comment ça marche", href: "#how-it-works" },
               { label: "Tableau de bord", href: "/dashboard" },
             ]}
           />
           <FooterCol
             title="Entreprise"
             links={[
+              { label: "Témoignages", href: "#testimonials" },
+              { label: "FAQ", href: "#faq" },
               { label: "Contact", href: "mailto:hello@locpilote.com" },
             ]}
           />
@@ -34,42 +71,31 @@ export function Footer() {
             ]}
           />
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-dim md:flex-row md:items-center">
+
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 text-xs text-dim md:flex-row md:items-center">
           <p>© {new Date().getFullYear()} locpilote. Conçu pour les hôtes, par des hôtes.</p>
-          <p>
-            Contact&nbsp;:{" "}
-            <a
-              href="mailto:hello@locpilote.com"
-              className="text-muted hover:text-fg"
-            >
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/8 px-2.5 py-1 text-[11px] font-medium text-brand-400">
+              1 bien gratuit
+            </span>
+            <a href="mailto:hello@locpilote.com" className="hover:text-fg transition-colors">
               hello@locpilote.com
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
 
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: { label: string; href: string }[];
-}) {
+function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <div className="text-xs font-medium uppercase tracking-widest text-dim">
-        {title}
-      </div>
+      <div className="text-xs font-semibold uppercase tracking-widest text-dim">{title}</div>
       <ul className="mt-4 space-y-3 text-sm">
         {links.map((l) => (
           <li key={l.label}>
-            <a
-              href={l.href}
-              className="text-muted transition-colors hover:text-fg"
-            >
+            <a href={l.href} className="text-muted transition-colors hover:text-fg">
               {l.label}
             </a>
           </li>

@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Wallet,
 } from "lucide-react";
+import { BarChart } from "@/components/ui/BarChart";
 import { PcBanner } from "@/components/ui/PcBanner";
 import { AddPropertyModal } from "@/components/dashboard/AddPropertyModal";
 import { OnboardingModal } from "@/components/dashboard/OnboardingModal";
@@ -119,21 +120,27 @@ export default function DashboardPage() {
     [properties, selectedId]
   );
 
-  // Sparkline: last 8 weeks of booking count per week
-  const revenueSparkline = useMemo(() => {
-    if (allBookings.length === 0) return undefined;
+  // Sparkline + bar chart: last 8 weeks of booking count per week
+  const weeklyData = useMemo(() => {
     const weeks = 8;
     const now = Date.now();
     const msPerWeek = 7 * 24 * 3600 * 1000;
+    const labels = ["S-8", "S-7", "S-6", "S-5", "S-4", "S-3", "S-2", "S-1"];
     return Array.from({ length: weeks }, (_, i) => {
       const weekStart = now - (weeks - i) * msPerWeek;
       const weekEnd = weekStart + msPerWeek;
-      return allBookings.filter((b) => {
+      const count = allBookings.filter((b) => {
         const t = new Date(b.start).getTime();
         return t >= weekStart && t < weekEnd;
       }).length;
+      return { label: labels[i], value: count };
     });
   }, [allBookings]);
+
+  const revenueSparkline = useMemo(
+    () => (allBookings.length === 0 ? undefined : weeklyData.map((d) => d.value)),
+    [allBookings, weeklyData]
+  );
 
   if (!authReady || !email || !planReady || !propsReady) {
     return (
@@ -318,6 +325,27 @@ export default function DashboardPage() {
                 />
               </div>
             </div>
+
+            {/* Activity bar chart — only when there are bookings */}
+            {allBookings.length > 0 && (
+              <div className="rounded-2xl border border-border bg-card p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-semibold text-fg">Activité réservations</h3>
+                    <p className="text-xs text-muted mt-0.5">8 dernières semaines</p>
+                  </div>
+                  <span className="text-2xl font-semibold text-fg">{allBookings.length}</span>
+                </div>
+                <div className="mt-4">
+                  <BarChart data={weeklyData} height={80} />
+                </div>
+                <div className="mt-2 flex justify-between text-[10px] text-dim">
+                  {weeklyData.map((d) => (
+                    <span key={d.label}>{d.label}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
 
           {/* Guide de démarrage — visible uniquement si aucun bien */}
