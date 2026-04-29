@@ -30,7 +30,8 @@ const config: Config = {
       boxShadow: {
         glow: "0 0 80px rgba(34,197,94,0.25)",
         "glow-sm": "0 0 40px rgba(34,197,94,0.18)",
-        "btn-glow": "0 8px 30px -6px rgba(34,197,94,0.6)",
+        "btn-glow": "0 8px 30px -6px rgba(34,197,94,0.5)",
+        card: "0 0 0 1px rgba(255,255,255,0.05), 0 2px 12px rgba(0,0,0,0.5)",
       },
       backgroundImage: {
         "grid-pattern":

@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       <GridBackground />
-      <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-10 md:pt-28 md:pb-16">
+      <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-12 md:pt-36 md:pb-20">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Chip icon={<Sparkles size={12} className="text-brand-500" />} tone="green">
             1 bien gratuit · Payant à partir de 2 biens

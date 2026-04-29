@@ -16,7 +16,7 @@ export function Pricing() {
   const prices = annual ? ANNUAL : MONTHLY;
 
   return (
-    <section id="pricing" className="border-t border-border/60 py-14 md:py-24">
+    <section id="pricing" className="border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
@@ -57,7 +57,7 @@ export function Pricing() {
         <div className="mx-auto mt-10 grid max-w-6xl gap-5 md:grid-cols-2 xl:grid-cols-4">
 
           {/* Gratuit */}
-          <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
+          <div className="flex flex-col rounded-2xl bg-card/60 p-8 shadow-card">
             <div className="text-sm font-medium text-muted">Gratuit</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-5xl font-medium tracking-tight">0 €</span>
@@ -84,7 +84,7 @@ export function Pricing() {
           </div>
 
           {/* Starter */}
-          <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
+          <div className="flex flex-col rounded-2xl bg-card/60 p-8 shadow-card">
             <div className="text-sm font-medium text-muted">Starter</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-5xl font-medium tracking-tight">{prices.starter}</span>
@@ -166,7 +166,7 @@ export function Pricing() {
           </div>
 
           {/* Unlimited */}
-          <div className="flex flex-col rounded-2xl border border-border bg-card p-8">
+          <div className="flex flex-col rounded-2xl bg-card/60 p-8 shadow-card">
             <div className="text-sm font-medium text-muted">Unlimited</div>
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-4xl font-medium tracking-tight">Sur devis</span>

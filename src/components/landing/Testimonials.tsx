@@ -33,7 +33,7 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="border-t border-border/60 py-14 md:py-24">
+    <section id="testimonials" className="border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
@@ -50,7 +50,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="flex flex-col rounded-2xl border border-border bg-card p-6"
+              className="flex flex-col rounded-2xl bg-card/60 p-6 shadow-card"
             >
               <div className="flex gap-1 text-brand-500">
                 {Array.from({ length: 5 }).map((_, i) => (

@@ -42,7 +42,7 @@ const FEATURES = [
 
 export function FeaturesGrid() {
   return (
-    <section id="features" className="border-t border-border/60 py-14 md:py-24">
+    <section id="features" className="border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
@@ -59,7 +59,7 @@ export function FeaturesGrid() {
           {FEATURES.map(({ icon: Icon, title, body }) => (
             <div
               key={title}
-              className="group rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-hover hover:bg-card-hover"
+              className="group rounded-2xl bg-card/60 p-6 shadow-card transition-all hover:bg-card"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
                 <Icon size={20} />

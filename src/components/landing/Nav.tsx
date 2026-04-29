@@ -17,14 +17,14 @@ export function Nav() {
   const [banner, setBanner] = useState(true);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-bg/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 bg-bg/80 backdrop-blur-2xl">
       {banner && (
         <div className="flex items-center justify-between gap-3 border-b border-brand-500/20 bg-brand-500/10 px-4 py-2 md:hidden">
           <div className="flex items-center gap-2 text-xs text-brand-300">
             <Monitor size={13} className="shrink-0" />
             <span>Meilleure expérience sur ordinateur.</span>
           </div>
-          <button type="button" onClick={() => setBanner(false)} className="shrink-0 text-brand-400 hover:text-fg" aria-label="Fermer">
+          <button type="button" onClick={() => setBanner(false)} className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-brand-400 hover:bg-brand-500/20 hover:text-fg" aria-label="Fermer">
             <X size={13} />
           </button>
         </div>
