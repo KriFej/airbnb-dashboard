@@ -38,3 +38,4 @@
 5. **Se demander avant d'estimer** : "est-ce que ce travail nécessite de *penser* ou juste de *substituer* ?" → substitution pure = fourchette divisée par 2
 | 2026-04-28 | responsive improvements | 8-12 min | 4 min | -4 min | À analyser |
 | 2026-04-29 | bannière mobile + textes courts | 5-8 min | 1 min | -4 min | À analyser |
+| 2026-04-29 | logo + style apple + bannière | 6-10 min | 1 min | -5 min | À analyser |
