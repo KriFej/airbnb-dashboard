@@ -17,7 +17,8 @@ export function Hero() {
             Arrêtez votre tableur.<br className="hidden sm:block" />Votre bénéfice net en 30 secondes.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted md:text-lg">
-            Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre vrai bénéfice net automatiquement. Sans Excel, sans prise de tête.
+            <span className="sm:hidden">Connectez votre iCal, entrez vos dépenses — votre bénéfice net s'affiche instantanément.</span>
+            <span className="hidden sm:inline">Connectez vos iCals Airbnb et Booking, entrez vos dépenses — locpilote calcule votre vrai bénéfice net automatiquement. Sans Excel, sans prise de tête.</span>
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button href="/signup" size="lg" icon={<ArrowRight size={16} />}>
@@ -28,7 +29,8 @@ export function Hero() {
             </Button>
           </div>
           <p className="mt-4 text-xs text-dim">
-            1 bien gratuit · Payant à partir de 2 biens · Annulation à tout moment
+            <span className="sm:hidden">1 bien gratuit · Sans carte</span>
+            <span className="hidden sm:inline">1 bien gratuit · Payant à partir de 2 biens · Annulation à tout moment</span>
           </p>
         </div>
         <div className="mt-16 md:mt-20">

@@ -9,9 +9,8 @@ export function FeatureSplit() {
             Accédez à votre vraie rentabilité
           </h2>
           <p className="mt-4 text-muted">
-            Arrêtez de célébrer les chiffres bruts. locpilote déduit les frais,
-            le ménage, les charges et le crédit : vous voyez le montant qui
-            arrive vraiment sur votre compte.
+            <span className="sm:hidden">locpilote déduit frais, charges et crédit — vous voyez ce qui arrive vraiment sur votre compte.</span>
+            <span className="hidden sm:inline">Arrêtez de célébrer les chiffres bruts. locpilote déduit les frais, le ménage, les charges et le crédit : vous voyez le montant qui arrive vraiment sur votre compte.</span>
           </p>
         </div>
 
