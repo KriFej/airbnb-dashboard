@@ -41,3 +41,4 @@
 | 2026-04-29 | logo + style apple + bannière | 6-10 min | 1 min | -5 min | À analyser |
 | 2026-04-29 | dashboard bento redesign | 8 min | 1 min | -7 min | À analyser |
 | 2026-04-29 | redesign complet frontend v2 | 12 min | 3 min | -9 min | À analyser |
+| 2026-04-29 | simulateur loi Le Meur | 8 min | 2 min | -6 min | À analyser |
