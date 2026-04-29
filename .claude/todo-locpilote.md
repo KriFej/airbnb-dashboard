@@ -45,6 +45,42 @@
 - [ ] Intégrer Microsoft Clarity
 - [ ] Créer compte Lemon Squeezy
 - [ ] Pousser les changements sur Vercel (`git push` depuis PC)
+- [ ] **Google Calendar** — intégration synchro calendrier Google (voir prompt ci-dessous)
+
+---
+
+---
+
+## 🗓️ PROMPT CLAUDE CHAT — Google Calendar
+
+> Colle ce prompt dans claude.ai pour planifier l'intégration Google Calendar.
+
+```
+Tu es un expert Next.js 14 App Router + Supabase.
+
+Je construis "locpilote", un SaaS de rentabilité pour les hôtes Airbnb/Booking.com.
+Stack : Next.js 14 App Router, Supabase Auth + RLS, Tailwind CSS, Vercel.
+
+Actuellement, les hôtes synchronisent leurs réservations via iCal (URL en lecture seule).
+Je veux ajouter une intégration Google Calendar pour :
+1. Lire les réservations depuis un calendrier Google (lecture seule, via OAuth)
+2. Optionnellement : écrire les réservations locpilote dans un calendrier Google
+
+Contexte technique :
+- Les réservations sont des objets { uid, summary, start, end, source } stockés localement
+- Les biens (Property) ont déjà airbnbUrl, bookingUrl, airbnbBookings, bookingBookings
+- Auth gérée par Supabase (pas de NextAuth)
+- Pas de base de données SQL propre, données stockées via Supabase Realtime/localStorage
+
+Questions :
+1. Quelle est la meilleure approche pour Google Calendar OAuth avec Supabase Auth (provider Google ou OAuth séparé) ?
+2. Quels fichiers créer/modifier ? (route API, composant ICalImport, types)
+3. Faut-il Google Calendar API v3 ou une lib ?
+4. Comment gérer le refresh token en production sur Vercel ?
+5. Plan d'implémentation étape par étape.
+
+Donne-moi un plan détaillé avant d'écrire du code.
+```
 
 ---
 
