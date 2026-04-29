@@ -37,3 +37,4 @@
 4. **Find & replace pur (même 30 fichiers)** = 5-8 min max — le nombre de fichiers ne multiplie pas le temps si chaque substitution prend 15 secondes
 5. **Se demander avant d'estimer** : "est-ce que ce travail nécessite de *penser* ou juste de *substituer* ?" → substitution pure = fourchette divisée par 2
 | 2026-04-28 | responsive improvements | 8-12 min | 4 min | -4 min | À analyser |
+| 2026-04-29 | bannière mobile + textes courts | 5-8 min | 1 min | -4 min | À analyser |
