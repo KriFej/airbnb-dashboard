@@ -12,6 +12,7 @@ const FEATURES = [
     icon: Wallet,
     title: "Revenu net réel",
     body: "Voyez exactement ce qui arrive sur votre compte après les frais Airbnb et Booking.",
+    accent: true,
   },
   {
     icon: Receipt,
@@ -48,7 +49,7 @@ export function FeaturesGrid() {
           <span className="text-xs uppercase tracking-widest text-brand-500">
             Fonctionnalités
           </span>
-          <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
             Tout ce dont un hôte a besoin,
             <br />
             rien de superflu.
@@ -56,16 +57,39 @@ export function FeaturesGrid() {
         </div>
 
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, title, body }) => (
+          {FEATURES.map(({ icon: Icon, title, body, accent }) => (
             <div
               key={title}
-              className="group rounded-2xl bg-card/60 p-6 shadow-card transition-all hover:bg-card"
+              className={`group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ${
+                accent
+                  ? "bg-brand-500 text-black"
+                  : "bg-card/60 shadow-card hover:bg-card hover:shadow-[0_0_0_1px_rgba(34,197,94,0.15),0_4px_20px_rgba(0,0,0,0.5)]"
+              }`}
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+              {accent && (
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-15"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.3) 0%, transparent 60%)",
+                  }}
+                />
+              )}
+              <div
+                className={`relative flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${
+                  accent
+                    ? "bg-black/20 text-black ring-black/20"
+                    : "bg-brand-500/10 text-brand-400 ring-brand-500/20"
+                }`}
+              >
                 <Icon size={20} />
               </div>
-              <h3 className="mt-5 text-lg font-medium">{title}</h3>
-              <p className="mt-2 text-sm text-muted">{body}</p>
+              <h3 className={`relative mt-5 text-lg font-semibold ${accent ? "text-black" : "text-fg"}`}>
+                {title}
+              </h3>
+              <p className={`relative mt-2 text-sm leading-relaxed ${accent ? "text-black/75" : "text-muted"}`}>
+                {body}
+              </p>
             </div>
           ))}
         </div>
