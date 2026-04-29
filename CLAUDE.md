@@ -8,6 +8,7 @@
 - **DÉBUT de chaque tâche** : lancer `.claude/chrono.sh start "nom tâche"`
 - **FIN de chaque tâche** : lancer `.claude/chrono.sh stop "nom tâche" "estimation_min"`
 - Si écart > 2 min : automatiquement loggé dans `leconhorloge.md`
+- **TOUJOURS** conclure en affichant : `⏱ Réel : Xm Xs — Estimé : X-Y min`
 
 ## Stack technique
 
