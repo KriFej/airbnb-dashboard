@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { BUILT_IN_LEVELS } from '@/lib/game/levels/levelRegistry';
 import { loadSave, writeSave, recordLevelComplete, recordAttempt, saveCustomLevel } from '@/lib/game/persistence/saveSystem';
-import type { Level, GameScreen } from '@/lib/game/types';
-import type { SaveData } from '@/lib/game/persistence/saveSystem';
+import type { Level, SaveData } from '@/lib/game/types';
 
 // Dynamic imports — all canvas/audio code must be client-side only
 const GameCanvas = dynamic(() => import('@/components/game/GameCanvas'), { ssr: false });

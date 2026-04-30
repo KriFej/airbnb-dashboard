@@ -1,7 +1,6 @@
 'use client';
 
-import type { Level } from '@/lib/game/types';
-import type { SaveData } from '@/lib/game/persistence/saveSystem';
+import type { Level, SaveData } from '@/lib/game/types';
 
 interface Props {
   onPlay: (level: Level, practice: boolean) => void;
