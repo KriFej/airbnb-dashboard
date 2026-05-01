@@ -1,51 +1,83 @@
 "use client";
 
-import { CalendarRange, ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { CalendarRange, ChevronDown, Home, Zap } from "lucide-react";
 
 type Props = {
   title: string;
   subtitle: string;
   period: string;
   onPeriod: (p: string) => void;
+  plan?: string;
 };
 
-const PERIODS = ["This month", "Last 30 days", "Year to date"];
+export const PERIODS = ["Ce mois-ci", "30 derniers jours", "Depuis le début de l'année"];
 
-export function Topbar({ title, subtitle, period, onPeriod }: Props) {
+export function Topbar({ title, subtitle, period, onPeriod, plan }: Props) {
+  const isFree = !plan || plan === "Gratuit" || plan === "Sans offre";
+
   return (
-    <div className="flex flex-col gap-4 border-b border-border bg-bg/60 px-6 py-5 backdrop-blur md:flex-row md:items-center md:justify-between md:px-8">
-      <div>
-        <h1 className="text-2xl font-medium tracking-tight">{title}</h1>
-        <p className="mt-1 text-sm text-muted">{subtitle}</p>
+    <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-bg/80 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8">
+      {/* Left: back button (mobile) + title */}
+      <div className="flex min-w-0 items-center gap-3">
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-card text-muted transition-colors hover:border-border-hover hover:text-fg md:hidden"
+        >
+          <Home size={14} />
+        </Link>
+        <div className="min-w-0">
+          <h1 className="truncate text-base font-semibold tracking-tight sm:text-lg md:text-xl">
+            {title}
+          </h1>
+          <p className="hidden text-xs text-muted sm:block">{subtitle}</p>
+        </div>
       </div>
-      <div className="relative">
-        <details className="group inline-block">
-          <summary className="flex h-10 cursor-pointer items-center gap-2 rounded-full border border-border bg-card px-4 text-sm text-white hover:border-border-hover">
-            <CalendarRange size={14} className="text-muted" />
-            {period}
-            <ChevronDown size={14} className="text-muted" />
-          </summary>
-          <div className="absolute right-0 z-40 mt-2 w-48 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
-            {PERIODS.map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={(e) => {
-                  onPeriod(p);
-                  const details = (
-                    e.currentTarget.closest("details") as HTMLDetailsElement | null
-                  );
-                  if (details) details.open = false;
-                }}
-                className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm transition-colors hover:bg-card-hover ${
-                  p === period ? "text-brand-400" : "text-white"
-                }`}
-              >
-                {p}
-              </button>
-            ))}
-          </div>
-        </details>
+
+      {/* Right: period picker + upgrade */}
+      <div className="flex items-center gap-2">
+        {/* Period picker */}
+        <div className="relative">
+          <details className="group inline-block">
+            <summary className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-border bg-card px-3 text-xs text-fg hover:border-border-hover sm:px-4">
+              <CalendarRange size={13} className="shrink-0 text-muted" />
+              <span className="hidden truncate sm:block max-w-[130px]">{period}</span>
+              <ChevronDown size={13} className="shrink-0 text-muted" />
+            </summary>
+            <div className="absolute right-0 z-40 mt-2 w-52 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
+              {PERIODS.map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={(e) => {
+                    onPeriod(p);
+                    const details = (
+                      e.currentTarget.closest("details") as HTMLDetailsElement | null
+                    );
+                    if (details) details.open = false;
+                  }}
+                  className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm transition-colors hover:bg-fg/5 ${
+                    p === period ? "text-brand-400" : "text-fg"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          </details>
+        </div>
+
+        {/* Upgrade button — only for free users */}
+        {isFree && (
+          <Link
+            href="/#pricing"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-brand-400"
+          >
+            <Zap size={12} fill="currentColor" />
+            Upgrade
+          </Link>
+        )}
       </div>
     </div>
   );
