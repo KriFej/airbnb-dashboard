@@ -8,6 +8,7 @@ import {
   Percent,
   Receipt,
   TrendingUp,
+  TrendingDown,
   Wallet,
 } from "lucide-react";
 import { AddPropertyModal } from "@/components/dashboard/AddPropertyModal";
@@ -28,6 +29,7 @@ import {
   computeAggregateKpis,
   formatEuro,
   formatPct,
+  formatYield,
 } from "@/lib/calc";
 import { canAddProperty, propertiesKey } from "@/lib/plan";
 import { KEYS } from "@/lib/storage";
@@ -230,7 +232,7 @@ export default function DashboardPage() {
           {/* Overview */}
           <section id="overview" className="scroll-mt-24 space-y-4">
             <PlanBanner plan={plan} count={properties.length} limit={limit} />
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               <KpiCard
                 label="Revenu brut"
                 value={formatEuro(aggregate.grossRevenue)}
@@ -255,11 +257,26 @@ export default function DashboardPage() {
                 icon={<TrendingUp size={12} />}
                 hint="Après frais et dépenses"
               />
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               <KpiCard
                 label="Ratio frais et coûts"
                 value={formatPct(aggregate.feesLostPct)}
                 icon={<Percent size={14} />}
                 hint="du revenu brut"
+              />
+              <KpiCard
+                label="Rentabilité brute (portfolio)"
+                value={formatYield(aggregate.yieldGross)}
+                icon={<TrendingUp size={14} />}
+                hint={aggregate.yieldGross === null ? "Saisissez le prix d'achat de vos biens" : "Revenus annuels / prix total d'acquisition"}
+              />
+              <KpiCard
+                label="Rentabilité nette (portfolio)"
+                value={formatYield(aggregate.yieldNet)}
+                tone={aggregate.yieldNet !== null ? "green" : "default"}
+                icon={<TrendingDown size={14} />}
+                hint={aggregate.yieldNet === null ? "Saisissez le prix d'achat de vos biens" : "Après frais de plateforme et charges"}
               />
             </div>
           </section>

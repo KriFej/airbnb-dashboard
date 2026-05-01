@@ -1,7 +1,7 @@
 "use client";
 
 import { Building2, Plus, TrendingUp, Wallet } from "lucide-react";
-import { computePropertyKpis, formatEuro } from "@/lib/calc";
+import { computePropertyKpis, formatEuro, formatYield } from "@/lib/calc";
 import { Property } from "@/lib/types";
 
 type Props = {
@@ -100,6 +100,22 @@ export function PropertyList({
                     {formatEuro(k.netProfit)}
                   </div>
                 </div>
+                {(k.yieldGross !== null || k.yieldNet !== null) && (
+                  <>
+                    <div>
+                      <div className="text-dim">Renta. brute</div>
+                      <div className="mt-1 text-sm text-white">
+                        {formatYield(k.yieldGross)}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-dim">Renta. nette</div>
+                      <div className="mt-1 text-sm text-brand-400">
+                        {formatYield(k.yieldNet)}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </button>
           );
