@@ -1,43 +1,43 @@
 import {
-  RefreshCw,
-  LineChart,
-  Receipt,
+  Scale,
+  FileCheck,
   TrendingUp,
-  Wallet,
-  Building2,
+  Calculator,
+  ShieldCheck,
+  BarChart3,
 } from "lucide-react";
 
 const FEATURES = [
   {
-    icon: Wallet,
-    title: "Revenu net réel",
-    body: "Voyez exactement ce qui arrive sur votre compte après les frais Airbnb et Booking.",
+    icon: Scale,
+    title: "Micro-BIC vs Régime Réel",
+    body: "Comparaison automatique des deux régimes. LocFiscal calcule lequel vous fait payer moins.",
     accent: true,
   },
   {
-    icon: Receipt,
-    title: "Détail des dépenses",
-    body: "Crédit, électricité, eau, internet, ménage — tout est suivi en quelques secondes.",
+    icon: Calculator,
+    title: "Amortissement LMNP",
+    body: "Calculez vos amortissements (bien, mobilier, travaux) et réduisez votre base imposable.",
   },
   {
-    icon: RefreshCw,
-    title: "Synchro iCal",
-    body: "Collez votre URL iCal une fois. Vos réservations apparaissent automatiquement.",
-  },
-  {
-    icon: Building2,
-    title: "Multi-biens",
-    body: "Gérez plusieurs logements depuis un seul tableau de bord, chacun avec ses propres chiffres.",
+    icon: FileCheck,
+    title: "Récapitulatif déclaration",
+    body: "Résumé prêt à recopier sur votre déclaration 2042-C-PRO ou à envoyer à votre comptable.",
   },
   {
     icon: TrendingUp,
-    title: "Prévision fin de mois",
-    body: "Bénéfice projeté à partir de vos réservations actuelles et futures.",
+    title: "Rentabilité nette après impôts",
+    body: "Rendement brut, rendement net avant et après imposition. La vraie performance de votre bien.",
   },
   {
-    icon: LineChart,
-    title: "Multi-plateforme",
-    body: "Fonctionne avec Airbnb, Booking.com et toute source compatible iCal.",
+    icon: BarChart3,
+    title: "Suivi annuel",
+    body: "Suivez vos revenus mois par mois, anticipez votre imposition avant la déclaration d'avril.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Conforme à la loi Le Meur 2024",
+    body: "Calculs mis à jour selon la loi de finances 2024 et les nouvelles règles LMNP.",
   },
 ];
 
@@ -50,9 +50,8 @@ export function FeaturesGrid() {
             Fonctionnalités
           </span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Tout ce dont un hôte a besoin,
-            <br />
-            rien de superflu.
+            Tout ce qu&apos;un hôte LMNP<br />
+            doit savoir.
           </h2>
         </div>
 

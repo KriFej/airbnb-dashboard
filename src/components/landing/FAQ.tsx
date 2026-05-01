@@ -2,40 +2,32 @@ import { Plus } from "lucide-react";
 
 const FAQS = [
   {
-    q: "Combien coûte locpilote ?",
-    a: "Trois offres : Starter à 9,90 €/mois (1 à 2 biens), Pro à 19,90 €/mois (3 à 10 biens) et Unlimited sur devis à partir de 11 biens. Toutes les offres sont mensuelles, résiliables à tout moment.",
+    q: "C'est quoi le LMNP ?",
+    a: "Le statut LMNP (Loueur Meublé Non Professionnel) s'applique à tout propriétaire qui loue un logement meublé et dont les revenus locatifs sont inférieurs à 23 000 €/an ou à 50 % de ses revenus totaux.",
   },
   {
-    q: "C'est quoi un iCal ?",
-    a: "Un iCal (ou .ics) est un lien que génèrent Airbnb et Booking.com pour exporter votre calendrier de réservations. En le collant dans locpilote, vos réservations s'importent automatiquement — sans saisie manuelle.",
+    q: "Quelle est la différence entre Micro-BIC et Régime Réel ?",
+    a: "En Micro-BIC, vous bénéficiez d'un abattement forfaitaire de 50 % (ou 71 % pour un meublé de tourisme classé) sur vos revenus bruts. En Régime Réel, vous déduisez toutes vos charges réelles (intérêts d'emprunt, taxe foncière, assurance, amortissements...). Le Réel est souvent plus avantageux si vos charges dépassent 50 % de vos revenus.",
   },
   {
-    q: "Comment fonctionne l'intégration iCal ?",
-    a: "Ouvrez votre calendrier Airbnb ou Booking, copiez l'URL d'export iCal, collez-la dans le tableau de bord. locpilote récupère vos réservations et les affiche instantanément.",
+    q: "Comment sont calculés les amortissements LMNP ?",
+    a: "En régime réel, vous pouvez amortir le bien immobilier (hors terrain) sur 25 à 30 ans, le mobilier sur 5 à 7 ans, et les travaux sur 10 ans. LocFiscal fait le calcul automatiquement à partir du prix d'achat.",
   },
   {
-    q: "Comment trouver mon URL iCal sur Airbnb ?",
-    a: "Dans l'app ou le site Airbnb : Calendrier → sélectionnez votre logement → Disponibilité → Exporter le calendrier. Copiez l'URL .ics qui s'affiche et collez-la dans locpilote.",
+    q: "Est-ce que LocFiscal remplace un comptable ?",
+    a: "LocFiscal est un outil de simulation et de suivi. Il ne remplace pas un expert-comptable pour l'adhésion à un CGA (Centre de Gestion Agréé) ou pour la vérification de votre déclaration. Mais il vous permet de comprendre votre situation et de préparer un résumé clair pour votre comptable — ou de faire vous-même si votre situation est simple.",
   },
   {
-    q: "Comment trouver mon URL iCal sur Booking.com ?",
-    a: "Dans l'Extranet Booking.com : Tarifs et disponibilités → Calendrier → onglet Synchroniser les calendriers → copiez l'URL iCal de sortie et collez-la dans locpilote.",
+    q: "La loi Le Meur 2024 change-t-elle quelque chose ?",
+    a: "Oui. La loi de finances 2024 a réduit l'abattement Micro-BIC pour les meublés de tourisme non classés de 71 % à 50 %, et supprimé l'avantage fiscal pour les classés dans certaines communes. LocFiscal intègre ces nouvelles règles.",
   },
   {
-    q: "Où sont stockées mes données ?",
-    a: "Sur des serveurs Supabase situés en Union européenne, chiffrées et accessibles uniquement par vous. Vous pouvez exporter ou supprimer votre compte à tout moment.",
+    q: "Mes données sont-elles sécurisées ?",
+    a: "Vos données sont stockées sur des serveurs Supabase situés en Union Européenne, chiffrées, et accessibles uniquement par vous. Vous pouvez exporter ou supprimer votre compte à tout moment.",
   },
   {
-    q: "Est-ce que ça marche avec Booking.com ?",
-    a: "Oui — toute source de calendrier qui exporte une URL iCal (.ics) est compatible : Airbnb, Booking.com, Vrbo, Hostaway, Smoobu, Google Calendar, etc.",
-  },
-  {
-    q: "Puis-je suivre plusieurs biens ?",
-    a: "Starter couvre 1 à 2 biens, Pro couvre 3 à 10 avec l'agenda des réservations synchro iCal en direct, Unlimited est conçu pour les portefeuilles de 11 biens et plus (devis personnalisé).",
-  },
-  {
-    q: "Le bénéfice net est-il précis ?",
-    a: "Aussi précis que les données que vous saisissez. locpilote déduit les frais de plateforme (en % par canal) et les dépenses mensuelles fixes. À remplir sérieusement pour un résultat fiable.",
+    q: "Le simulateur est-il vraiment gratuit ?",
+    a: "Oui. Le simulateur Micro-BIC vs Régime Réel est 100 % gratuit, sans inscription. Le plan Pro ajoute le suivi annuel, l'export PDF et le tableau de bord multi-biens.",
   },
 ];
 
@@ -44,11 +36,9 @@ export function FAQ() {
     <section id="faq" className="border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
-          <span className="text-xs uppercase tracking-widest text-brand-500">
-            FAQ
-          </span>
+          <span className="text-xs uppercase tracking-widest text-brand-500">FAQ</span>
           <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl md:text-5xl">
-            Questions, réponses.
+            Questions fréquentes.
           </h2>
         </div>
 
@@ -56,15 +46,10 @@ export function FAQ() {
           {FAQS.map((item) => (
             <details key={item.q} className="group px-6 py-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4">
-                <span className="text-[15px] font-medium text-fg">
-                  {item.q}
-                </span>
-                <Plus
-                  size={18}
-                  className="shrink-0 text-muted transition-transform group-open:rotate-45"
-                />
+                <span className="text-[15px] font-medium text-fg">{item.q}</span>
+                <Plus size={18} className="shrink-0 text-muted transition-transform group-open:rotate-45" />
               </summary>
-              <p className="mt-3 text-sm text-muted">{item.a}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
             </details>
           ))}
         </div>

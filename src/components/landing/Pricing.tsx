@@ -1,33 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Mail, Sparkles, Zap } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Check, Sparkles, Zap } from "lucide-react";
 
 type Billing = "monthly" | "annual";
 
-const MONTHLY = { starter: "9,90 €", pro: "19,90 €" };
-const ANNUAL = { starter: "99 €", pro: "199 €" };
-const ANNUAL_MONTHLY = { starter: "8,25 €", pro: "16,58 €" };
-
 export function Pricing() {
-  const [billing, setBilling] = useState<Billing>("monthly");
+  const [billing, setBilling] = useState<Billing>("annual");
   const annual = billing === "annual";
-  const prices = annual ? ANNUAL : MONTHLY;
 
   return (
     <section id="pricing" className="relative overflow-hidden border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
-
-        {/* Section header */}
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">Tarifs</span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Des offres simples.
+            Moins cher qu&apos;une heure de comptable.
           </h2>
+          <p className="mt-4 text-muted">
+            Un comptable spécialisé LMNP vous coûte 800–1 500 € / an. LocFiscal, c&apos;est 79 € / an.
+          </p>
         </div>
 
-        {/* Toggle mensuel / annuel */}
         <div className="mt-8 flex justify-center">
           <div className="inline-flex items-center rounded-full border border-border bg-card p-1">
             <button
@@ -54,7 +48,6 @@ export function Pricing() {
           </div>
         </div>
 
-        {/* Background large text */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -bottom-8 flex items-end justify-center overflow-hidden"
@@ -68,79 +61,58 @@ export function Pricing() {
           </span>
         </div>
 
-        {/* Cards */}
-        <div className="relative mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-4">
-
-          {/* Gratuit */}
+        <div className="relative mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
           <PricingCard
             name="Gratuit"
             price="0 €"
             period=""
-            desc="1 bien, toutes les fonctionnalités. Sans carte."
-            cta="Commencer gratuitement"
-            href="/signup"
+            desc="Simulateur illimité, sans compte."
+            cta="Simuler maintenant"
+            href="/simulateur-lmnp"
             variant="default"
             features={[
-              "1 bien inclus",
-              "Synchronisation iCal Airbnb & Booking",
-              "Tableau de bord complet",
-              "Calcul bénéfice net en temps réel",
-              "Export CSV",
+              "Simulateur Micro-BIC vs Réel",
+              "Calcul d'amortissements",
+              "Estimation impôt 2024",
+              "Résultat immédiat",
             ]}
           />
 
-          {/* Starter */}
-          <PricingCard
-            name="Starter"
-            price={prices.starter}
-            period={annual ? "/ an" : "/ mois"}
-            subPrice={annual ? `soit ${ANNUAL_MONTHLY.starter} / mois` : undefined}
-            desc="Pour les hôtes avec 2 ou 3 biens."
-            cta="Choisir Starter"
-            href={`/api/checkout?plan=starter${annual ? "-annual" : ""}`}
-            variant="default"
-            features={[
-              "Jusqu'à 3 biens",
-              "Synchronisation iCal Airbnb & Booking.com",
-              "Tableau de bord complet",
-              "Export CSV",
-            ]}
-          />
-
-          {/* Pro — highlighted */}
           <PricingCard
             name="Pro"
             badge="Le plus populaire"
-            price={prices.pro}
+            price={annual ? "79 €" : "9 €"}
             period={annual ? "/ an" : "/ mois"}
-            subPrice={annual ? `soit ${ANNUAL_MONTHLY.pro} / mois` : undefined}
-            desc="Pour les hôtes de 4 à 10 biens."
-            cta="Choisir Pro"
+            subPrice={annual ? "soit 6,58 € / mois" : undefined}
+            desc="Suivi fiscal complet sur l'année."
+            cta="Commencer — 14 jours gratuits"
             href={`/api/checkout?plan=pro${annual ? "-annual" : ""}`}
             variant="featured"
             features={[
-              "4 à 10 biens",
-              "Tout ce qui est inclus dans Starter",
-              "Agenda des réservations iCal en direct",
-              "Lien direct Airbnb + Booking.com",
+              "Tout le gratuit inclus",
+              "Tableau de bord fiscal annuel",
+              "Suivi revenus mois par mois",
+              "Récapitulatif déclaration 2042-C-PRO",
+              "Export PDF prêt à envoyer",
+              "Jusqu'à 5 biens",
             ]}
           />
 
-          {/* Unlimited */}
           <PricingCard
-            name="Unlimited"
-            price="Sur devis"
-            period=""
-            desc="À partir de 11 biens — tarif adapté à votre volume."
-            cta="Contacter l'équipe"
-            href="mailto:hello@locpilote.com?subject=Demande%20de%20devis%20Unlimited"
+            name="Expert"
+            price={annual ? "149 €" : "15 €"}
+            period={annual ? "/ an" : "/ mois"}
+            subPrice={annual ? "soit 12,42 € / mois" : undefined}
+            desc="Pour les multi-propriétaires."
+            cta="Choisir Expert"
+            href={`/api/checkout?plan=unlimited${annual ? "-annual" : ""}`}
             variant="default"
-            icon={<Mail size={14} />}
             features={[
-              "11 biens et plus, sans limite",
               "Tout ce qui est inclus dans Pro",
-              "Devis personnalisé selon votre volume",
-              "Onboarding et support dédiés",
+              "Biens illimités",
+              "Import iCal Airbnb & Booking",
+              "Analyse rentabilité après impôts",
+              "Support prioritaire",
             ]}
           />
         </div>
@@ -172,7 +144,6 @@ function PricingCard({
   href,
   variant,
   features,
-  icon,
 }: {
   name: string;
   badge?: string;
@@ -184,7 +155,6 @@ function PricingCard({
   href: string;
   variant: CardVariant;
   features: string[];
-  icon?: React.ReactNode;
 }) {
   const featured = variant === "featured";
 
@@ -196,7 +166,6 @@ function PricingCard({
           : "bg-[rgba(255,255,255,0.04)] backdrop-blur-sm border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-white/[0.14] hover:bg-[rgba(255,255,255,0.06)]"
       }`}
     >
-      {/* Top glow for featured */}
       {featured && (
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-32 opacity-30"
@@ -207,7 +176,6 @@ function PricingCard({
       )}
 
       <div className="relative flex flex-col flex-1">
-        {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className={`text-sm font-medium ${featured ? "text-black/80" : "text-muted"}`}>
             {name}
@@ -222,7 +190,6 @@ function PricingCard({
           )}
         </div>
 
-        {/* Price */}
         <div className="mt-5">
           <div className="flex items-baseline gap-2">
             <span className={`text-5xl font-semibold tracking-tight ${featured ? "text-black" : "text-fg"}`}>
@@ -239,7 +206,6 @@ function PricingCard({
 
         <p className={`mt-3 text-sm ${featured ? "text-black/70" : "text-muted"}`}>{desc}</p>
 
-        {/* Features */}
         <ul className="mt-6 space-y-3 flex-1">
           {features.map((f) => (
             <li key={f} className={`flex items-start gap-3 text-sm ${featured ? "text-black/80" : "text-muted"}`}>
@@ -253,7 +219,6 @@ function PricingCard({
           ))}
         </ul>
 
-        {/* CTA */}
         <div className="mt-8">
           <a
             href={href}
@@ -263,7 +228,6 @@ function PricingCard({
                 : "bg-fg/8 text-fg border border-white/10 hover:bg-fg/14"
             }`}
           >
-            {icon}
             {cta}
           </a>
         </div>

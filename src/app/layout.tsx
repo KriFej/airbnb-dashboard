@@ -10,23 +10,26 @@ const inter = Inter({
   display: "swap",
 });
 
-const BASE_URL = "https://locpilote.com";
+const BASE_URL = "https://locfiscal.fr";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "locpilote — Votre vrai bénéfice net Airbnb & Booking, enfin visible.",
-    template: "%s · locpilote",
+    default: "LocFiscal — Payez moins d'impôts sur votre Airbnb. LMNP simplifié.",
+    template: "%s · LocFiscal",
   },
   description:
-    "Le tableau de bord de rentabilité pour les hôtes Airbnb & Booking.com. Suivez votre vrai revenu net, vos dépenses, les frais de plateforme et synchronisez vos calendriers iCal en quelques secondes.",
+    "Micro-BIC ou Régime Réel ? LocFiscal calcule votre imposition LMNP en 30 secondes et vous dit combien vous économisez. Simulateur gratuit, sans inscription.",
   keywords: [
-    "tableau de bord airbnb",
-    "bénéfice net airbnb",
-    "revenu booking.com",
-    "intégration ical",
-    "location courte durée",
-    "locpilote",
+    "LMNP",
+    "micro-bic",
+    "régime réel",
+    "fiscalité airbnb",
+    "simulateur lmnp",
+    "déclaration lmnp",
+    "amortissement lmnp",
+    "location meublée non professionnelle",
+    "locfiscal",
   ],
   alternates: {
     canonical: BASE_URL,
@@ -43,26 +46,26 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   openGraph: {
-    title: "locpilote — Votre vrai bénéfice net Airbnb & Booking, enfin visible.",
+    title: "LocFiscal — Payez moins d'impôts sur votre Airbnb.",
     description:
-      "Suivez votre vrai revenu net, vos dépenses et les frais de plateforme. Synchronisez Airbnb + Booking en un clic.",
+      "Micro-BIC ou Régime Réel ? Simulateur LMNP 2024 gratuit. Calculez votre économie fiscale en 30 secondes.",
     type: "website",
     url: BASE_URL,
-    siteName: "locpilote",
+    siteName: "LocFiscal",
     locale: "fr_FR",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "locpilote — tableau de bord de rentabilité Airbnb",
+        alt: "LocFiscal — Simulateur LMNP Micro-BIC vs Régime Réel",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "locpilote — Votre vrai bénéfice net Airbnb & Booking",
-    description: "Suivez votre vrai revenu net, vos dépenses et les frais de plateforme.",
+    title: "LocFiscal — Payez moins d'impôts sur votre Airbnb",
+    description: "Simulateur LMNP 2024 gratuit. Micro-BIC ou Régime Réel ?",
     images: ["/opengraph-image.png"],
   },
   icons: {
@@ -78,32 +81,30 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": `${BASE_URL}/#organization`,
-      name: "locpilote",
+      name: "LocFiscal",
       url: BASE_URL,
       logo: `${BASE_URL}/favicon.svg`,
-      contactPoint: { "@type": "ContactPoint", email: "hello@locpilote.com", contactType: "customer support" },
+      contactPoint: { "@type": "ContactPoint", email: "hello@locfiscal.fr", contactType: "customer support" },
     },
     {
       "@type": "SoftwareApplication",
-      name: "locpilote",
-      applicationCategory: "BusinessApplication",
+      name: "LocFiscal",
+      applicationCategory: "FinanceApplication",
       operatingSystem: "Web",
       url: BASE_URL,
-      description: "Tableau de bord de rentabilité pour les hôtes Airbnb et Booking.com. Suivez votre bénéfice net, synchronisez vos calendriers iCal et gérez vos dépenses.",
+      description: "Outil de simulation et d'optimisation fiscale LMNP pour les hôtes Airbnb et Booking.com. Micro-BIC vs Régime Réel, calcul d'amortissements, récapitulatif déclaration.",
       offers: [
         { "@type": "Offer", name: "Gratuit", price: "0", priceCurrency: "EUR" },
-        { "@type": "Offer", name: "Starter", price: "9.90", priceCurrency: "EUR", billingIncrement: "P1M" },
-        { "@type": "Offer", name: "Pro", price: "19.90", priceCurrency: "EUR", billingIncrement: "P1M" },
+        { "@type": "Offer", name: "Pro", price: "79", priceCurrency: "EUR", billingIncrement: "P1Y" },
+        { "@type": "Offer", name: "Expert", price: "149", priceCurrency: "EUR", billingIncrement: "P1Y" },
       ],
     },
     {
       "@type": "FAQPage",
       mainEntity: [
-        { "@type": "Question", name: "Combien coûte locpilote ?", acceptedAnswer: { "@type": "Answer", text: "Trois offres : Starter à 9,90 €/mois (1 à 2 biens), Pro à 19,90 €/mois (3 à 10 biens) et Unlimited sur devis à partir de 11 biens." } },
-        { "@type": "Question", name: "C'est quoi un iCal ?", acceptedAnswer: { "@type": "Answer", text: "Un iCal (.ics) est un lien généré par Airbnb et Booking.com pour exporter votre calendrier de réservations. En le collant dans locpilote, vos réservations s'importent automatiquement." } },
-        { "@type": "Question", name: "Comment trouver mon URL iCal sur Airbnb ?", acceptedAnswer: { "@type": "Answer", text: "Dans l'app Airbnb : Calendrier → votre logement → Disponibilité → Exporter le calendrier. Copiez l'URL .ics et collez-la dans locpilote." } },
-        { "@type": "Question", name: "Où sont stockées mes données ?", acceptedAnswer: { "@type": "Answer", text: "Sur des serveurs Supabase situés en Union européenne, chiffrées et accessibles uniquement par vous." } },
-        { "@type": "Question", name: "Est-ce que ça marche avec Booking.com ?", acceptedAnswer: { "@type": "Answer", text: "Oui — toute source iCal (.ics) est compatible : Airbnb, Booking.com, Vrbo, Hostaway, Smoobu, Google Calendar, etc." } },
+        { "@type": "Question", name: "Quelle est la différence entre Micro-BIC et Régime Réel ?", acceptedAnswer: { "@type": "Answer", text: "En Micro-BIC, vous bénéficiez d'un abattement forfaitaire de 50% sur vos revenus bruts. En Régime Réel, vous déduisez toutes vos charges réelles et amortissements. Le Réel est souvent plus avantageux si vos charges dépassent 50% de vos revenus." } },
+        { "@type": "Question", name: "Comment sont calculés les amortissements LMNP ?", acceptedAnswer: { "@type": "Answer", text: "Bien : (prix d'achat × 80%) ÷ 25 ans. Mobilier : valeur meubles ÷ 7 ans. Travaux lourds : montant ÷ 10 ans." } },
+        { "@type": "Question", name: "Le simulateur LMNP est-il gratuit ?", acceptedAnswer: { "@type": "Answer", text: "Oui. Le simulateur Micro-BIC vs Régime Réel est 100% gratuit, sans inscription, avec résultat immédiat." } },
       ],
     },
   ],

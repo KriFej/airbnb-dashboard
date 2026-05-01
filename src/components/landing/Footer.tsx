@@ -33,7 +33,7 @@ export function Footer() {
           <div>
             <h3 className="text-base font-semibold text-fg">Restez informé</h3>
             <p className="mt-1 text-sm text-muted">
-              Conseils rentabilité, nouvelles fonctionnalités, actus locpilote.
+              Conseils rentabilité, nouvelles fonctionnalités, actus locfiscal.
             </p>
           </div>
           {newsDone ? (
@@ -72,10 +72,10 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              Le tableau de bord de rentabilité pour les hôtes Airbnb et Booking qui prennent leurs chiffres au sérieux.
+              L&apos;outil fiscal LMNP pour les hôtes Airbnb et Booking qui veulent payer moins d&apos;impôts, légalement.
             </p>
             <p className="mt-4 text-xs text-dim">
-              hello@locpilote.com
+              hello@locfiscal.fr
             </p>
           </div>
 
@@ -84,16 +84,15 @@ export function Footer() {
             links={[
               { label: "Fonctionnalités", href: "#features" },
               { label: "Tarifs", href: "#pricing" },
-              { label: "Comment ça marche", href: "#how-it-works" },
+              { label: "Simulateur LMNP", href: "/simulateur-lmnp" },
               { label: "Tableau de bord", href: "/dashboard" },
             ]}
           />
           <FooterCol
             title="Entreprise"
             links={[
-              { label: "Témoignages", href: "#testimonials" },
               { label: "FAQ", href: "#faq" },
-              { label: "Contact", href: "mailto:hello@locpilote.com" },
+              { label: "Contact", href: "mailto:hello@locfiscal.fr" },
             ]}
           />
           <FooterCol
@@ -106,13 +105,13 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 text-xs text-dim md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} locpilote. Conçu pour les hôtes, par des hôtes.</p>
+          <p>© {new Date().getFullYear()} locfiscal. Conçu pour les hôtes, par des hôtes.</p>
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/8 px-2.5 py-1 text-[11px] font-medium text-brand-400">
-              1 bien gratuit
+              Simulateur gratuit
             </span>
-            <a href="mailto:hello@locpilote.com" className="hover:text-fg transition-colors">
-              hello@locpilote.com
+            <a href="mailto:hello@locfiscal.fr" className="hover:text-fg transition-colors">
+              hello@locfiscal.fr
             </a>
           </div>
         </div>

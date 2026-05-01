@@ -24,6 +24,7 @@ import { InputsPanel } from "@/components/dashboard/InputsPanel";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { PlanBanner } from "@/components/dashboard/PlanBanner";
 import { PropertyList } from "@/components/dashboard/PropertyList";
+import { FiscalitePanel } from "@/components/dashboard/FiscalitePanel";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { Topbar } from "@/components/dashboard/Topbar";
 import { UpgradeModal } from "@/components/dashboard/UpgradeModal";
@@ -45,7 +46,7 @@ import {
   makeProperty,
 } from "@/lib/types";
 
-const SECTION_IDS = ["overview", "properties", "settings", "expenses", "agenda"];
+const SECTION_IDS = ["overview", "fiscalite", "properties", "settings", "expenses", "agenda"];
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -398,6 +399,9 @@ export default function DashboardPage() {
               </ol>
             </div>
           )}
+
+          {/* Fiscalité LMNP */}
+          <FiscalitePanel properties={properties} />
 
           {/* Biens + Prévision */}
           <section

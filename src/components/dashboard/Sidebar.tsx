@@ -8,6 +8,7 @@ import {
   Settings,
   Building2,
   Wallet,
+  Scale,
   Zap,
 } from "lucide-react";
 import { Logo } from "../ui/Logo";
@@ -17,10 +18,11 @@ type Item = { id: string; icon: LucideIcon; label: string };
 
 const NAV: Item[] = [
   { id: "overview", icon: Home, label: "Vue d'ensemble" },
+  { id: "fiscalite", icon: Scale, label: "Fiscalité LMNP" },
   { id: "properties", icon: Building2, label: "Biens" },
   { id: "agenda", icon: Calendar, label: "Agenda" },
   { id: "expenses", icon: Wallet, label: "Dépenses" },
-  { id: "settings", icon: Settings, label: "Paramètres" },
+  { id: "settings", icon: Settings, label: "Paramètres iCal" },
 ];
 
 export function Sidebar({
@@ -46,14 +48,12 @@ export function Sidebar({
     <>
       {/* Desktop sidebar */}
       <aside className="hidden md:flex md:flex-col w-[220px] shrink-0 border-r border-border bg-surface">
-        {/* Logo */}
         <div className="flex h-16 items-center px-5">
           <Link href="/">
             <Logo />
           </Link>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 space-y-0.5 px-3 pt-2">
           {NAV.map((item) => {
             const Icon = item.icon;
@@ -82,7 +82,6 @@ export function Sidebar({
           })}
         </nav>
 
-        {/* Upgrade banner for free users */}
         {isFree && (
           <div className="mx-3 mb-3 overflow-hidden rounded-xl bg-brand-500/8 border border-brand-500/20 p-4">
             <div className="flex items-center gap-2 text-brand-400">
@@ -90,7 +89,7 @@ export function Sidebar({
               <span className="text-xs font-semibold">Passer à Pro</span>
             </div>
             <p className="mt-1.5 text-xs text-muted leading-relaxed">
-              Jusqu&apos;à 10 biens, synchro automatique et plus.
+              Récapitulatif déclaration, export PDF, multi-biens.
             </p>
             <Link
               href="/#pricing"
@@ -101,7 +100,6 @@ export function Sidebar({
           </div>
         )}
 
-        {/* User */}
         <div className="border-t border-border p-3">
           <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
@@ -109,7 +107,7 @@ export function Sidebar({
             </div>
             <div className="flex-1 overflow-hidden">
               <div className="truncate text-xs font-medium text-fg">
-                {userEmail ?? "Votre hôte"}
+                {userEmail ?? "Votre compte"}
               </div>
               <div className="truncate text-[11px] text-muted">
                 {planLabel ?? "Sans offre"}
@@ -131,7 +129,7 @@ export function Sidebar({
 
       {/* Mobile bottom nav */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-border bg-surface/95 backdrop-blur">
-        {NAV.map((item) => {
+        {NAV.slice(0, 5).map((item) => {
           const Icon = item.icon;
           const isActive = active === item.id;
           return (

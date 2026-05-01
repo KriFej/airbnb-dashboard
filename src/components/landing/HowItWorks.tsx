@@ -1,24 +1,24 @@
-import { UserPlus, Link2, TrendingUp } from "lucide-react";
+import { Calculator, CheckCircle, FileText } from "lucide-react";
 import { Button } from "../ui/Button";
 
 const STEPS = [
   {
-    icon: UserPlus,
+    icon: Calculator,
     step: "01",
-    title: "Créez votre compte gratuit",
-    desc: "Inscription en 30 secondes, sans carte bancaire. Votre tableau de bord vous attend immédiatement.",
+    title: "Entrez vos revenus Airbnb",
+    desc: "Revenus Airbnb, Booking.com, commissions, prix d'achat du bien — saisie en 2 minutes.",
   },
   {
-    icon: Link2,
+    icon: FileText,
     step: "02",
-    title: "Connectez vos calendriers",
-    desc: "Copiez votre lien iCal depuis Airbnb ou Booking.com et collez-le dans locpilote. Vos réservations s'importent automatiquement.",
+    title: "Ajoutez vos charges réelles",
+    desc: "Intérêts d'emprunt, taxe foncière, assurance, copropriété, travaux, amortissements.",
   },
   {
-    icon: TrendingUp,
+    icon: CheckCircle,
     step: "03",
-    title: "Visualisez votre bénéfice net",
-    desc: "Entrez vos dépenses (électricité, ménage, crédit…) et obtenez votre bénéfice net réel en temps réel.",
+    title: "LocFiscal choisit le meilleur régime",
+    desc: "Micro-BIC (abattement 50%) ou Régime Réel ? On calcule les deux et on vous dit quoi choisir.",
   },
 ];
 
@@ -31,15 +31,14 @@ export function HowItWorks() {
             Comment ça marche
           </span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Opérationnel en 2 minutes.
+            Votre bilan LMNP en 3 étapes.
           </h2>
           <p className="mt-4 text-muted">
-            Un compte, un lien iCal, vos dépenses — c&apos;est tout ce qu&apos;il faut.
+            Pas besoin d&apos;un comptable à 1 200€/an pour savoir quel régime choisir.
           </p>
         </div>
 
         <div className="relative mt-16">
-          {/* Connecting line — desktop only */}
           <div className="absolute left-1/2 top-6 hidden h-[calc(100%-3rem)] w-px -translate-x-1/2 bg-gradient-to-b from-brand-500/40 via-brand-500/20 to-transparent md:block" />
 
           <div className="grid gap-10 md:gap-0">
@@ -50,7 +49,6 @@ export function HowItWorks() {
                   i % 2 === 1 ? "md:flex-row-reverse" : ""
                 }`}
               >
-                {/* Content */}
                 <div className={`flex-1 md:pb-16 ${i % 2 === 1 ? "md:text-right" : ""}`}>
                   <span className="text-[80px] font-semibold leading-none tracking-tighter text-fg/[0.04] select-none">
                     {step}
@@ -66,12 +64,10 @@ export function HowItWorks() {
                   </div>
                 </div>
 
-                {/* Center dot */}
                 <div className="hidden md:flex md:w-4 md:shrink-0 md:flex-col md:items-center md:pt-6">
                   <div className="h-4 w-4 rounded-full border-2 border-brand-500 bg-bg shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
                 </div>
 
-                {/* Empty spacer */}
                 <div className="flex-1" />
               </div>
             ))}
@@ -79,11 +75,11 @@ export function HowItWorks() {
         </div>
 
         <div className="mt-4 text-center md:mt-10">
-          <Button href="/signup" size="lg">
-            Créer mon compte gratuitement
+          <Button href="/simulateur-lmnp" size="lg">
+            Lancer la simulation gratuite
           </Button>
           <p className="mt-3 text-xs text-dim">
-            Accès immédiat · 1 bien gratuit inclus · Aucune carte requise
+            Aucune inscription · Résultat immédiat · Calculs 2024
           </p>
         </div>
       </div>
