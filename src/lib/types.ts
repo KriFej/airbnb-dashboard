@@ -9,6 +9,7 @@ export type Inputs = {
   menage: number;
   airbnbFeePct: number;
   bookingFeePct: number;
+  prixAchat: number;
 };
 
 export const DEFAULT_INPUTS: Inputs = {
@@ -22,6 +23,7 @@ export const DEFAULT_INPUTS: Inputs = {
   menage: 0,
   airbnbFeePct: 14,
   bookingFeePct: 15,
+  prixAchat: 0,
 };
 
 export type Booking = {
@@ -49,6 +51,8 @@ export type KpiData = {
   netProfit: number;
   feesLostPct: number;
   forecast: number;
+  yieldGross: number | null;
+  yieldNet: number | null;
 };
 
 export function makeProperty(name: string): Property {

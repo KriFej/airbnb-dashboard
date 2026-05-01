@@ -8,6 +8,7 @@ import {
   Loader2,
   Percent,
   Receipt,
+  TrendingDown,
   TrendingUp,
   Wallet,
 } from "lucide-react";
@@ -33,6 +34,7 @@ import {
   computeAggregateKpis,
   formatEuro,
   formatPct,
+  formatYield,
 } from "@/lib/calc";
 import { exportPropertiesToCsv } from "@/lib/csv";
 import { canAddProperty } from "@/lib/plan";
@@ -322,6 +324,34 @@ export default function DashboardPage() {
                   tone="danger"
                   delta="−"
                   sparkline={revenueSparkline}
+                />
+              </div>
+              {/* Ratio frais */}
+              <div className="min-h-[140px]">
+                <KpiCard
+                  label="Ratio frais et coûts"
+                  value={formatPct(aggregate.feesLostPct)}
+                  icon={<Percent size={14} />}
+                  hint="du revenu brut"
+                />
+              </div>
+              {/* Rentabilité brute portfolio */}
+              <div className="min-h-[140px]">
+                <KpiCard
+                  label="Rentabilité brute"
+                  value={formatYield(aggregate.yieldGross)}
+                  icon={<TrendingUp size={14} />}
+                  hint={aggregate.yieldGross === null ? "Saisissez le prix d'achat" : "Revenus annuels / prix d'achat"}
+                />
+              </div>
+              {/* Rentabilité nette portfolio */}
+              <div className="min-h-[140px]">
+                <KpiCard
+                  label="Rentabilité nette"
+                  value={formatYield(aggregate.yieldNet)}
+                  tone={aggregate.yieldNet !== null ? "green" : "default"}
+                  icon={<TrendingDown size={14} />}
+                  hint={aggregate.yieldNet === null ? "Saisissez le prix d'achat" : "Après frais et charges"}
                 />
               </div>
             </div>
