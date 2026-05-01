@@ -115,3 +115,43 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* ===== IMPRESSION / EXPORT PDF ===== */
+@media print {
+  /* Cache tout sauf le récapitulatif imprimable */
+  body > * { display: none !important; }
+  #lmnp-print-recap { display: block !important; }
+
+  #lmnp-print-recap {
+    position: fixed;
+    inset: 0;
+    background: white;
+    color: black;
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    padding: 32px;
+    box-sizing: border-box;
+  }
+
+  #lmnp-print-recap * {
+    color: inherit !important;
+    background: transparent !important;
+    border-color: #e5e7eb !important;
+    box-shadow: none !important;
+  }
+
+  #lmnp-print-recap .print-accent {
+    background: #f0fdf4 !important;
+    border: 1px solid #bbf7d0 !important;
+  }
+
+  #lmnp-print-recap .print-winner {
+    background: #dcfce7 !important;
+    border: 2px solid #22c55e !important;
+  }
+
+  @page {
+    margin: 0;
+    size: A4;
+  }
+}

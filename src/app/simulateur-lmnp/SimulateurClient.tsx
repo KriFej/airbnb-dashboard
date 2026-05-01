@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import {
   ArrowRight,
   CheckCircle2,
+  Download,
   Info,
   Scale,
   TrendingDown,
@@ -379,6 +380,22 @@ export function SimulateurClient() {
               <KpiBox label="Total amortissements" value={formatEuro(result.totalAmortissements)} />
             </div>
 
+            {/* Export PDF */}
+            <div className="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-5">
+              <div>
+                <p className="text-sm font-medium text-fg">Exporter ce récapitulatif</p>
+                <p className="mt-0.5 text-xs text-muted">Imprimez ou sauvegardez en PDF pour votre comptable ou votre déclaration.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-brand-400"
+              >
+                <Download size={14} />
+                Exporter PDF
+              </button>
+            </div>
+
             {/* CTA */}
             <div className="rounded-2xl border border-brand-500/20 bg-brand-500/5 p-6 text-center">
               <h3 className="text-base font-semibold text-fg">Suivez votre situation sur toute l&apos;année</h3>
@@ -395,6 +412,9 @@ export function SimulateurClient() {
               </div>
               <p className="mt-3 text-xs text-dim">Pro à 79 € / an · Annulation à tout moment</p>
             </div>
+
+            {/* Récapitulatif imprimable — visible uniquement à l'impression */}
+            <PrintRecap inputs={inputs} result={result} />
           </div>
         )}
       </div>
@@ -651,6 +671,165 @@ function KpiBox({
     <div className={`rounded-xl border p-4 ${highlight ? "border-brand-500/30 bg-brand-500/8" : "border-border bg-card"}`}>
       <div className="text-xs text-muted">{label}</div>
       <div className={`mt-1 text-xl font-semibold ${highlight ? "text-brand-500" : "text-fg"}`}>{value}</div>
+    </div>
+  );
+}
+
+// ─── Récapitulatif imprimable ─────────────────────────────────────────────────
+// Invisible à l'écran, affiché uniquement lors de l'impression (window.print())
+
+function PrintRecap({
+  inputs,
+  result,
+}: {
+  inputs: LMNPInputs;
+  result: ReturnType<typeof computeLMNP>;
+}) {
+  const today = new Date().toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+
+  const winner = result.meilleurRegime === "reel" ? result.reel : result.micro;
+  const loser = result.meilleurRegime === "reel" ? result.micro : result.reel;
+
+  return (
+    <div
+      id="lmnp-print-recap"
+      style={{ display: "none" }}
+      aria-hidden="true"
+    >
+      <style>{`
+        #lmnp-print-recap { font-family: system-ui, sans-serif; font-size: 12px; color: #111; }
+        #lmnp-print-recap h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px; }
+        #lmnp-print-recap h2 { font-size: 14px; font-weight: 600; margin: 20px 0 10px; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px; }
+        #lmnp-print-recap table { width: 100%; border-collapse: collapse; }
+        #lmnp-print-recap td { padding: 6px 0; border-bottom: 1px solid #f3f4f6; }
+        #lmnp-print-recap td:last-child { text-align: right; font-weight: 600; }
+        #lmnp-print-recap .winner-box { background: #f0fdf4; border: 2px solid #22c55e; border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+        #lmnp-print-recap .winner-box .label { font-size: 11px; color: #16a34a; text-transform: uppercase; letter-spacing: 0.05em; }
+        #lmnp-print-recap .winner-box .amount { font-size: 28px; font-weight: 700; color: #16a34a; }
+        #lmnp-print-recap .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        #lmnp-print-recap .regime-box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; }
+        #lmnp-print-recap .regime-box.best { border-color: #22c55e; background: #f0fdf4; }
+        #lmnp-print-recap .regime-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+        #lmnp-print-recap .total-row td { font-weight: 700; font-size: 13px; background: #f9fafb; }
+        #lmnp-print-recap .footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #e5e7eb; font-size: 10px; color: #9ca3af; }
+        #lmnp-print-recap .tag { display: inline-block; background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-left: 8px; }
+      `}</style>
+
+      {/* En-tête */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+        <div>
+          <h1>Récapitulatif LMNP 2024</h1>
+          <p style={{ color: "#6b7280", margin: 0, fontSize: "11px" }}>
+            Généré par LocFiscal · {today}
+          </p>
+        </div>
+        <div style={{ textAlign: "right", fontSize: "11px", color: "#6b7280" }}>
+          <div style={{ fontWeight: 700, fontSize: "16px", color: "#111" }}>locfiscal.fr</div>
+          <div>Simulateur LMNP 2024</div>
+        </div>
+      </div>
+
+      {/* Résumé exécutif */}
+      <div className="winner-box">
+        <div className="label">
+          Recommandation LocFiscal
+          <span className="tag">
+            {result.meilleurRegime === "reel" ? "Régime Réel" : "Micro-BIC"}
+          </span>
+        </div>
+        <div className="amount">{formatEuro(result.economieFiscale)} économisés / an</div>
+        <div style={{ fontSize: "11px", color: "#374151", marginTop: "4px" }}>
+          vs le régime moins avantageux · TMI {inputs.trancheMarginaleIR}% · {inputs.meubleTourismeClasse ? "Meublé classé (71%)" : "Non classé (50%)"}
+        </div>
+      </div>
+
+      {/* Données d'entrée */}
+      <h2>Revenus et charges déclarés</h2>
+      <table>
+        <tbody>
+          <tr><td>Revenus Airbnb bruts</td><td>{formatEuro(inputs.revenusAirbnb)}</td></tr>
+          <tr><td>Revenus Booking.com bruts</td><td>{formatEuro(inputs.revenusBooking)}</td></tr>
+          <tr><td>Commissions plateformes</td><td>{formatEuro((inputs.revenusAirbnb * inputs.fraisAirbnbPct / 100) + (inputs.revenusBooking * inputs.fraisBookingPct / 100))}</td></tr>
+          <tr><td>Intérêts d'emprunt</td><td>{formatEuro(inputs.charges.interetsEmprunt)}</td></tr>
+          <tr><td>Charges de copropriété</td><td>{formatEuro(inputs.charges.chargesCopropriete)}</td></tr>
+          <tr><td>Taxe foncière</td><td>{formatEuro(inputs.charges.taxeFonciere)}</td></tr>
+          <tr><td>Assurance</td><td>{formatEuro(inputs.charges.assurance)}</td></tr>
+          <tr><td>Travaux d'entretien</td><td>{formatEuro(inputs.charges.travauxEntretien)}</td></tr>
+          <tr><td>Autres charges</td><td>{formatEuro(inputs.charges.autresCharges)}</td></tr>
+          <tr><td>Amortissement bien</td><td>{formatEuro(inputs.amortissements.bien)}</td></tr>
+          <tr><td>Amortissement mobilier</td><td>{formatEuro(inputs.amortissements.mobilier)}</td></tr>
+          <tr><td>Amortissement travaux</td><td>{formatEuro(inputs.amortissements.travaux)}</td></tr>
+          <tr className="total-row">
+            <td>Total charges + amortissements</td>
+            <td>{formatEuro(result.totalChargesReelles + result.totalAmortissements)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Comparaison régimes */}
+      <h2>Comparaison des régimes fiscaux</h2>
+      <div className="grid2">
+        <div className={`regime-box${result.meilleurRegime === "reel" ? " best" : ""}`}>
+          <div className="regime-title">
+            {result.reel.label}
+            {result.meilleurRegime === "reel" && <span className="tag">✓ Recommandé</span>}
+          </div>
+          <table>
+            <tbody>
+              <tr><td>Charges déduites</td><td>{formatEuro(result.reel.chargesDeduites)}</td></tr>
+              <tr><td>Base imposable</td><td>{formatEuro(result.reel.baseImposable)}</td></tr>
+              <tr><td>Impôt sur le revenu</td><td>{formatEuro(result.reel.impotRevenu)}</td></tr>
+              <tr><td>Prélèvements sociaux (17,2%)</td><td>{formatEuro(result.reel.prelevementsSociaux)}</td></tr>
+              <tr className="total-row"><td>Total imposition</td><td>{formatEuro(result.reel.totalImposition)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div className={`regime-box${result.meilleurRegime === "micro-bic" ? " best" : ""}`}>
+          <div className="regime-title">
+            {result.micro.label}
+            {result.meilleurRegime === "micro-bic" && <span className="tag">✓ Recommandé</span>}
+          </div>
+          <table>
+            <tbody>
+              <tr><td>Abattement forfaitaire</td><td>{formatEuro(result.micro.chargesDeduites)}</td></tr>
+              <tr><td>Base imposable</td><td>{formatEuro(result.micro.baseImposable)}</td></tr>
+              <tr><td>Impôt sur le revenu</td><td>{formatEuro(result.micro.impotRevenu)}</td></tr>
+              <tr><td>Prélèvements sociaux (17,2%)</td><td>{formatEuro(result.micro.prelevementsSociaux)}</td></tr>
+              <tr className="total-row"><td>Total imposition</td><td>{formatEuro(result.micro.totalImposition)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Rentabilité */}
+      <h2>Performance globale</h2>
+      <table>
+        <tbody>
+          <tr><td>Revenus bruts annuels</td><td>{formatEuro(result.revenusBruts)}</td></tr>
+          <tr><td>Revenus nets (après commissions)</td><td>{formatEuro(result.revenusNetsPlateformes)}</td></tr>
+          <tr><td>Total charges réelles</td><td>{formatEuro(result.totalChargesReelles)}</td></tr>
+          <tr><td>Total amortissements</td><td>{formatEuro(result.totalAmortissements)}</td></tr>
+          <tr><td>Imposition optimale ({winner.label})</td><td>{formatEuro(winner.totalImposition)}</td></tr>
+          {result.rentabiliteBrute != null && (
+            <tr><td>Rentabilité brute</td><td>{formatPct(result.rentabiliteBrute)}</td></tr>
+          )}
+          {result.rentabiliteNette != null && (
+            <tr className="total-row"><td>Rentabilité nette après impôts</td><td>{formatPct(result.rentabiliteNette)}</td></tr>
+          )}
+        </tbody>
+      </table>
+
+      {/* Pied de page */}
+      <div className="footer">
+        <strong>Avertissement :</strong> Ce récapitulatif est généré par le simulateur LocFiscal à titre informatif.
+        Il ne constitue pas un conseil fiscal ou juridique. Les calculs sont basés sur les données saisies et la législation 2024.
+        Consultez un expert-comptable spécialisé LMNP pour votre déclaration officielle.
+        <br />locfiscal.fr · hello@locfiscal.fr
+      </div>
     </div>
   );
 }
