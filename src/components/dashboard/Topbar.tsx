@@ -17,7 +17,7 @@ export function Topbar({ title, subtitle, period, onPeriod, plan }: Props) {
   const isFree = !plan || plan === "Gratuit" || plan === "Sans offre";
 
   return (
-    <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-bg/80 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8">
+    <div className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-border bg-white/80 px-4 py-3 backdrop-blur-xl sm:px-6 md:px-8">
       {/* Left: back button (mobile) + title */}
       <div className="flex min-w-0 items-center gap-3">
         <Link
@@ -58,7 +58,7 @@ export function Topbar({ title, subtitle, period, onPeriod, plan }: Props) {
                     if (details) details.open = false;
                   }}
                   className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-sm transition-colors hover:bg-fg/5 ${
-                    p === period ? "text-brand-400" : "text-fg"
+                    p === period ? "text-brand-600" : "text-fg"
                   }`}
                 >
                   {p}

@@ -9,7 +9,7 @@ export function PcBanner() {
 
   return (
     <div className="flex items-center justify-between gap-3 bg-brand-500/10 border-b border-brand-500/20 px-4 py-2.5 md:hidden">
-      <div className="flex items-center gap-2 text-xs text-brand-300">
+      <div className="flex items-center gap-2 text-xs text-brand-700">
         <Monitor size={14} className="shrink-0" />
         <span>Pour une meilleure expérience, utilisez locpilote sur ordinateur.</span>
       </div>

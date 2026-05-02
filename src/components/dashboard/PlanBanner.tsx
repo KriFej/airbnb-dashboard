@@ -16,7 +16,7 @@ export function PlanBanner({
   if (plan === "unlimited") {
     return (
       <div className="flex items-center gap-3 rounded-2xl border border-brand-500/30 bg-brand-500/10 px-4 py-3 text-sm">
-        <Crown size={16} className="text-brand-400" />
+        <Crown size={16} className="text-brand-600" />
         <span className="text-fg/90">Offre Unlimited active · biens illimités.</span>
       </div>
     );
@@ -48,7 +48,7 @@ export function PlanBanner({
   return (
     <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm md:flex-row md:items-center">
       <div className="flex items-center gap-3">
-        <Sparkles size={16} className="text-brand-400" />
+        <Sparkles size={16} className="text-brand-600" />
         <span className="text-fg/90">
           Offre {planName} active · {count} / {limit === Infinity ? "∞" : limit} biens utilisés.
         </span>
