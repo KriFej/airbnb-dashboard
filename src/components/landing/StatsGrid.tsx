@@ -1,44 +1,53 @@
-import { BarChart3, Users, TrendingUp } from "lucide-react";
+import { Users, BarChart3, Clock } from "lucide-react";
+
+const STATS = [
+  {
+    icon: Users,
+    label: "Hôtes actifs",
+    value: "1 200+",
+    sub: "dans 38 pays",
+    accent: false,
+  },
+  {
+    icon: BarChart3,
+    label: "Frais cachés",
+    value: "0 €",
+    sub: "Chaque centime visible, catégorisé, déduit.",
+    accent: false,
+  },
+  {
+    icon: Clock,
+    label: "Mise en route",
+    value: "2 min",
+    sub: "De l'inscription à votre premier net affiché.",
+    accent: true,
+  },
+];
 
 export function StatsGrid() {
   return (
-    <section className="border-t border-border/30 py-14 md:py-20">
+    <section className="border-t border-border py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-4 sm:grid-cols-3">
-          {/* Stat 1 */}
-          <div className="flex flex-col gap-1 rounded-2xl border border-brand-500/30 bg-brand-500/5 p-8 ring-1 ring-brand-500/10">
-            <div className="flex items-center gap-2 text-brand-500">
-              <Users size={18} />
-              <span className="text-xs uppercase tracking-widest">Hôtes actifs</span>
+          {STATS.map(({ icon: Icon, label, value, sub, accent }) => (
+            <div
+              key={label}
+              className={`flex flex-col gap-1 rounded-2xl p-8 ${
+                accent
+                  ? "bg-brand-500 text-black shadow-btn-glow"
+                  : "bg-white border border-border shadow-card"
+              }`}
+            >
+              <div className={`flex items-center gap-2 ${accent ? "text-black/70" : "text-brand-600"}`}>
+                <Icon size={16} />
+                <span className="text-xs font-semibold uppercase tracking-widest">{label}</span>
+              </div>
+              <div className={`mt-4 text-5xl font-bold tracking-tight ${accent ? "text-black" : "text-fg"}`}>
+                {value}
+              </div>
+              <p className={`mt-2 text-sm ${accent ? "text-black/70" : "text-muted"}`}>{sub}</p>
             </div>
-            <div className="mt-4 text-5xl font-semibold tracking-tight text-fg">1 200+</div>
-            <p className="mt-2 text-sm text-muted">dans 38 pays</p>
-          </div>
-
-          {/* Stat 2 */}
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-8">
-            <div className="flex items-center gap-2 text-brand-500">
-              <BarChart3 size={18} />
-              <span className="text-xs uppercase tracking-widest">Frais cachés</span>
-            </div>
-            <div className="mt-4 text-5xl font-semibold tracking-tight text-fg">0 €</div>
-            <p className="mt-2 text-sm text-muted">Chaque centime visible, catégorisé, déduit.</p>
-          </div>
-
-          {/* Stat 3 */}
-          <div className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-black">
-            <div className="pointer-events-none absolute inset-0 opacity-15"
-              style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4) 0%, transparent 60%)" }}
-            />
-            <div className="relative flex items-center gap-2">
-              <TrendingUp size={18} />
-              <span className="text-xs uppercase tracking-widest">Mise en route</span>
-            </div>
-            <div className="relative mt-4 text-5xl font-semibold tracking-tight">2 min</div>
-            <p className="relative mt-2 text-sm text-black/75">
-              De l&apos;inscription à votre premier bénéfice net affiché.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </section>

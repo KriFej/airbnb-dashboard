@@ -1,31 +1,41 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Building2, CalendarDays, Wallet, X, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-const STORAGE_KEY = "locpilote_onboarded";
+const STORAGE_KEY = "locpilote_onboarded_v2";
 
-const STEPS = [
+type Answer = { q1?: string; q2?: string; q3?: string };
+
+const QUESTIONS = [
   {
-    icon: Building2,
-    title: "Ajoutez votre premier bien",
-    desc: "Cliquez sur « + Ajouter un bien » dans la section Biens ci-dessous et donnez-lui un nom (ex: \"Appartement Lyon\").",
+    key: "q1" as const,
+    question: "Comment avez-vous découvert locpilote ?",
+    options: ["Google / recherche", "Réseaux sociaux", "Bouche à oreille", "Pinterest / blog", "Autre"],
   },
   {
-    icon: CalendarDays,
-    title: "Connectez votre calendrier Airbnb",
-    desc: "Dans Airbnb : Calendrier → votre logement → Disponibilité → Exporter le calendrier. Copiez l'URL et collez-la dans la section iCal.",
+    key: "q2" as const,
+    question: "Qu'est-ce qui vous amène ici ?",
+    options: [
+      "Suivre ma rentabilité",
+      "Remplacer mon tableur Excel",
+      "Gérer plusieurs biens",
+      "Voir l'impact des frais plateforme",
+      "Autre",
+    ],
   },
   {
-    icon: Wallet,
-    title: "Saisissez vos dépenses",
-    desc: "Dans Dépenses, entrez vos charges (électricité, ménage, crédit…). Votre bénéfice net réel s'affiche instantanément.",
+    key: "q3" as const,
+    question: "Utilisez-vous déjà un outil ?",
+    options: ["Non, rien pour l'instant", "Excel / tableur", "Smoobu", "Superhote", "Lodgify / autre"],
   },
 ];
 
 export function OnboardingModal({ onDone }: { onDone: () => void }) {
-  const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<Answer>({});
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     try {
@@ -33,68 +43,95 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
     } catch {}
   }, []);
 
-  const close = () => {
+  const close = (saveAnswers = true) => {
     try {
       localStorage.setItem(STORAGE_KEY, "1");
+      if (saveAnswers && Object.keys(answers).length > 0) {
+        localStorage.setItem("locpilote_onboarding_answers", JSON.stringify(answers));
+      }
     } catch {}
     setVisible(false);
     onDone();
   };
 
+  const select = (key: keyof Answer, value: string) => {
+    const newAnswers = { ...answers, [key]: value };
+    setAnswers(newAnswers);
+
+    if (step < QUESTIONS.length - 1) {
+      setTimeout(() => setStep((s) => s + 1), 200);
+    } else {
+      setDone(true);
+      setTimeout(() => close(true), 1200);
+    }
+  };
+
   if (!visible) return null;
 
-  const current = STEPS[step];
-  const Icon = current.icon;
-  const isLast = step === STEPS.length - 1;
+  const q = QUESTIONS[step];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
-        <button
-          type="button"
-          onClick={close}
-          aria-label="Fermer"
-          className="absolute right-4 top-4 text-dim hover:text-fg"
-        >
-          <X size={16} />
-        </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm">
+      <div className="relative w-full max-w-md rounded-3xl border border-border bg-white p-8 shadow-card-lg">
 
-        {/* Step indicator */}
-        <div className="mb-5 flex gap-1.5">
-          {STEPS.map((_, i) => (
+        {/* Progress */}
+        <div className="mb-6 flex gap-1.5">
+          {QUESTIONS.map((_, i) => (
             <div
               key={i}
-              className={`h-1 flex-1 rounded-full transition-colors ${
-                i <= step ? "bg-brand-500" : "bg-border"
+              className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                i < step ? "bg-brand-500" : i === step ? "bg-brand-300" : "bg-border"
               }`}
             />
           ))}
         </div>
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
-          <Icon size={22} />
-        </div>
+        {done ? (
+          <div className="flex flex-col items-center py-6 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-500/10">
+              <CheckCircle2 size={32} className="text-brand-500" />
+            </div>
+            <h2 className="mt-4 text-xl font-bold text-fg">Parfait, bienvenue !</h2>
+            <p className="mt-2 text-sm text-muted">Votre tableau de bord est prêt.</p>
+          </div>
+        ) : (
+          <>
+            <div className="mb-2 text-xs font-bold uppercase tracking-widest text-brand-600">
+              Question {step + 1} / {QUESTIONS.length}
+            </div>
+            <h2 className="text-xl font-bold text-fg">{q.question}</h2>
+            <p className="mt-1 text-sm text-muted">Choisissez une option ci-dessous.</p>
 
-        <h2 className="mt-4 text-lg font-medium text-fg">{current.title}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{current.desc}</p>
+            <div className="mt-6 grid gap-2">
+              {q.options.map((opt) => {
+                const selected = answers[q.key] === opt;
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    onClick={() => select(q.key, opt)}
+                    className={`flex items-center justify-between rounded-xl border px-4 py-3 text-sm font-semibold text-left transition-all ${
+                      selected
+                        ? "border-brand-500 bg-brand-500/10 text-brand-700"
+                        : "border-border bg-surface text-fg hover:border-brand-500/50 hover:bg-brand-500/5"
+                    }`}
+                  >
+                    {opt}
+                    {selected && <ArrowRight size={14} className="text-brand-500" />}
+                  </button>
+                );
+              })}
+            </div>
 
-        <div className="mt-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={close}
-            className="text-xs text-dim hover:text-muted"
-          >
-            Passer
-          </button>
-          <button
-            type="button"
-            onClick={() => (isLast ? close() : setStep((s) => s + 1))}
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-4 text-sm font-medium text-black hover:bg-brand-400"
-          >
-            {isLast ? "C'est parti !" : "Suivant"}
-            <ArrowRight size={14} />
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => close(false)}
+              className="mt-5 block w-full text-center text-xs text-dim hover:text-muted transition-colors"
+            >
+              Passer cette étape
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

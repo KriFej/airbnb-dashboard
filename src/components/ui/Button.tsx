@@ -26,17 +26,17 @@ type LinkProps = Common & {
 
 function classes(variant: Variant = "primary", size: Size = "md"): string {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 whitespace-nowrap select-none focus-visible:outline-none";
+    "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 whitespace-nowrap select-none focus-visible:outline-none";
   const sizes: Record<Size, string> = {
     md: "h-11 px-5 text-sm",
-    lg: "h-12 px-6 text-[15px]",
+    lg: "h-12 px-7 text-[15px]",
   };
   const variants: Record<Variant, string> = {
     primary:
-      "bg-brand-500 text-black hover:bg-brand-400 shadow-btn-glow hover:shadow-[0_10px_36px_-4px_rgba(34,197,94,0.7)]",
+      "bg-brand-500 text-black hover:bg-brand-400 shadow-btn-glow",
     secondary:
-      "bg-fg/5 text-fg border border-fg/10 hover:bg-fg/10",
-    ghost: "text-fg hover:bg-fg/5",
+      "bg-white text-fg border border-border hover:border-border-hover shadow-card",
+    ghost: "text-fg hover:bg-surface",
   };
   return `${base} ${sizes[size]} ${variants[variant]}`;
 }

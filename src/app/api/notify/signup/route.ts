@@ -1,38 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit, getIp } from "@/lib/rateLimit";
 
+const BRAND = "#EAB308";
+const BRAND_DARK = "#CA8A04";
+
 const OWNER_HTML = (email: string, date: string) => `
 <!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">
+<body style="margin:0;padding:0;background:#F7F6F1;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F6F1;padding:40px 20px;">
     <tr><td align="center">
-      <table width="520" cellpadding="0" cellspacing="0" style="background:#111;border:1px solid #222;border-radius:16px;overflow:hidden;">
+      <table width="520" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #E2E1DC;border-radius:16px;overflow:hidden;">
         <tr>
-          <td style="background:#22c55e;padding:4px 24px;text-align:center;">
+          <td style="background:${BRAND};padding:4px 24px;text-align:center;">
             <span style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#000;">Nouvel inscrit</span>
           </td>
         </tr>
         <tr>
           <td style="padding:32px 32px 8px;">
-            <p style="margin:0;font-size:22px;font-weight:600;color:#fff;">🎉 Nouveau sur locpilote</p>
-            <p style="margin:8px 0 0;font-size:14px;color:#888;">Quelqu'un vient de créer un compte.</p>
+            <p style="margin:0;font-size:22px;font-weight:600;color:#111;">🎉 Nouveau sur locpilote</p>
+            <p style="margin:8px 0 0;font-size:14px;color:#6B7280;">Quelqu'un vient de créer un compte.</p>
           </td>
         </tr>
         <tr>
           <td style="padding:24px 32px;">
-            <table cellpadding="0" cellspacing="0" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;width:100%;">
+            <table cellpadding="0" cellspacing="0" style="background:#F7F6F1;border:1px solid #E2E1DC;border-radius:10px;width:100%;">
               <tr>
-                <td style="padding:16px 20px;border-bottom:1px solid #2a2a2a;">
-                  <span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Email</span><br>
-                  <span style="font-size:15px;color:#22c55e;font-weight:500;">${email}</span>
+                <td style="padding:16px 20px;border-bottom:1px solid #E2E1DC;">
+                  <span style="font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;">Email</span><br>
+                  <span style="font-size:15px;color:${BRAND_DARK};font-weight:500;">${email}</span>
                 </td>
               </tr>
               <tr>
                 <td style="padding:16px 20px;">
-                  <span style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Date</span><br>
-                  <span style="font-size:14px;color:#ccc;">${date}</span>
+                  <span style="font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:0.08em;">Date</span><br>
+                  <span style="font-size:14px;color:#111;">${date}</span>
                 </td>
               </tr>
             </table>
@@ -40,7 +43,7 @@ const OWNER_HTML = (email: string, date: string) => `
         </tr>
         <tr>
           <td style="padding:0 32px 32px;">
-            <p style="margin:0;font-size:12px;color:#444;">locpilote.com · notification automatique</p>
+            <p style="margin:0;font-size:12px;color:#9CA3AF;">locpilote.com · notification automatique</p>
           </td>
         </tr>
       </table>
@@ -53,66 +56,49 @@ const WELCOME_HTML = (email: string) => `
 <!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">
+<body style="margin:0;padding:0;background:#F7F6F1;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F7F6F1;padding:40px 20px;">
     <tr><td align="center">
-      <table width="520" cellpadding="0" cellspacing="0" style="background:#111;border:1px solid #222;border-radius:16px;overflow:hidden;">
-        <!-- Header vert -->
+      <table width="520" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #E2E1DC;border-radius:16px;overflow:hidden;">
         <tr>
-          <td style="background:linear-gradient(135deg,#16a34a,#22c55e);padding:40px 32px;text-align:center;">
-            <p style="margin:0;font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.03em;">locpilote</p>
-            <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.75);">Votre copilote financier Airbnb</p>
+          <td style="background:${BRAND};padding:40px 32px;text-align:center;">
+            <p style="margin:0;font-size:28px;font-weight:700;color:#000;letter-spacing:-0.03em;">locpilote</p>
+            <p style="margin:6px 0 0;font-size:13px;color:rgba(0,0,0,0.6);">Votre copilote financier Airbnb</p>
           </td>
         </tr>
-        <!-- Body -->
         <tr>
           <td style="padding:36px 32px 24px;">
-            <p style="margin:0;font-size:22px;font-weight:600;color:#fff;">Bienvenue 👋</p>
-            <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#999;">
-              Votre compte est créé et prêt à l'emploi. Connectez votre iCal Airbnb, renseignez vos dépenses et découvrez en quelques minutes votre <strong style="color:#fff;">vrai bénéfice net</strong>.
+            <p style="margin:0;font-size:22px;font-weight:600;color:#111;">Bienvenue 👋</p>
+            <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#6B7280;">
+              Votre compte est créé et prêt à l'emploi. Connectez votre iCal Airbnb, renseignez vos dépenses et découvrez en quelques minutes votre <strong style="color:#111;">vrai bénéfice net</strong>.
             </p>
           </td>
         </tr>
-        <!-- CTA -->
         <tr>
           <td style="padding:0 32px 32px;">
             <table cellpadding="0" cellspacing="0">
               <tr>
-                <td style="background:#22c55e;border-radius:999px;">
-                  <a href="https://locpilote.com/login" style="display:inline-block;padding:14px 28px;font-size:14px;font-weight:600;color:#000;text-decoration:none;">Accéder à mon tableau de bord →</a>
+                <td style="background:${BRAND};border-radius:999px;">
+                  <a href="https://locpilote.com/login" style="display:inline-block;padding:14px 28px;font-size:14px;font-weight:700;color:#000;text-decoration:none;">Accéder à mon tableau de bord →</a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
-        <!-- Steps -->
         <tr>
           <td style="padding:0 32px 32px;">
-            <table cellpadding="0" cellspacing="0" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;width:100%;">
-              <tr><td style="padding:20px 20px 12px;"><p style="margin:0;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#666;">3 étapes pour démarrer</p></td></tr>
-              <tr>
-                <td style="padding:0 20px 8px;">
-                  <p style="margin:0;font-size:13px;color:#bbb;line-height:1.5;"><span style="color:#22c55e;font-weight:700;">1.</span> Ajoutez votre premier bien</p>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:0 20px 8px;">
-                  <p style="margin:0;font-size:13px;color:#bbb;line-height:1.5;"><span style="color:#22c55e;font-weight:700;">2.</span> Collez votre lien iCal Airbnb ou Booking.com</p>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:0 20px 20px;">
-                  <p style="margin:0;font-size:13px;color:#bbb;line-height:1.5;"><span style="color:#22c55e;font-weight:700;">3.</span> Renseignez vos dépenses mensuelles</p>
-                </td>
-              </tr>
+            <table cellpadding="0" cellspacing="0" style="background:#F7F6F1;border:1px solid #E2E1DC;border-radius:10px;width:100%;">
+              <tr><td style="padding:20px 20px 12px;"><p style="margin:0;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#6B7280;">3 étapes pour démarrer</p></td></tr>
+              <tr><td style="padding:0 20px 8px;"><p style="margin:0;font-size:13px;color:#374151;line-height:1.5;"><span style="color:${BRAND_DARK};font-weight:700;">1.</span> Ajoutez votre premier bien</p></td></tr>
+              <tr><td style="padding:0 20px 8px;"><p style="margin:0;font-size:13px;color:#374151;line-height:1.5;"><span style="color:${BRAND_DARK};font-weight:700;">2.</span> Collez votre lien iCal Airbnb ou Booking.com</p></td></tr>
+              <tr><td style="padding:0 20px 20px;"><p style="margin:0;font-size:13px;color:#374151;line-height:1.5;"><span style="color:${BRAND_DARK};font-weight:700;">3.</span> Renseignez vos dépenses mensuelles</p></td></tr>
             </table>
           </td>
         </tr>
-        <!-- Footer -->
         <tr>
-          <td style="padding:0 32px 32px;border-top:1px solid #1e1e1e;">
-            <p style="margin:20px 0 0;font-size:12px;color:#444;">
-              Vous recevez cet email car vous venez de créer un compte sur locpilote.com avec l'adresse <span style="color:#666;">${email}</span>.<br>
+          <td style="padding:0 32px 32px;border-top:1px solid #E2E1DC;">
+            <p style="margin:20px 0 0;font-size:12px;color:#9CA3AF;">
+              Vous recevez cet email car vous venez de créer un compte sur locpilote.com avec l'adresse <span style="color:#6B7280;">${email}</span>.<br>
               Des questions ? Répondez directement à cet email.
             </p>
           </td>
@@ -141,14 +127,10 @@ export async function POST(req: NextRequest) {
     const makeUrl = process.env.MAKE_WEBHOOK_URL;
 
     if (resendKey) {
-      // Email au propriétaire
       if (ownerEmail) {
         await fetch("https://api.resend.com/emails", {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${resendKey}`,
-            "Content-Type": "application/json",
-          },
+          headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({
             from: "locpilote <hello@locpilote.com>",
             to: ownerEmail,
@@ -158,13 +140,9 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      // Email de bienvenue à l'utilisateur
       await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           from: "locpilote <hello@locpilote.com>",
           to: email,
@@ -174,7 +152,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Webhook Make.com → Google Sheet
     if (makeUrl) {
       await fetch(makeUrl, {
         method: "POST",
@@ -183,7 +160,7 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch {
-    // Ne jamais bloquer l'inscription pour une erreur de notification
+    // ne jamais bloquer l'inscription
   }
 
   return NextResponse.json({ ok: true });
