@@ -1,5 +1,5 @@
 {
-  "name": "profitly",
+  "name": "locpilote",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,9 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "lucide-react": "0.454.0",
-    "date-fns": "3.6.0"
+    "date-fns": "3.6.0",
+    "@supabase/supabase-js": "2.45.4",
+    "@supabase/ssr": "0.5.1"
   },
   "devDependencies": {
     "@types/node": "20.16.10",

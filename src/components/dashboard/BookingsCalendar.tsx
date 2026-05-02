@@ -4,7 +4,6 @@ import {
   addDays,
   addMonths,
   eachDayOfInterval,
-  endOfMonth,
   format,
   isSameDay,
   isSameMonth,
@@ -13,6 +12,7 @@ import {
   startOfWeek,
   subMonths,
 } from "date-fns";
+import { fr } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Booking } from "@/lib/types";
@@ -33,31 +33,31 @@ export function BookingsCalendar({ bookings }: Props) {
   const booked = useMemo(() => buildBookedMap(bookings), [bookings]);
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6">
+    <section className="rounded-2xl border border-border bg-card p-4 sm:p-6">
       <header className="mb-5 flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-medium text-white">Bookings calendar</h3>
+          <h3 className="text-sm font-medium text-fg">Calendrier des réservations</h3>
           <p className="text-xs text-muted">
-            Occupied nights in green — synced from your iCal.
+            Nuits occupées en vert — synchronisé depuis vos iCal.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setCursor(subMonths(cursor, 1))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-white"
-            aria-label="Previous month"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-fg"
+            aria-label="Mois précédent"
           >
             <ChevronLeft size={14} />
           </button>
-          <div className="min-w-[140px] text-center text-sm font-medium">
-            {format(cursor, "MMMM yyyy")}
+          <div className="min-w-[110px] text-center text-sm font-medium capitalize">
+            {format(cursor, "MMMM yyyy", { locale: fr })}
           </div>
           <button
             type="button"
             onClick={() => setCursor(addMonths(cursor, 1))}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-white"
-            aria-label="Next month"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted hover:border-border-hover hover:text-fg"
+            aria-label="Mois suivant"
           >
             <ChevronRight size={14} />
           </button>
@@ -65,7 +65,7 @@ export function BookingsCalendar({ bookings }: Props) {
       </header>
 
       <div className="grid grid-cols-7 gap-1 text-[11px] uppercase tracking-wider text-dim">
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
+        {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((d) => (
           <div key={d} className="py-2 text-center">
             {d}
           </div>
@@ -85,8 +85,8 @@ export function BookingsCalendar({ bookings }: Props) {
                 outOfMonth
                   ? "border-border/40 text-dim"
                   : state
-                  ? "border-brand-500/40 bg-brand-500/15 text-white"
-                  : "border-border bg-[#0E0E0E] text-white"
+                  ? "border-brand-500/40 bg-brand-500/15 text-fg"
+                  : "border-border bg-surface text-fg"
               }`}
             >
               <span className={`${today ? "text-brand-500 font-semibold" : ""}`}>

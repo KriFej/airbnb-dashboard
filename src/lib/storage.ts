@@ -31,7 +31,8 @@ export function save<T>(key: string, value: T): void {
 }
 
 export const KEYS = {
-  inputs: "profitly:inputs",
-  icalUrl: "profitly:ical-url",
-  bookings: "profitly:bookings-cache",
+  inputs: "locpilote:inputs",
+  icalAirbnb: "locpilote:ical-airbnb",
+  icalBooking: "locpilote:ical-booking",
+  bookings: "locpilote:bookings-cache",
 };

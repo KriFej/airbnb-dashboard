@@ -1,79 +1,121 @@
 import { Star } from "lucide-react";
 
+const FEATURED = {
+  name: "Sophie L.",
+  role: "Hôte · Paris · 4 biens",
+  body: "Enfin un tableau de bord qui déduit les frais. Je n'exporte rien, je ne synchronise rien manuellement, et je vois tout. En 2 minutes j'avais la vraie rentabilité de mes 4 appartements parisiens.",
+  initials: "SL",
+  color: "#22C55E",
+};
+
 const TESTIMONIALS = [
   {
     name: "Camille D.",
-    role: "Host · Lisbon · 2 properties",
-    body: "I thought I was making €4k/month. After plugging my expenses into Profitly I realized my real net was €2.1k. Priceless.",
+    role: "Hôte · Lisbonne · 2 biens",
+    body: "Je pensais gagner 4 000 €/mois. Après avoir rempli mes dépenses dans locpilote, j'ai vu que mon vrai net était à 2 100 €. Inestimable.",
     initials: "CD",
-    color: "#22C55E",
-  },
-  {
-    name: "Marco R.",
-    role: "Host · Milan · 1 property",
-    body: "The iCal sync took me 20 seconds. The forecast card told me I'd hit my best month ever before it happened.",
-    initials: "MR",
     color: "#4ADE80",
   },
   {
-    name: "Sophie L.",
-    role: "Host · Paris · 4 properties",
-    body: "Finally a dashboard that subtracts fees. I export nothing, I sync nothing, and I see everything.",
-    initials: "SL",
+    name: "Marco R.",
+    role: "Hôte · Milan · 1 bien",
+    body: "La synchro iCal m'a pris 20 secondes. La carte de prévision m'a annoncé mon meilleur mois avant même la fin.",
+    initials: "MR",
     color: "#86EFAC",
   },
   {
     name: "Alex V.",
-    role: "Host · Barcelona · 1 property",
-    body: "Replaced my three spreadsheets. The net profit card is the only number I care about.",
+    role: "Hôte · Barcelone · 1 bien",
+    body: "J'ai remplacé mes trois tableurs. La carte bénéfice net est le seul chiffre qui m'intéresse désormais.",
     initials: "AV",
     color: "#16A34A",
   },
 ];
 
+function Stars() {
+  return (
+    <div className="flex gap-1">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star key={i} size={14} fill="#22C55E" stroke="none" className="text-brand-500" />
+      ))}
+    </div>
+  );
+}
+
 export function Testimonials() {
   return (
-    <section id="testimonials" className="border-t border-border/60 py-24">
+    <section id="testimonials" className="border-t border-border/30 py-14 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-xs uppercase tracking-widest text-brand-500">
-            Testimonials
+            Témoignages
           </span>
-          <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
-            Hosts who finally
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Des hôtes qui connaissent
             <br />
-            know their numbers.
+            enfin leurs chiffres.
           </h2>
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {TESTIMONIALS.map((t) => (
-            <figure
-              key={t.name}
-              className="flex flex-col rounded-2xl border border-border bg-card p-6"
-            >
-              <div className="flex gap-1 text-brand-500">
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+          {/* Featured testimonial */}
+          <figure className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-black lg:row-span-1">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-10"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 20% 80%, rgba(255,255,255,0.4) 0%, transparent 50%)",
+              }}
+            />
+            <div className="relative">
+              <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} fill="currentColor" stroke="none" />
+                  <Star key={i} size={14} fill="black" stroke="none" />
                 ))}
               </div>
-              <blockquote className="mt-4 flex-1 text-sm text-white/90">
-                &ldquo;{t.body}&rdquo;
+              <blockquote className="mt-5 text-base leading-relaxed text-black/90">
+                &ldquo;{FEATURED.body}&rdquo;
               </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3">
+              <figcaption className="mt-6 flex items-center gap-3">
                 <span
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-black"
-                  style={{ background: t.color }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-black/20 text-sm font-semibold text-black"
                 >
-                  {t.initials}
+                  {FEATURED.initials}
                 </span>
                 <div>
-                  <div className="text-sm font-medium">{t.name}</div>
-                  <div className="text-xs text-muted">{t.role}</div>
+                  <div className="text-sm font-semibold">{FEATURED.name}</div>
+                  <div className="text-xs text-black/70">{FEATURED.role}</div>
                 </div>
               </figcaption>
-            </figure>
-          ))}
+            </div>
+          </figure>
+
+          {/* Other testimonials */}
+          <div className="grid gap-4 sm:grid-cols-1 lg:col-span-2 lg:grid-cols-3">
+            {TESTIMONIALS.map((t) => (
+              <figure
+                key={t.name}
+                className="flex flex-col rounded-2xl bg-card/60 p-6 shadow-card"
+              >
+                <Stars />
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                  &ldquo;{t.body}&rdquo;
+                </blockquote>
+                <figcaption className="mt-5 flex items-center gap-3">
+                  <span
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-black"
+                    style={{ background: t.color }}
+                  >
+                    {t.initials}
+                  </span>
+                  <div>
+                    <div className="text-sm font-medium">{t.name}</div>
+                    <div className="text-xs text-muted">{t.role}</div>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

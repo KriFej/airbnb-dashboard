@@ -9,6 +9,7 @@ export type Inputs = {
   menage: number;
   airbnbFeePct: number;
   bookingFeePct: number;
+  prixAchat: number;
 };
 
 export const DEFAULT_INPUTS: Inputs = {
@@ -22,6 +23,7 @@ export const DEFAULT_INPUTS: Inputs = {
   menage: 0,
   airbnbFeePct: 14,
   bookingFeePct: 15,
+  prixAchat: 0,
 };
 
 export type Booking = {
@@ -32,6 +34,16 @@ export type Booking = {
   source?: "airbnb" | "booking" | "other";
 };
 
+export type Property = {
+  id: string;
+  name: string;
+  inputs: Inputs;
+  airbnbUrl: string;
+  bookingUrl: string;
+  airbnbBookings: Booking[];
+  bookingBookings: Booking[];
+};
+
 export type KpiData = {
   grossRevenue: number;
   platformFees: number;
@@ -39,4 +51,21 @@ export type KpiData = {
   netProfit: number;
   feesLostPct: number;
   forecast: number;
+  yieldGross: number | null;
+  yieldNet: number | null;
 };
+
+export function makeProperty(name: string): Property {
+  return {
+    id:
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2),
+    name,
+    inputs: { ...DEFAULT_INPUTS },
+    airbnbUrl: "",
+    bookingUrl: "",
+    airbnbBookings: [],
+    bookingBookings: [],
+  };
+}
