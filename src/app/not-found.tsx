@@ -15,7 +15,7 @@ export default function NotFound() {
       </span>
 
       {/* Glow */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(34,197,94,0.15),transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(99,102,241,0.12),transparent_70%)]" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center">
@@ -23,7 +23,7 @@ export default function NotFound() {
           <Logo />
         </Link>
 
-        <div className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1.5 text-xs font-medium text-brand-400">
+        <div className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-xs font-medium text-brand-600">
           Erreur 404
         </div>
 
@@ -37,14 +37,14 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
-            className="inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-semibold text-black transition-colors hover:bg-brand-400"
+            className="inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
           >
             <Home size={14} />
             Retour à l&apos;accueil
           </Link>
           <Link
             href="/dashboard"
-            className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-medium text-fg hover:border-border-hover hover:bg-fg/5"
+            className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-white px-5 text-sm font-medium text-fg hover:border-border-hover hover:bg-surface"
           >
             <ArrowLeft size={14} />
             Mon dashboard

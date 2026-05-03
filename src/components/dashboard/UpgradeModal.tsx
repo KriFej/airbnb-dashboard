@@ -29,12 +29,12 @@ export function UpgradeModal({ open, onClose, plan, limit }: Props) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl border border-brand-500/30 bg-card p-6"
+        className="w-full max-w-md rounded-2xl border border-brand-200 bg-white p-6 shadow-card-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
               <Crown size={18} />
             </span>
             <div>
@@ -67,7 +67,7 @@ export function UpgradeModal({ open, onClose, plan, limit }: Props) {
                 : "/api/checkout?plan=starter"
             }
             onClick={onClose}
-            className="inline-flex h-10 items-center rounded-full bg-brand-500 px-4 text-xs font-medium text-black hover:bg-brand-400"
+            className="inline-flex h-10 items-center rounded-full bg-brand-500 px-4 text-xs font-medium text-white hover:bg-brand-600"
           >
             {plan ? "Passer à l'offre supérieure" : "Choisir une offre"}
           </Link>

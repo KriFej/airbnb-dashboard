@@ -79,7 +79,7 @@ export function FeaturesGrid() {
                 className={`relative flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${
                   accent
                     ? "bg-white/20 text-white ring-white/20"
-                    : "bg-brand-500/10 text-brand-400 ring-brand-500/20"
+                    : "bg-brand-50 text-brand-500 ring-brand-100"
                 }`}
               >
                 <Icon size={20} />

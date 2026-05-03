@@ -118,7 +118,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
       </div>
 
       {/* Rentabilité */}
-      <div className="rounded-2xl border border-border bg-card p-6 sm:col-span-2 lg:col-span-3">
+      <div className="rounded-2xl border border-border bg-white p-6 sm:col-span-2 lg:col-span-3 shadow-card">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
           <div className="flex-1 space-y-1">
             <h3 className="text-sm font-medium text-fg">Prix d&apos;acquisition</h3>

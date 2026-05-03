@@ -61,7 +61,7 @@ export function ICalImport({
           </div>
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl bg-white/80 backdrop-blur-[1px]">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white">
             <Lock size={20} className="text-muted" />
           </div>
           <p className="text-sm font-medium text-fg">iCal disponible dès l&apos;offre Starter</p>
@@ -94,7 +94,7 @@ export function ICalImport({
         <SourceRow
           label="Airbnb"
           placeholder="https://www.airbnb.com/calendar/ical/…"
-          accent="text-brand-400"
+          accent="text-brand-500"
           dotColor="bg-brand-500"
           url={airbnbUrl}
           onUrl={(u) => onUrlChange("airbnb", u)}

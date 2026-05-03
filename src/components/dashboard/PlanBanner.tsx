@@ -15,8 +15,8 @@ export function PlanBanner({
 }) {
   if (plan === "unlimited") {
     return (
-      <div className="flex items-center gap-3 rounded-2xl border border-brand-500/30 bg-brand-500/10 px-4 py-3 text-sm">
-        <Crown size={16} className="text-brand-400" />
+      <div className="flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 px-4 py-3 text-sm">
+        <Crown size={16} className="text-brand-500" />
         <span className="text-fg/90">Offre Unlimited active · biens illimités.</span>
       </div>
     );
@@ -46,16 +46,16 @@ export function PlanBanner({
   const upgradeLabel = plan === "starter" ? "Passer au Pro" : "Passer à Unlimited";
 
   return (
-    <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm md:flex-row md:items-center">
+    <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-white px-4 py-3 text-sm md:flex-row md:items-center">
       <div className="flex items-center gap-3">
-        <Sparkles size={16} className="text-brand-400" />
+        <Sparkles size={16} className="text-brand-500" />
         <span className="text-fg/90">
           Offre {planName} active · {count} / {limit === Infinity ? "∞" : limit} biens utilisés.
         </span>
       </div>
       <Link
         href={upgradeHref}
-        className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-medium text-fg hover:border-border-hover hover:bg-card-hover"
+        className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-medium text-fg hover:border-border-hover hover:bg-surface"
       >
         <Zap size={11} />
         {upgradeLabel}

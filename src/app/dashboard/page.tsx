@@ -281,7 +281,7 @@ export default function DashboardPage() {
                 <button
                   type="button"
                   onClick={() => exportPropertiesToCsv(properties)}
-                  className="inline-flex shrink-0 h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-xs text-muted transition-colors hover:border-border-hover hover:text-fg"
+                  className="inline-flex shrink-0 h-9 items-center gap-2 rounded-full border border-border bg-white px-3 text-xs text-muted transition-colors hover:border-border-hover hover:text-fg"
                 >
                   <Download size={13} />
                   <span className="hidden sm:inline">Exporter CSV</span>
@@ -477,7 +477,7 @@ export default function DashboardPage() {
 
           {/* Compte */}
           <section className="space-y-4">
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-white p-6 shadow-card">
               <h3 className="text-sm font-medium text-fg">Compte</h3>
               <p className="mt-1 text-xs text-muted">
                 Connecté en tant que <span className="text-fg font-medium">{email}</span>.
@@ -542,9 +542,9 @@ function SelectedHeader({
 }) {
   if (properties.length === 0) return null;
   return (
-    <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 md:flex-row md:items-center">
+    <div className="flex flex-col items-start justify-between gap-3 rounded-2xl border border-border bg-white px-4 py-3 md:flex-row md:items-center">
       <div className="flex items-center gap-2 text-sm text-muted">
-        <span className="text-brand-400">{icon}</span>
+        <span className="text-brand-500">{icon}</span>
         <span>{label}</span>
         {selectedName && (
           <span className="ml-1 text-fg">· {selectedName}</span>
@@ -567,7 +567,7 @@ function SelectedHeader({
 
 function EmptyState({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center text-sm text-muted">
+    <div className="rounded-2xl border border-dashed border-border bg-white p-8 text-center text-sm text-muted">
       {children}
     </div>
   );

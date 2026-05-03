@@ -27,10 +27,10 @@ export function CookieBanner() {
 
   return (
     <div className="fixed bottom-20 left-0 right-0 z-50 px-4 pb-2 md:bottom-4">
-      <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-2xl sm:flex-row sm:items-center sm:gap-4">
+      <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-white p-4 shadow-card-md sm:flex-row sm:items-center sm:gap-4">
         <p className="flex-1 text-xs text-muted">
           Nous utilisons des cookies essentiels pour le fonctionnement de l&apos;application (authentification, session).{" "}
-          <Link href="/privacy" className="text-brand-400 hover:underline">
+          <Link href="/privacy" className="text-brand-500 hover:underline">
             Politique de confidentialité
           </Link>
         </p>
@@ -45,7 +45,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={accept}
-            className="h-9 rounded-full bg-brand-500 px-4 text-xs font-medium text-black hover:bg-brand-400"
+            className="h-9 rounded-full bg-brand-500 px-4 text-xs font-medium text-white hover:bg-brand-600"
           >
             Accepter
           </button>

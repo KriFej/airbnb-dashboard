@@ -95,7 +95,7 @@ export default function ResetPasswordPage() {
                 {error}{error.includes("expiré") && (<> — <Link href="/forgot-password" className="underline hover:text-red-300">Recommencer</Link></>)}
               </div>
             )}
-            <button type="submit" disabled={loading} className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-black transition-all hover:bg-brand-400 disabled:opacity-60">
+            <button type="submit" disabled={loading} className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-white transition-all hover:bg-brand-600 disabled:opacity-60">
               {loading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
               Enregistrer le mot de passe
             </button>

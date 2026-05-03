@@ -49,7 +49,7 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl">
+      <div className="relative w-full max-w-sm rounded-2xl border border-border bg-white p-6 shadow-card-md">
         <button
           type="button"
           onClick={close}
@@ -71,7 +71,7 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
           ))}
         </div>
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
           <Icon size={22} />
         </div>
 
@@ -89,7 +89,7 @@ export function OnboardingModal({ onDone }: { onDone: () => void }) {
           <button
             type="button"
             onClick={() => (isLast ? close() : setStep((s) => s + 1))}
-            className="inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-4 text-sm font-medium text-black hover:bg-brand-400"
+            className="inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-4 text-sm font-medium text-white hover:bg-brand-600"
           >
             {isLast ? "C'est parti !" : "Suivant"}
             <ArrowRight size={14} />

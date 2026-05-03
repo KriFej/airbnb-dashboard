@@ -31,12 +31,12 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md rounded-2xl border border-border bg-card p-6"
+        className="w-full max-w-md rounded-2xl border border-border bg-white p-6 shadow-card-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
               <Building2 size={18} />
             </span>
             <div>
@@ -84,7 +84,7 @@ export function AddPropertyModal({ open, onClose, onCreate }: Props) {
             <button
               type="submit"
               disabled={!name.trim()}
-              className="inline-flex h-10 items-center gap-1.5 rounded-full bg-brand-500 px-4 text-xs font-medium text-black hover:bg-brand-400 disabled:opacity-50"
+              className="inline-flex h-10 items-center gap-1.5 rounded-full bg-brand-500 px-4 text-xs font-medium text-white hover:bg-brand-600 disabled:opacity-50"
             >
               <Plus size={14} />
               Créer le bien

@@ -9,7 +9,7 @@ export function ProductMockup() {
       aria-label="Aperçu du tableau de bord locpilote : revenus 4 500 €, dépenses 620 €, bénéfice net 3 195 €, prochaines réservations et prévision de fin de mois."
     >
       <div className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-brand-500/10 blur-3xl" />
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+      <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card-md">
         {/* Browser chrome */}
         <div className="flex items-center gap-2 border-b border-border bg-surface px-4 py-3">
           <span className="h-2.5 w-2.5 rounded-full bg-red-300" />

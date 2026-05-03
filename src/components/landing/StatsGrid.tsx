@@ -16,7 +16,7 @@ export function StatsGrid() {
           </div>
 
           {/* Stat 2 */}
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-8">
+          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-white p-8">
             <div className="flex items-center gap-2 text-brand-500">
               <BarChart3 size={18} />
               <span className="text-xs uppercase tracking-widest">Frais cachés</span>

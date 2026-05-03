@@ -74,8 +74,8 @@ export default function ForgotPasswordPage() {
         <Link href="/" className="mb-8 lg:hidden"><Logo /></Link>
         <div className="w-full max-w-sm">
           {sent ? (
-            <div className="rounded-2xl border border-border bg-card p-8 text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-500/10 text-brand-400">
+            <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-card">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-brand-500">
                 <Mail size={24} />
               </div>
               <h1 className="mt-5 text-2xl font-semibold text-fg">Vérifiez votre email</h1>
@@ -106,13 +106,13 @@ export default function ForgotPasswordPage() {
                   </div>
                 </div>
                 {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-xs text-red-400">{error}</div>}
-                <button type="submit" disabled={loading} className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-black transition-all hover:bg-brand-400 disabled:opacity-60">
+                <button type="submit" disabled={loading} className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-white transition-all hover:bg-brand-600 disabled:opacity-60">
                   {loading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
                   Envoyer le lien
                 </button>
               </form>
               <p className="mt-6 text-center text-xs text-muted">
-                <Link href="/login" className="font-medium text-brand-400 hover:text-brand-300">← Retour à la connexion</Link>
+                <Link href="/login" className="font-medium text-brand-500 hover:text-brand-600">← Retour à la connexion</Link>
               </p>
             </>
           )}

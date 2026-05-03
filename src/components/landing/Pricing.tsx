@@ -29,7 +29,7 @@ export function Pricing() {
 
         {/* Toggle mensuel / annuel */}
         <div className="mt-8 flex justify-center">
-          <div className="inline-flex items-center rounded-full border border-border bg-card p-1">
+          <div className="inline-flex items-center rounded-full border border-border bg-white p-1">
             <button
               type="button"
               onClick={() => setBilling("monthly")}
@@ -148,7 +148,7 @@ export function Pricing() {
         <p className="relative mt-10 text-center text-xs text-dim">
           Tous les tarifs en euros, TVA incluse. Annulation à tout moment.{" "}
           {annual && (
-            <span className="text-brand-400">
+            <span className="text-brand-500">
               <Zap size={10} className="mr-0.5 inline" />
               Facturation annuelle — 2 mois offerts.
             </span>

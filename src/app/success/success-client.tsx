@@ -49,7 +49,7 @@ export function SuccessClient() {
         </p>
         <Link
           href="/#pricing"
-          className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-black hover:bg-brand-400"
+          className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white hover:bg-brand-600"
         >
           Voir les offres
           <ArrowRight size={14} />
@@ -60,7 +60,7 @@ export function SuccessClient() {
 
   return (
     <Shell>
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/30">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 text-brand-500 ring-1 ring-brand-100">
         <CheckCircle2 size={30} />
       </div>
       <h1 className="mt-6 text-2xl font-medium tracking-tight">
@@ -72,7 +72,7 @@ export function SuccessClient() {
       </p>
       <Link
         href="/dashboard"
-        className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-brand-500 px-6 text-[15px] font-medium text-black hover:bg-brand-400"
+        className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-brand-500 px-6 text-[15px] font-medium text-white hover:bg-brand-600"
       >
         Aller au tableau de bord
         <ArrowRight size={16} />
@@ -88,7 +88,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         <Link href="/" className="mb-8 flex justify-center">
           <Logo />
         </Link>
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-card p-8 text-center">
+        <div className="flex flex-col items-center rounded-2xl border border-border bg-white p-8 shadow-card text-center">
           {children}
         </div>
       </div>

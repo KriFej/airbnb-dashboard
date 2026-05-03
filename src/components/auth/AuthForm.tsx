@@ -12,10 +12,10 @@ type Mode = "login" | "signup";
 /* ── Mini KPI mockup cards for the brand panel ── */
 function MockKpi({ label, value, sub, green }: { label: string; value: string; sub: string; green?: boolean }) {
   return (
-    <div className={`rounded-xl p-4 ${green ? "bg-brand-500 text-black" : "bg-white/5 border border-white/8"}`}>
-      <div className={`text-[11px] font-medium ${green ? "text-black/70" : "text-white/50"}`}>{label}</div>
-      <div className={`mt-2 text-2xl font-semibold tracking-tight ${green ? "text-black" : "text-white"}`}>{value}</div>
-      <div className={`mt-0.5 text-[11px] ${green ? "text-black/60" : "text-white/40"}`}>{sub}</div>
+    <div className={`rounded-xl p-4 ${green ? "bg-brand-500 text-white" : "bg-white/5 border border-white/8"}`}>
+      <div className={`text-[11px] font-medium ${green ? "text-white/70" : "text-white/50"}`}>{label}</div>
+      <div className={`mt-2 text-2xl font-semibold tracking-tight ${green ? "text-white" : "text-white"}`}>{value}</div>
+      <div className={`mt-0.5 text-[11px] ${green ? "text-white/60" : "text-white/40"}`}>{sub}</div>
     </div>
   );
 }
@@ -143,8 +143,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
         <div className="w-full max-w-sm">
           {sentTo ? (
             /* Email sent state */
-            <div className="rounded-2xl border border-border bg-card p-8">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400">
+            <div className="rounded-2xl border border-border bg-white p-8">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-500">
                 <Mail size={22} />
               </div>
               <h1 className="mt-5 text-2xl font-semibold tracking-tight text-fg">Vérifiez votre email</h1>
@@ -214,7 +214,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   <div className="mb-1.5 flex items-center justify-between">
                     <label className="text-xs font-medium text-muted">Mot de passe</label>
                     {!isSignup && (
-                      <Link href="/forgot-password" className="text-xs text-brand-400 hover:text-brand-300">
+                      <Link href="/forgot-password" className="text-xs text-brand-500 hover:text-brand-600">
                         Mot de passe oublié ?
                       </Link>
                     )}
@@ -270,7 +270,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-black transition-all hover:bg-brand-400 disabled:opacity-60"
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 text-[15px] font-semibold text-white transition-all hover:bg-brand-600 disabled:opacity-60"
                 >
                   {loading ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
                   {cta}
@@ -279,7 +279,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               <p className="mt-6 text-center text-xs text-muted">
                 {switchLabel}{" "}
-                <Link href={switchHref} className="font-medium text-brand-400 hover:text-brand-300">
+                <Link href={switchHref} className="font-medium text-brand-500 hover:text-brand-600">
                   {switchCta}
                 </Link>
               </p>
