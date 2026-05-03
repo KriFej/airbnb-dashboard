@@ -6,10 +6,9 @@ import { Button } from "../ui/Button";
 import { Logo } from "../ui/Logo";
 
 const LINKS = [
+  { href: "#how-it-works", label: "Comment ça marche" },
   { href: "#features", label: "Fonctionnalités" },
   { href: "#pricing", label: "Tarifs" },
-  { href: "/simulateur", label: "Simulateur" },
-  { href: "#faq", label: "FAQ" },
 ];
 
 export function Nav() {

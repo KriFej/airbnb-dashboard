@@ -56,7 +56,7 @@ export function FeaturesGrid() {
           </h2>
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3" id="features">
           {FEATURES.map(({ icon: Icon, title, body, accent }) => (
             <div
               key={title}
@@ -92,6 +92,15 @@ export function FeaturesGrid() {
               </p>
             </div>
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <a
+            href="/signup"
+            className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-700"
+          >
+            Essayer gratuitement →
+          </a>
+          <p className="mt-3 text-xs text-dim">1 bien gratuit · Aucune carte requise</p>
         </div>
       </div>
     </section>

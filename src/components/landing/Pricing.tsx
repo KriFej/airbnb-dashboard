@@ -68,7 +68,6 @@ export function Pricing() {
             variant="default"
             features={[
               "1 bien inclus",
-              "Synchronisation iCal Airbnb & Booking",
               "Tableau de bord complet",
               "Calcul bénéfice net en temps réel",
               "Export CSV",
