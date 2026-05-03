@@ -7,7 +7,7 @@ type Props = {
   formatValue?: (v: number) => string;
 };
 
-export function BarChart({ data, color = "#22C55E", height = 120, formatValue }: Props) {
+export function BarChart({ data, color = "#6366F1", height = 120, formatValue }: Props) {
   if (!data || data.length === 0) return null;
 
   const max = Math.max(...data.map((d) => d.value), 1);
@@ -37,7 +37,7 @@ export function BarChart({ data, color = "#22C55E", height = 120, formatValue }:
               width={`${w}%`}
               height={barHeight}
               rx="2"
-              fill={isMax ? color : `${color}40`}
+              fill={isMax ? color : "#C7D2FE"}
             />
             {/* Value label on max bar */}
             {isMax && formatValue && (

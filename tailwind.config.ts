@@ -13,13 +13,19 @@ const config: Config = {
         "border-hover": "var(--color-border-hover)",
         fg: "var(--color-fg)",
         brand: {
-          50: "#F0FDF4",
+          50: "#EEF2FF",
+          100: "#E0E7FF",
+          200: "#C7D2FE",
+          400: "#818CF8",
+          500: "#6366F1",
+          600: "#4F46E5",
+          700: "#4338CA",
+          900: "#312E81",
+          tint: "rgba(99,102,241,0.08)",
+        },
+        positive: {
           400: "#4ADE80",
           500: "#22C55E",
-          600: "#16A34A",
-          700: "#15803D",
-          900: "#14532D",
-          tint: "rgba(34,197,94,0.08)",
         },
         muted: "var(--color-muted)",
         dim: "var(--color-dim)",
@@ -28,19 +34,9 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        glow: "0 0 80px rgba(34,197,94,0.25)",
-        "glow-sm": "0 0 40px rgba(34,197,94,0.18)",
-        "btn-glow": "0 8px 30px -6px rgba(34,197,94,0.5)",
-        card: "0 0 0 1px rgba(255,255,255,0.05), 0 2px 12px rgba(0,0,0,0.5)",
-      },
-      backgroundImage: {
-        "grid-pattern":
-          "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
-        "radial-green":
-          "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(34,197,94,0.18), transparent 70%)",
-      },
-      backgroundSize: {
-        grid: "48px 48px",
+        card: "0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)",
+        "card-md": "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05)",
+        "btn-indigo": "0 4px 14px rgba(99,102,241,0.3)",
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out forwards",

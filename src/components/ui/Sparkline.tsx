@@ -8,7 +8,7 @@ type Props = {
 
 export function Sparkline({
   data,
-  color = "#22C55E",
+  color = "#6366F1",
   height = 40,
   width = 100,
   filled = false,

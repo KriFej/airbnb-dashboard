@@ -33,10 +33,10 @@ function classes(variant: Variant = "primary", size: Size = "md"): string {
   };
   const variants: Record<Variant, string> = {
     primary:
-      "bg-brand-500 text-black hover:bg-brand-400 shadow-btn-glow hover:shadow-[0_10px_36px_-4px_rgba(34,197,94,0.7)]",
+      "bg-slate-900 text-white hover:bg-slate-700 shadow-sm",
     secondary:
-      "bg-fg/5 text-fg border border-fg/10 hover:bg-fg/10",
-    ghost: "text-fg hover:bg-fg/5",
+      "bg-white text-fg border border-border hover:bg-surface",
+    ghost: "text-fg hover:bg-surface",
   };
   return `${base} ${sizes[size]} ${variants[variant]}`;
 }

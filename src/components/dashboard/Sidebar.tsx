@@ -1,13 +1,14 @@
 "use client";
 
 import {
+  BarChart2,
   Calendar,
+  HelpCircle,
   Home,
   LogOut,
   LucideIcon,
   Settings,
   Building2,
-  Wallet,
   Zap,
 } from "lucide-react";
 import { Logo } from "../ui/Logo";
@@ -17,9 +18,9 @@ type Item = { id: string; icon: LucideIcon; label: string };
 
 const NAV: Item[] = [
   { id: "overview", icon: Home, label: "Vue d'ensemble" },
-  { id: "properties", icon: Building2, label: "Biens" },
-  { id: "agenda", icon: Calendar, label: "Agenda" },
-  { id: "expenses", icon: Wallet, label: "Dépenses" },
+  { id: "properties", icon: Building2, label: "Mes biens" },
+  { id: "agenda", icon: Calendar, label: "Calendrier" },
+  { id: "expenses", icon: BarChart2, label: "Analytique" },
   { id: "settings", icon: Settings, label: "Paramètres" },
 ];
 
@@ -40,12 +41,15 @@ export function Sidebar({
     ? userEmail.slice(0, 2).toUpperCase()
     : "YO";
 
+  const firstName = userEmail ? userEmail.split("@")[0] : "Votre hôte";
+  const displayName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
   const isFree = !planLabel || planLabel === "Gratuit" || planLabel === "Sans offre";
 
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex md:flex-col w-[220px] shrink-0 border-r border-border bg-surface">
+      <aside className="hidden md:flex md:flex-col w-[240px] shrink-0 border-r border-border bg-white">
         {/* Logo */}
         <div className="flex h-16 items-center px-5">
           <Link href="/">
@@ -53,8 +57,8 @@ export function Sidebar({
           </Link>
         </div>
 
-        {/* Nav */}
-        <nav className="flex-1 space-y-0.5 px-3 pt-2">
+        {/* Main nav */}
+        <nav className="flex-1 space-y-1 px-3 pt-2">
           {NAV.map((item) => {
             const Icon = item.icon;
             const isActive = active === item.id;
@@ -63,20 +67,17 @@ export function Sidebar({
                 key={item.id}
                 type="button"
                 onClick={() => onNavigate(item.id)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-150 ${
                   isActive
-                    ? "bg-brand-500/12 text-brand-400"
-                    : "text-muted hover:bg-fg/5 hover:text-fg"
+                    ? "border border-border bg-surface font-semibold text-fg"
+                    : "font-medium text-muted hover:bg-surface hover:text-fg"
                 }`}
               >
                 <Icon
                   size={16}
-                  className={isActive ? "text-brand-400" : "text-dim"}
+                  className={isActive ? "text-brand-500" : "text-dim"}
                 />
                 {item.label}
-                {isActive && (
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-brand-500" />
-                )}
               </button>
             );
           })}
@@ -84,8 +85,8 @@ export function Sidebar({
 
         {/* Upgrade banner for free users */}
         {isFree && (
-          <div className="mx-3 mb-3 overflow-hidden rounded-xl bg-brand-500/8 border border-brand-500/20 p-4">
-            <div className="flex items-center gap-2 text-brand-400">
+          <div className="mx-3 mb-3 overflow-hidden rounded-xl bg-brand-tint border border-brand-200 p-4">
+            <div className="flex items-center gap-2 text-brand-600">
               <Zap size={13} fill="currentColor" />
               <span className="text-xs font-semibold">Passer à Pro</span>
             </div>
@@ -94,43 +95,54 @@ export function Sidebar({
             </p>
             <Link
               href="/#pricing"
-              className="mt-3 flex items-center justify-center rounded-lg bg-brand-500 py-2 text-xs font-semibold text-black transition-colors hover:bg-brand-400"
+              className="mt-3 flex items-center justify-center rounded-lg bg-brand-500 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-600"
             >
               Voir les offres
             </Link>
           </div>
         )}
 
+        {/* Bottom section */}
+        <div className="border-t border-border px-3 py-3 space-y-1">
+          <button
+            type="button"
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface hover:text-fg transition-colors"
+          >
+            <HelpCircle size={16} className="text-dim" />
+            Aide
+          </button>
+          {onLogout && (
+            <button
+              type="button"
+              onClick={onLogout}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface hover:text-fg transition-colors"
+            >
+              <LogOut size={16} className="text-dim" />
+              Déconnexion
+            </button>
+          )}
+        </div>
+
         {/* User */}
         <div className="border-t border-border p-3">
           <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold text-white">
               {initials}
             </div>
             <div className="flex-1 overflow-hidden">
-              <div className="truncate text-xs font-medium text-fg">
-                {userEmail ?? "Votre hôte"}
+              <div className="truncate text-sm font-semibold text-fg">
+                {displayName}
               </div>
               <div className="truncate text-[11px] text-muted">
                 {planLabel ?? "Sans offre"}
               </div>
             </div>
-            {onLogout && (
-              <button
-                type="button"
-                onClick={onLogout}
-                className="text-dim hover:text-fg transition-colors"
-                aria-label="Se déconnecter"
-              >
-                <LogOut size={13} />
-              </button>
-            )}
           </div>
         </div>
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-border bg-surface/95 backdrop-blur">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-border bg-white/95 backdrop-blur">
         {NAV.map((item) => {
           const Icon = item.icon;
           const isActive = active === item.id;
@@ -140,7 +152,7 @@ export function Sidebar({
               type="button"
               onClick={() => onNavigate(item.id)}
               className={`flex flex-1 flex-col items-center gap-1 py-3 text-[10px] transition-colors ${
-                isActive ? "text-brand-400" : "text-dim"
+                isActive ? "text-brand-500" : "text-dim"
               }`}
             >
               <Icon size={20} />

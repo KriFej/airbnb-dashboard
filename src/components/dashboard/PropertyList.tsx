@@ -21,11 +21,11 @@ export function PropertyList({
 }: Props) {
   if (properties.length === 0) {
     return (
-      <section className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+      <section className="rounded-2xl border border-dashed border-border bg-white p-10 text-center shadow-card">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500 ring-1 ring-brand-200">
           <Building2 size={22} />
         </div>
-        <h3 className="mt-5 text-lg font-medium">Aucun bien pour l&apos;instant</h3>
+        <h3 className="mt-5 text-lg font-semibold text-fg">Aucun bien pour l&apos;instant</h3>
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted">
           Ajoutez votre premier bien pour commencer à suivre ses revenus, ses
           dépenses et son bénéfice net.
@@ -33,7 +33,7 @@ export function PropertyList({
         <button
           type="button"
           onClick={onAddClick}
-          className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-black transition-colors hover:bg-brand-400"
+          className="mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-slate-900 px-5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
         >
           <Plus size={16} />
           Créer votre premier bien
@@ -43,10 +43,10 @@ export function PropertyList({
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6">
+    <section className="rounded-2xl border border-border bg-white p-6 shadow-card">
       <header className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-medium text-fg">Vos biens</h3>
+          <h3 className="text-sm font-semibold text-fg">Vos biens</h3>
           <p className="text-xs text-muted">
             Cliquez sur un bien pour éditer ses dépenses et synchroniser son
             iCal.
@@ -55,7 +55,7 @@ export function PropertyList({
         <button
           type="button"
           onClick={onAddClick}
-          className="inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-4 text-xs font-medium text-black transition-colors hover:bg-brand-400"
+          className="inline-flex h-10 items-center gap-2 rounded-full bg-slate-900 px-4 text-xs font-medium text-white transition-colors hover:bg-slate-700"
         >
           <Plus size={14} />
           Ajouter un bien
@@ -71,14 +71,14 @@ export function PropertyList({
               key={p.id}
               type="button"
               onClick={() => onSelect(p.id)}
-              className={`flex flex-col rounded-xl border bg-surface p-4 text-left transition-colors ${
+              className={`flex flex-col rounded-xl border bg-white p-4 text-left transition-all duration-150 ${
                 isActive
-                  ? "border-brand-500/60 ring-1 ring-brand-500/30"
-                  : "border-border hover:border-border-hover"
+                  ? "border-brand-500/60 ring-1 ring-brand-500/20 shadow-card"
+                  : "border-border hover:border-border-hover hover:shadow-card"
               }`}
             >
               <div className="flex items-center gap-2">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-500 ring-1 ring-brand-100">
                   <Building2 size={14} />
                 </span>
                 <span className="flex-1 truncate text-sm font-medium text-fg">
@@ -129,7 +129,7 @@ export function PropertyList({
                   <div className="flex items-center gap-1 text-dim">
                     <TrendingUp size={10} /> Net
                   </div>
-                  <div className="mt-1 text-sm text-brand-400">
+                  <div className="mt-1 text-sm text-brand-500 font-semibold">
                     {formatEuro(k.netProfit)}
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export function PropertyList({
                     </div>
                     <div>
                       <div className="text-dim">Renta. nette</div>
-                      <div className="mt-1 text-sm text-brand-400">
+                      <div className="mt-1 text-sm text-brand-500 font-semibold">
                         {formatYield(k.yieldNet)}
                       </div>
                     </div>
