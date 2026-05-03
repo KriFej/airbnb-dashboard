@@ -54,15 +54,16 @@ Géré via `[data-theme="dark"]` dans `globals.css`. Le ThemeProvider est conser
 ## Structure clés
 
 ### Landing (`src/components/landing/`)
-- `Nav.tsx` — barre de navigation sticky, `bg-white/90 backdrop-blur-xl`
-- `Hero.tsx` — H1 "en 30 secondes" en `text-brand-500`, floating card
-- `ProductMockup.tsx` — aperçu UI light (sidebar blanche, chrome navigateur)
-- `FeaturesGrid.tsx` — grille 6 features, card accent indigo `text-white`
-- `StatsGrid.tsx` — 3 stats, card indigo `text-white`
-- `HowItWorks.tsx` — 3 étapes zigzag, step numbers clamp responsive
-- `Pricing.tsx` — 4 plans (`lg:grid-cols-4`), featured card indigo `text-white`
-- `FinalCTA.tsx` — CTA final, glow indigo
-- `Footer.tsx` — newsletter, liens légaux
+- `Nav.tsx` — sticky `bg-white/90`, liens : Comment ça marche / Fonctionnalités / Tarifs
+- `Hero.tsx` — centré, H1 "vos vrais chiffres" en `text-brand-500`, CTA secondaire → `#how-it-works`
+- `HowItWorks.tsx` — 3 étapes zigzag + CTA
+- `FeatureSplit.tsx` — centré, benefits liste, bannière indigo sans stat fausse
+- `StatsGrid.tsx` — 2 stats : "0 €" frais cachés + "2 min" mise en route
+- `FeaturesGrid.tsx` — grille 6 features + CTA bas de section
+- `Pricing.tsx` — 4 plans, featured indigo, plan Gratuit sans iCal (Starter+)
+- `FAQ.tsx` — accordéon + CTA bas de section
+- `FinalCTA.tsx` — `bg-brand-50 border-brand-200`, propre
+- `Footer.tsx` — sans newsletter, liens légaux
 
 ### Dashboard (`src/components/dashboard/`)
 - `Sidebar.tsx` — `bg-white border-r border-border`, item actif `border rounded-xl`
@@ -78,7 +79,7 @@ Géré via `[data-theme="dark"]` dans `globals.css`. Le ThemeProvider est conser
 - `Button.tsx` — variants : `primary` (slate-900), `secondary` (white border), `ghost`
 - `BarChart.tsx` — couleur défaut `#6366F1`, barre inactive `#C7D2FE`
 - `Sparkline.tsx` — couleur défaut `#6366F1`
-- `Logo.tsx` — icône Zap indigo + "loc" (fg) + "pilote" (brand-500)
+- `Logo.tsx` — texte seul : "loc" (fg) + "pilote" (brand-500), pas d'icône
 
 ### Logique métier (ne pas toucher)
 - `src/lib/calc.ts` — calculs KPI
@@ -92,3 +93,15 @@ Géré via `[data-theme="dark"]` dans `globals.css`. Le ThemeProvider est conser
 - Branche de dev active : `claude/locpilote-progress-8FxX7`
 - Email support : `hello@locpilote.com`
 - IndexNow key : `a7f3d9c2b8e5f1a4d6b2c9e8f7a3d5b1`
+
+## Todo restant
+
+### Code (à faire)
+- [ ] OG image (`src/app/opengraph-image.tsx`) — mettre à jour avec branding v2
+- [ ] Décider : remettre `/simulateur` dans le nav ou laisser SEO uniquement
+
+### Config Vercel (user)
+- [ ] `LEMONSQUEEZY_CHECKOUT_*` — URLs vraies des plans
+- [ ] `LEMONSQUEEZY_VARIANT_*` — IDs variantes
+- [ ] `LEMONSQUEEZY_WEBHOOK_SECRET`
+- [ ] `RESEND_API_KEY`
