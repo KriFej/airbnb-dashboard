@@ -1,71 +1,8 @@
-"use client";
-
-import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { useState } from "react";
 import { Logo } from "../ui/Logo";
 
 export function Footer() {
-  const [newsEmail, setNewsEmail] = useState("");
-  const [newsDone, setNewsDone] = useState(false);
-  const [newsLoading, setNewsLoading] = useState(false);
-
-  async function handleNewsletter(e: React.FormEvent) {
-    e.preventDefault();
-    if (!newsEmail) return;
-    setNewsLoading(true);
-    try {
-      await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: newsEmail }),
-      });
-      setNewsDone(true);
-    } finally {
-      setNewsLoading(false);
-    }
-  }
-
   return (
     <footer className="border-t border-border/40">
-      {/* Newsletter band */}
-      <div className="border-b border-border/40 bg-brand-500/[0.04]">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-10 sm:flex-row sm:items-center">
-          <div>
-            <h3 className="text-base font-semibold text-fg">Restez informé</h3>
-            <p className="mt-1 text-sm text-muted">
-              Conseils rentabilité, nouvelles fonctionnalités, actus locpilote.
-            </p>
-          </div>
-          {newsDone ? (
-            <div className="flex items-center gap-2 text-sm text-brand-500">
-              <CheckCircle2 size={16} /> Inscription confirmée, merci !
-            </div>
-          ) : (
-          <form
-            onSubmit={handleNewsletter}
-            className="flex w-full max-w-sm gap-2"
-          >
-            <input
-              type="email"
-              required
-              value={newsEmail}
-              onChange={(e) => setNewsEmail(e.target.value)}
-              placeholder="votre@email.com"
-              className="h-11 flex-1 rounded-xl border border-border bg-surface px-3 text-sm text-fg placeholder:text-dim focus:border-brand-500/60 focus:outline-none focus:ring-1 focus:ring-brand-500/20 min-w-0"
-            />
-            <button
-              type="submit"
-              disabled={newsLoading}
-              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:opacity-60"
-            >
-              <ArrowRight size={14} />
-              <span className="hidden sm:inline">S&apos;inscrire</span>
-            </button>
-          </form>
-          )}
-        </div>
-      </div>
-
       {/* Main footer */}
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
@@ -91,7 +28,6 @@ export function Footer() {
           <FooterCol
             title="Entreprise"
             links={[
-              { label: "Témoignages", href: "#testimonials" },
               { label: "FAQ", href: "#faq" },
               { label: "Contact", href: "mailto:hello@locpilote.com" },
             ]}

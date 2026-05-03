@@ -1,21 +1,11 @@
-import { BarChart3, Users, TrendingUp } from "lucide-react";
+import { BarChart3, TrendingUp } from "lucide-react";
 
 export function StatsGrid() {
   return (
     <section className="border-t border-border/30 py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {/* Stat 1 */}
-          <div className="flex flex-col gap-1 rounded-2xl border border-brand-200 bg-brand-50 p-8 ring-1 ring-brand-100">
-            <div className="flex items-center gap-2 text-brand-500">
-              <Users size={18} />
-              <span className="text-xs uppercase tracking-widest">Hôtes actifs</span>
-            </div>
-            <div className="mt-4 text-5xl font-semibold tracking-tight text-fg">1 200+</div>
-            <p className="mt-2 text-sm text-muted">dans 38 pays</p>
-          </div>
-
-          {/* Stat 2 */}
           <div className="flex flex-col gap-1 rounded-2xl border border-border bg-white p-8">
             <div className="flex items-center gap-2 text-brand-500">
               <BarChart3 size={18} />

@@ -54,20 +54,6 @@ export function Pricing() {
           </div>
         </div>
 
-        {/* Background large text */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -bottom-8 flex items-end justify-center overflow-hidden"
-          style={{ top: "60px" }}
-        >
-          <span
-            className="select-none whitespace-nowrap font-semibold leading-none tracking-tighter text-fg/[0.03]"
-            style={{ fontSize: "clamp(120px, 22vw, 280px)" }}
-          >
-            Tarifs
-          </span>
-        </div>
-
         {/* Cards */}
         <div className="relative mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-4">
 
