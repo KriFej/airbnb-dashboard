@@ -8,8 +8,8 @@ import { Logo } from "../ui/Logo";
 const LINKS = [
   { href: "#features", label: "Fonctionnalités" },
   { href: "#pricing", label: "Tarifs" },
-  { href: "/simulateur", label: "Blog" },
-  { href: "#faq", label: "Support" },
+  { href: "/simulateur", label: "Simulateur" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 export function Nav() {

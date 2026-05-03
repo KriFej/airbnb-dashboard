@@ -26,8 +26,8 @@ export function FinalCTA() {
               <Button href="/signup" size="lg" icon={<ArrowRight size={16} />}>
                 Commencer gratuitement
               </Button>
-              <Button href="#features" variant="secondary" size="lg">
-                Voir les fonctionnalités
+              <Button href="#pricing" variant="secondary" size="lg">
+                Voir les tarifs
               </Button>
             </div>
             <p className="mt-5 text-xs text-dim">

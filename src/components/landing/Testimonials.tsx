@@ -59,7 +59,7 @@ export function Testimonials() {
 
         <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {/* Featured testimonial */}
-          <figure className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-black lg:row-span-1">
+          <figure className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-white lg:row-span-1">
             <div
               className="pointer-events-none absolute inset-0 opacity-10"
               style={{
@@ -70,21 +70,21 @@ export function Testimonials() {
             <div className="relative">
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} fill="black" stroke="none" />
+                  <Star key={i} size={14} fill="white" stroke="none" />
                 ))}
               </div>
-              <blockquote className="mt-5 text-base leading-relaxed text-black/90">
+              <blockquote className="mt-5 text-base leading-relaxed text-white/90">
                 &ldquo;{FEATURED.body}&rdquo;
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
                 <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-black/20 text-sm font-semibold text-black"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-semibold text-white"
                 >
                   {FEATURED.initials}
                 </span>
                 <div>
                   <div className="text-sm font-semibold">{FEATURED.name}</div>
-                  <div className="text-xs text-black/70">{FEATURED.role}</div>
+                  <div className="text-xs text-white/70">{FEATURED.role}</div>
                 </div>
               </figcaption>
             </div>
@@ -95,7 +95,7 @@ export function Testimonials() {
             {TESTIMONIALS.map((t) => (
               <figure
                 key={t.name}
-                className="flex flex-col rounded-2xl bg-card/60 p-6 shadow-card"
+                className="flex flex-col rounded-2xl bg-white border border-border p-6 shadow-card"
               >
                 <Stars />
                 <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-muted">
@@ -103,7 +103,7 @@ export function Testimonials() {
                 </blockquote>
                 <figcaption className="mt-5 flex items-center gap-3">
                   <span
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-black"
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-white"
                     style={{ background: t.color }}
                   >
                     {t.initials}

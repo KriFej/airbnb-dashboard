@@ -25,10 +25,10 @@ export function Hero() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/signup" size="lg">
-                Essai gratuit 14 jours →
+                Commencer gratuitement →
               </Button>
-              <Button href="#how-it-works" variant="secondary" size="lg">
-                Voir la démo
+              <Button href="/dashboard" variant="secondary" size="lg">
+                Voir le tableau de bord
               </Button>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 const FAQS = [
   {
     q: "Combien coûte locpilote ?",
-    a: "Trois offres : Starter à 9,90 €/mois (1 à 2 biens), Pro à 19,90 €/mois (3 à 10 biens) et Unlimited sur devis à partir de 11 biens. Toutes les offres sont mensuelles, résiliables à tout moment.",
+    a: "Quatre offres : Gratuit (0 €, 1 bien), Starter à 9,90 €/mois (2 à 3 biens), Pro à 19,90 €/mois (4 à 10 biens) et Unlimited sur devis à partir de 11 biens. Résiliable à tout moment.",
   },
   {
     q: "C'est quoi un iCal ?",
@@ -31,7 +31,7 @@ const FAQS = [
   },
   {
     q: "Puis-je suivre plusieurs biens ?",
-    a: "Starter couvre 1 à 2 biens, Pro couvre 3 à 10 avec l'agenda des réservations synchro iCal en direct, Unlimited est conçu pour les portefeuilles de 11 biens et plus (devis personnalisé).",
+    a: "Gratuit couvre 1 bien, Starter couvre 2 à 3 biens, Pro couvre 4 à 10 avec l'agenda en direct, Unlimited est conçu pour les portefeuilles de 11 biens et plus (devis personnalisé).",
   },
   {
     q: "Le bénéfice net est-il précis ?",
@@ -52,7 +52,7 @@ export function FAQ() {
           </h2>
         </div>
 
-        <div className="mt-12 divide-y divide-border rounded-2xl border border-border bg-card">
+        <div className="mt-12 divide-y divide-border rounded-2xl border border-border bg-white">
           {FAQS.map((item) => (
             <details key={item.q} className="group px-6 py-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4">
