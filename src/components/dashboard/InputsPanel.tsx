@@ -24,7 +24,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
   return (
     <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {/* Revenus */}
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-2xl border border-border bg-white p-6">
         <h3 className="text-sm font-medium text-fg">Revenus</h3>
         <p className="text-xs text-muted">Montants bruts par canal.</p>
         <div className="mt-5 space-y-4">
@@ -48,7 +48,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
       </div>
 
       {/* Charges */}
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-2xl border border-border bg-white p-6">
         <h3 className="text-sm font-medium text-fg">Dépenses</h3>
         <p className="text-xs text-muted">Charges mensuelles récurrentes.</p>
         <div className="mt-5 grid grid-cols-2 gap-4">
@@ -86,7 +86,7 @@ export function InputsPanel({ inputs, onChange }: Props) {
       </div>
 
       {/* Frais plateformes */}
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-2xl border border-border bg-white p-6">
         <h3 className="text-sm font-medium text-fg">Frais de plateforme</h3>
         <p className="text-xs text-muted">Pourcentage prélevé par canal.</p>
         <div className="mt-5 space-y-4">
@@ -148,15 +148,15 @@ export function InputsPanel({ inputs, onChange }: Props) {
               </div>
               <div className="mt-0.5 text-[11px] text-dim">annualisée</div>
             </div>
-            <div className="rounded-xl border border-brand-500/30 bg-brand-500/8 px-5 py-4 text-center min-w-[110px]">
-              <div className="flex items-center justify-center gap-1 text-[11px] uppercase tracking-widest text-brand-400/70">
+            <div className="rounded-xl border border-brand-200 bg-brand-50 px-5 py-4 text-center min-w-[110px]">
+              <div className="flex items-center justify-center gap-1 text-[11px] uppercase tracking-widest text-brand-500">
                 <TrendingUp size={11} />
                 Renta. nette
               </div>
-              <div className={`mt-2 text-2xl font-semibold tracking-tight ${kpis.yieldNet !== null ? "text-brand-400" : "text-dim"}`}>
+              <div className={`mt-2 text-2xl font-semibold tracking-tight ${kpis.yieldNet !== null ? "text-brand-500" : "text-dim"}`}>
                 {formatYield(kpis.yieldNet)}
               </div>
-              <div className="mt-0.5 text-[11px] text-brand-400/50">après frais</div>
+              <div className="mt-0.5 text-[11px] text-brand-500">après frais</div>
             </div>
           </div>
         </div>

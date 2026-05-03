@@ -5,8 +5,8 @@ import { fr } from "date-fns/locale";
 import { Booking } from "@/lib/types";
 
 const SOURCE_STYLES: Record<string, string> = {
-  airbnb: "bg-brand-500/10 text-brand-400 border-brand-500/20",
-  booking: "bg-blue-400/10 text-blue-300 border-blue-400/20",
+  airbnb: "bg-brand-50 text-brand-600 border-brand-200",
+  booking: "bg-blue-50 text-blue-600 border-blue-200",
 };
 
 export function BookingsList({ bookings }: { bookings: Booking[] }) {
@@ -18,7 +18,7 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
     .slice(0, 8);
 
   return (
-    <section className="rounded-2xl border border-border bg-card overflow-hidden">
+    <section className="rounded-2xl border border-border bg-white overflow-hidden">
       <div className="flex items-center justify-between px-6 py-4 border-b border-border">
         <div>
           <h3 className="text-sm font-semibold text-fg">Prochaines réservations</h3>
@@ -52,7 +52,7 @@ export function BookingsList({ bookings }: { bookings: Booking[] }) {
             return (
               <div
                 key={b.uid}
-                className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-3 px-6 py-3 text-sm transition-colors hover:bg-fg/[0.02]"
+                className="grid grid-cols-[1fr_auto_auto_auto] items-center gap-3 px-6 py-3 text-sm transition-colors hover:bg-surface"
               >
                 <div className="min-w-0">
                   <div className="truncate font-medium text-fg text-sm">

@@ -62,8 +62,8 @@ export function FeaturesGrid() {
               key={title}
               className={`group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ${
                 accent
-                  ? "bg-brand-500 text-black"
-                  : "bg-card/60 shadow-card hover:bg-card hover:shadow-[0_0_0_1px_rgba(34,197,94,0.15),0_4px_20px_rgba(0,0,0,0.5)]"
+                  ? "bg-brand-500 text-white"
+                  : "bg-white shadow-card hover:shadow-card-md"
               }`}
             >
               {accent && (
@@ -78,16 +78,16 @@ export function FeaturesGrid() {
               <div
                 className={`relative flex h-11 w-11 items-center justify-center rounded-xl ring-1 ${
                   accent
-                    ? "bg-black/20 text-black ring-black/20"
+                    ? "bg-white/20 text-white ring-white/20"
                     : "bg-brand-500/10 text-brand-400 ring-brand-500/20"
                 }`}
               >
                 <Icon size={20} />
               </div>
-              <h3 className={`relative mt-5 text-lg font-semibold ${accent ? "text-black" : "text-fg"}`}>
+              <h3 className={`relative mt-5 text-lg font-semibold ${accent ? "text-white" : "text-fg"}`}>
                 {title}
               </h3>
-              <p className={`relative mt-2 text-sm leading-relaxed ${accent ? "text-black/75" : "text-muted"}`}>
+              <p className={`relative mt-2 text-sm leading-relaxed ${accent ? "text-white/75" : "text-muted"}`}>
                 {body}
               </p>
             </div>

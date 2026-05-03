@@ -52,12 +52,12 @@ export function HowItWorks() {
               >
                 {/* Content */}
                 <div className={`flex-1 md:pb-16 ${i % 2 === 1 ? "md:text-right" : ""}`}>
-                  <span className="text-[80px] font-semibold leading-none tracking-tighter text-fg/[0.04] select-none">
+                  <span className="text-[clamp(32px,10vw,80px)] font-semibold leading-none tracking-tighter text-fg/[0.04] select-none">
                     {step}
                   </span>
                   <div className={`mt-2 flex items-start gap-4 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-brand-500/30 bg-brand-500/10 md:h-12 md:w-12">
-                      <Icon size={20} className="text-brand-400" />
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-surface md:h-12 md:w-12">
+                      <Icon size={20} className="text-brand-500" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-fg">{title}</h3>
@@ -68,7 +68,7 @@ export function HowItWorks() {
 
                 {/* Center dot */}
                 <div className="hidden md:flex md:w-4 md:shrink-0 md:flex-col md:items-center md:pt-6">
-                  <div className="h-4 w-4 rounded-full border-2 border-brand-500 bg-bg shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
+                  <div className="h-4 w-4 rounded-full border-2 border-brand-500 bg-white shadow-sm" />
                 </div>
 
                 {/* Empty spacer */}

@@ -290,13 +290,13 @@ export default function DashboardPage() {
             </div>
 
             {/* Bento KPI grid */}
-            <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {/* Bénéfice net — featured, spans 2 cols on xl */}
               <div className="col-span-2 min-h-[140px] xl:col-span-2">
                 <KpiCard
                   label="Bénéfice net"
                   value={formatEuro(aggregate.netProfit)}
-                  tone="green"
+                  tone="default"
                   delta={period}
                   icon={<TrendingUp size={12} />}
                   hint="Après frais et dépenses"
@@ -349,7 +349,7 @@ export default function DashboardPage() {
                 <KpiCard
                   label="Rentabilité nette"
                   value={formatYield(aggregate.yieldNet)}
-                  tone={aggregate.yieldNet !== null ? "green" : "default"}
+                  tone="default"
                   icon={<TrendingDown size={14} />}
                   hint={aggregate.yieldNet === null ? "Saisissez le prix d'achat" : "Après frais et charges"}
                 />
@@ -358,7 +358,7 @@ export default function DashboardPage() {
 
             {/* Activity bar chart — only when there are bookings */}
             {allBookings.length > 0 && (
-              <div className="rounded-2xl border border-border bg-card p-6">
+              <div className="rounded-2xl border border-border bg-white p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-semibold text-fg">Activité réservations</h3>
@@ -380,8 +380,8 @@ export default function DashboardPage() {
 
           {/* Guide de démarrage — visible uniquement si aucun bien */}
           {propsReady && properties.length === 0 && (
-            <div className="rounded-2xl border border-brand-500/20 bg-brand-500/5 p-6">
-              <p className="text-sm font-medium text-brand-400">Par où commencer ?</p>
+            <div className="rounded-2xl border border-brand-200 bg-brand-50 p-6">
+              <p className="text-sm font-medium text-brand-600">Par où commencer ?</p>
               <ol className="mt-4 space-y-3">
                 {[
                   "Cliquez sur « + Ajouter un bien » ci-dessous et donnez-lui un nom.",
@@ -389,7 +389,7 @@ export default function DashboardPage() {
                   "Saisissez vos dépenses mensuelles — votre bénéfice net s'affiche en temps réel.",
                 ].map((step, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-muted">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-500/20 text-[11px] font-semibold text-brand-400">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[11px] font-semibold text-brand-600">
                       {i + 1}
                     </span>
                     {step}

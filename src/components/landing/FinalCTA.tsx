@@ -7,7 +7,7 @@ export function FinalCTA() {
       <div className="mx-auto max-w-5xl px-6">
         <div className="relative overflow-hidden rounded-3xl border border-brand-500/30 bg-gradient-to-b from-brand-500/12 via-brand-500/5 to-transparent px-8 py-16 text-center sm:px-12 md:px-20 md:py-24">
           {/* Glow */}
-          <div className="pointer-events-none absolute inset-x-0 -bottom-32 h-80 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(34,197,94,0.4),transparent_70%)]" />
+          <div className="pointer-events-none absolute inset-x-0 -bottom-32 h-80 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(99,102,241,0.3),transparent_70%)]" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent" />
 
           <div className="relative">

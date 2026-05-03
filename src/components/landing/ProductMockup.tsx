@@ -11,17 +11,17 @@ export function ProductMockup() {
       <div className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-brand-500/10 blur-3xl" />
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
         {/* Browser chrome */}
-        <div className="flex items-center gap-2 border-b border-border bg-[#0B0B0B] px-4 py-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#2A2A2A]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#2A2A2A]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#2A2A2A]" />
-          <div className="ml-4 h-6 flex-1 rounded-md bg-black/60" />
+        <div className="flex items-center gap-2 border-b border-border bg-surface px-4 py-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-yellow-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-green-300" />
+          <div className="ml-4 h-6 flex-1 rounded-md bg-border" />
         </div>
 
         {/* App body */}
         <div className="grid md:grid-cols-[180px_1fr] min-h-[360px] md:min-h-[440px]">
           {/* Sidebar mini */}
-          <aside className="hidden md:block border-r border-border bg-[#0B0B0B] p-4">
+          <aside className="hidden md:block border-r border-border bg-white p-4">
             <Logo className="mb-6" />
             <nav className="space-y-1 text-xs">
               <Item icon={<Home size={14} />} active>
@@ -41,7 +41,7 @@ export function ProductMockup() {
                 <div className="text-sm font-medium">Vue d&apos;ensemble</div>
                 <div className="text-[11px] text-muted">Avril 2026</div>
               </div>
-              <div className="h-7 w-24 rounded-full border border-border bg-black/40" />
+              <div className="h-7 w-24 rounded-full border border-border bg-surface" />
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               <Kpi label="Revenu" value="4 500 €" />
@@ -85,7 +85,7 @@ function Item({
   return (
     <div
       className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 ${
-        active ? "bg-brand-500/10 text-brand-400" : "text-muted"
+        active ? "bg-brand-50 text-brand-500" : "text-muted"
       }`}
     >
       {icon}
@@ -104,12 +104,12 @@ function BookingRow({
   amount: string;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-lg border border-border bg-black/40 px-3 py-2">
+    <div className="flex items-center justify-between rounded-lg border border-border bg-surface px-3 py-2">
       <div>
         <div className="text-[11px] font-medium text-fg">{guest}</div>
         <div className="text-[10px] text-muted">{dates}</div>
       </div>
-      <div className="text-[11px] font-medium text-brand-400">{amount}</div>
+      <div className="text-[11px] font-medium text-brand-500">{amount}</div>
     </div>
   );
 }
@@ -127,16 +127,16 @@ function Kpi({
     <div
       className={`rounded-xl border p-3 ${
         green
-          ? "bg-brand-500 border-brand-500 text-black"
+          ? "bg-brand-500 border-brand-500 text-white"
           : "bg-surface border-border"
       }`}
     >
-      <div className={`text-[10px] ${green ? "text-black/70" : "text-muted"}`}>
+      <div className={`text-[10px] ${green ? "text-white/70" : "text-muted"}`}>
         {label}
       </div>
       <div
         className={`mt-1 text-lg font-medium ${
-          green ? "text-black" : "text-fg"
+          green ? "text-white" : "text-fg"
         }`}
       >
         {value}

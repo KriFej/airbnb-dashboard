@@ -43,7 +43,7 @@ export function ICalImport({
 }: Props) {
   if (!canUseICal(plan)) {
     return (
-      <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-6">
+      <section className="relative overflow-hidden rounded-2xl border border-border bg-white p-6">
         <div className="pointer-events-none select-none opacity-30 blur-[2px]">
           <div className="flex items-center gap-2">
             <RefreshCw size={16} className="text-brand-500" />
@@ -53,14 +53,14 @@ export function ICalImport({
           </div>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {["Airbnb", "Booking.com"].map((label) => (
-              <div key={label} className="rounded-xl border border-border bg-[#0B0B0B] p-4">
+              <div key={label} className="rounded-xl border border-border bg-surface p-4">
                 <div className="h-4 w-20 rounded bg-white/10" />
                 <div className="mt-3 h-10 rounded-lg border border-border bg-surface" />
               </div>
             ))}
           </div>
         </div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl bg-black/40 backdrop-blur-[1px]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl bg-white/80 backdrop-blur-[1px]">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card">
             <Lock size={20} className="text-muted" />
           </div>
@@ -68,7 +68,7 @@ export function ICalImport({
           <p className="text-xs text-muted">Synchronisez Airbnb &amp; Booking.com automatiquement</p>
           <Link
             href="/api/checkout?plan=starter"
-            className="mt-1 inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-black hover:bg-brand-400"
+            className="mt-1 inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white hover:bg-brand-600"
           >
             Débloquer — 9,90 €/mois
           </Link>
@@ -78,7 +78,7 @@ export function ICalImport({
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6">
+    <section className="rounded-2xl border border-border bg-white p-6">
       <div className="flex items-center gap-2">
         <RefreshCw size={16} className="text-brand-500" />
         <h3 className="text-sm font-medium text-fg">
@@ -146,14 +146,14 @@ function SourceRow({
   }
 
   return (
-    <div className="rounded-xl border border-border bg-[#0B0B0B] p-4">
+    <div className="rounded-xl border border-border bg-white p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className={`h-2 w-2 rounded-full ${dotColor}`} />
           <span className={`text-sm font-medium ${accent}`}>{label}</span>
         </div>
         {cachedCount > 0 && (
-          <span className="rounded-full bg-black/60 border border-border px-2 py-0.5 text-[10px] text-muted">
+          <span className="rounded-full bg-surface border border-border px-2 py-0.5 text-[10px] text-muted">
             {cachedCount} réservations
           </span>
         )}
@@ -169,7 +169,7 @@ function SourceRow({
         </div>
         <button
           type="button" onClick={sync} disabled={status.kind === "loading"}
-          className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-brand-500 px-3 text-xs font-medium text-black transition-all hover:bg-brand-400 disabled:opacity-60"
+          className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-brand-500 px-3 text-xs font-medium text-white transition-all hover:bg-brand-600 disabled:opacity-60"
         >
           {status.kind === "loading" ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
           {status.kind === "loading" ? "Synchro…" : "Synchroniser"}
@@ -182,7 +182,7 @@ function SourceRow({
 
 function StatusLine({ status }: { status: Status }) {
   if (status.kind === "success") return (
-    <div className="mt-2 flex items-center gap-1.5 text-[11px] text-brand-400">
+    <div className="mt-2 flex items-center gap-1.5 text-[11px] text-brand-500">
       <CheckCircle2 size={12} />{status.count} réservations synchronisées à {status.at}
     </div>
   );

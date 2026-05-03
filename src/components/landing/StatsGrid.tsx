@@ -6,7 +6,7 @@ export function StatsGrid() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-4 sm:grid-cols-3">
           {/* Stat 1 */}
-          <div className="flex flex-col gap-1 rounded-2xl border border-brand-500/30 bg-brand-500/5 p-8 ring-1 ring-brand-500/10">
+          <div className="flex flex-col gap-1 rounded-2xl border border-brand-200 bg-brand-50 p-8 ring-1 ring-brand-100">
             <div className="flex items-center gap-2 text-brand-500">
               <Users size={18} />
               <span className="text-xs uppercase tracking-widest">Hôtes actifs</span>
@@ -26,7 +26,7 @@ export function StatsGrid() {
           </div>
 
           {/* Stat 3 */}
-          <div className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-black">
+          <div className="relative overflow-hidden rounded-2xl bg-brand-500 p-8 text-white">
             <div className="pointer-events-none absolute inset-0 opacity-15"
               style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4) 0%, transparent 60%)" }}
             />
@@ -35,7 +35,7 @@ export function StatsGrid() {
               <span className="text-xs uppercase tracking-widest">Mise en route</span>
             </div>
             <div className="relative mt-4 text-5xl font-semibold tracking-tight">2 min</div>
-            <p className="relative mt-2 text-sm text-black/75">
+            <p className="relative mt-2 text-sm text-white/75">
               De l&apos;inscription à votre premier bénéfice net affiché.
             </p>
           </div>

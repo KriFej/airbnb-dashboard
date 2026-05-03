@@ -33,7 +33,7 @@ export function BookingsCalendar({ bookings }: Props) {
   const booked = useMemo(() => buildBookedMap(bookings), [bookings]);
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-4 sm:p-6">
+    <section className="rounded-2xl border border-border bg-white p-4 sm:p-6">
       <header className="mb-5 flex items-center justify-between">
         <div>
           <h3 className="text-sm font-medium text-fg">Calendrier des réservations</h3>
@@ -85,7 +85,7 @@ export function BookingsCalendar({ bookings }: Props) {
                 outOfMonth
                   ? "border-border/40 text-dim"
                   : state
-                  ? "border-brand-500/40 bg-brand-500/15 text-fg"
+                  ? "border-brand-200 bg-brand-50 text-fg"
                   : "border-border bg-surface text-fg"
               }`}
             >

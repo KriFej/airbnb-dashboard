@@ -37,7 +37,7 @@ export function Footer() {
             </p>
           </div>
           {newsDone ? (
-            <div className="flex items-center gap-2 text-sm text-brand-400">
+            <div className="flex items-center gap-2 text-sm text-brand-500">
               <CheckCircle2 size={16} /> Inscription confirmée, merci !
             </div>
           ) : (
@@ -56,7 +56,7 @@ export function Footer() {
             <button
               type="submit"
               disabled={newsLoading}
-              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-black transition-colors hover:bg-brand-400 disabled:opacity-60"
+              className="flex h-11 shrink-0 items-center gap-2 rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:opacity-60"
             >
               <ArrowRight size={14} />
               <span className="hidden sm:inline">S&apos;inscrire</span>
@@ -108,7 +108,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 text-xs text-dim md:flex-row md:items-center">
           <p>© {new Date().getFullYear()} locpilote. Conçu pour les hôtes, par des hôtes.</p>
           <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/20 bg-brand-500/8 px-2.5 py-1 text-[11px] font-medium text-brand-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-[11px] font-medium text-brand-600">
               1 bien gratuit
             </span>
             <a href="mailto:hello@locpilote.com" className="hover:text-fg transition-colors">
