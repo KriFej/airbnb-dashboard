@@ -97,11 +97,17 @@ Géré via `[data-theme="dark"]` dans `globals.css`. Le ThemeProvider est conser
 ## Todo restant
 
 ### Code (à faire)
-- [ ] OG image (`src/app/opengraph-image.tsx`) — mettre à jour avec branding v2
+- [x] OG image — mise à jour branding v2 ✅
+- [ ] Templates emails welcome/notif — mettre à jour dark→light/indigo
 - [ ] Décider : remettre `/simulateur` dans le nav ou laisser SEO uniquement
 
 ### Config Vercel (user)
+- [ ] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` — **bloquant** (cause "Failed to fetch")
+- [ ] `RESEND_API_KEY` — emails welcome + notif propriétaire
+- [ ] Supabase → Settings → Auth → SMTP → activer Resend SMTP (enlève la limite 3/h → 3 000/mois partagés)
 - [ ] `LEMONSQUEEZY_CHECKOUT_*` — URLs vraies des plans
 - [ ] `LEMONSQUEEZY_VARIANT_*` — IDs variantes
 - [ ] `LEMONSQUEEZY_WEBHOOK_SECRET`
-- [ ] `RESEND_API_KEY`
+- [ ] `NEXT_PUBLIC_CLARITY_ID` — Microsoft Clarity
+- [ ] `NEXT_PUBLIC_GA_ID` — Google Analytics
+- [ ] Nom de domaine → DNS Vercel
