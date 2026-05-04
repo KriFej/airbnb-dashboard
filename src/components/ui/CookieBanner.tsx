@@ -30,7 +30,7 @@ export function CookieBanner() {
       <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-white p-4 shadow-card-md sm:flex-row sm:items-center sm:gap-4">
         <p className="flex-1 text-xs text-muted">
           Nous utilisons des cookies essentiels pour le fonctionnement de l&apos;application (authentification, session).{" "}
-          <Link href="/privacy" className="text-brand-500 hover:underline">
+          <Link href="/legal/privacy" className="text-brand-500 hover:underline">
             Politique de confidentialité
           </Link>
         </p>
