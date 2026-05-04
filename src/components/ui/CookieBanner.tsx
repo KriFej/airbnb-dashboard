@@ -9,43 +9,34 @@ export function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) setVisible(true);
+    if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
   }, []);
 
-  const accept = () => {
-    localStorage.setItem(STORAGE_KEY, "accepted");
-    setVisible(false);
-  };
-
-  const decline = () => {
-    localStorage.setItem(STORAGE_KEY, "declined");
-    setVisible(false);
-  };
+  const accept = () => { localStorage.setItem(STORAGE_KEY, "accepted"); setVisible(false); };
+  const decline = () => { localStorage.setItem(STORAGE_KEY, "declined"); setVisible(false); };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-20 left-0 right-0 z-50 px-4 pb-2 md:bottom-4">
-      <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-2xl border border-border bg-white p-4 shadow-card-md sm:flex-row sm:items-center sm:gap-4">
-        <p className="flex-1 text-xs text-muted">
-          Nous utilisons des cookies essentiels pour le fonctionnement de l&apos;application (authentification, session).{" "}
-          <Link href="/legal/privacy" className="text-brand-500 hover:underline">
-            Politique de confidentialité
-          </Link>
+    <div className="fixed bottom-4 left-4 z-50 w-[320px] max-w-[calc(100vw-2rem)]">
+      <div className="rounded-2xl border border-border bg-white p-5 shadow-lg">
+        <p className="text-xs font-semibold text-fg">Vos préférences de cookies</p>
+        <p className="mt-1.5 text-xs text-muted leading-relaxed">
+          Nous utilisons uniquement des cookies essentiels pour l'authentification. Aucun cookie publicitaire.{" "}
+          <Link href="/legal/privacy" className="text-brand-500 hover:underline">En savoir plus</Link>
         </p>
-        <div className="flex shrink-0 gap-2">
+        <div className="mt-4 flex gap-2">
           <button
             type="button"
             onClick={decline}
-            className="h-9 rounded-full border border-border px-4 text-xs text-muted hover:text-fg"
+            className="flex-1 h-9 rounded-xl border border-border text-xs font-medium text-muted hover:bg-surface transition-colors"
           >
             Refuser
           </button>
           <button
             type="button"
             onClick={accept}
-            className="h-9 rounded-full bg-brand-500 px-4 text-xs font-medium text-white hover:bg-brand-600"
+            className="flex-1 h-9 rounded-xl border border-brand-500 bg-brand-500 text-xs font-medium text-white hover:bg-brand-600 transition-colors"
           >
             Accepter
           </button>
