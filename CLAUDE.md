@@ -107,8 +107,8 @@ Prospect → Landing → /signup
 ## Todo restant
 
 ### Code (Claude)
-- [ ] Templates emails welcome/notif — mettre à jour dark→light/indigo
-- [ ] Décider : remettre `/simulateur` dans le nav ou SEO uniquement
+- [x] Templates emails welcome/notif — mis à jour light/indigo
+- [x] `/simulateur` — SEO-only, pas dans le nav (décision finale)
 - [x] `/forgot-password` + `/auth/reset` — panneau dark supprimé, design v2
 - [x] Dashboard onboarding modal — s'affichait à chaque visite → localStorage fix
 
