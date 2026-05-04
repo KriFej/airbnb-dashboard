@@ -2,35 +2,38 @@
 
 ## 1. Appliquer le schéma
 
-Dans ton projet Supabase :
+1. Ouvre **SQL Editor** dans ton projet Supabase
+2. Colle le contenu de `supabase/schema.sql`
+3. Clique **Run** → `Success. No rows returned`
 
-1. Ouvre **SQL Editor** (icône `</>` dans la sidebar).
-2. Crée une nouvelle query, colle le contenu de `supabase/schema.sql`.
-3. Clique **Run**.
-
-Tu devrais voir `Success. No rows returned`. Les tables `properties`
-et `subscriptions` apparaissent dans **Table Editor**.
+Les tables `properties` et `subscriptions` apparaissent dans Table Editor.
 
 ## 2. Variables d'environnement
 
-Copie `.env.local.example` en `.env.local` et renseigne :
+Dans **Project Settings → API** :
 
-- `NEXT_PUBLIC_SUPABASE_URL` — sous **Project Settings → API** → *Project URL*
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — clé *publishable* (`sb_publishable_…`)
-- `SUPABASE_SERVICE_ROLE_KEY` — clé *secret* (`sb_secret_…`), utilisée
-  uniquement côté serveur pour le webhook Stripe.
+| Variable | Source |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clé `sb_publishable_…` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Clé `sb_secret_…` (serveur uniquement) |
 
-Sur Vercel, ajoute les 3 variables dans **Project → Settings → Environment
-Variables** (Production + Preview).
+Ajoute les 3 dans Vercel → Project → Settings → Environment Variables.
 
-## 3. Sécurité — RLS
+## 3. SMTP — Resend (enlève la limite 3 emails/h)
 
-Toutes les tables sont protégées par Row Level Security :
+Dans Supabase → **Settings → Authentication → SMTP** :
 
-- `properties` : l'utilisateur authentifié n'accède qu'à ses propres biens.
-- `subscriptions` : lecture seule côté client. Les mutations passent par
-  le webhook Stripe avec la clé service role (qui bypass RLS).
+| Champ | Valeur |
+|---|---|
+| Host | `smtp.resend.com` |
+| Port | `465` |
+| Username | `resend` |
+| Password | ta `RESEND_API_KEY` |
+| Sender email | `hello@locpilote.com` |
+| Sender name | `locpilote` |
 
-Cela verrouille la vulnérabilité `/success?plan=unlimited` : même en
-appelant l'API Supabase directement, un utilisateur ne peut pas
-insérer/modifier sa ligne `subscriptions`.
+## 4. Sécurité — RLS
+
+- `properties` : chaque utilisateur ne voit que ses propres biens
+- `subscriptions` : lecture seule côté client — les mutations passent uniquement par le webhook Lemon Squeezy avec la clé service role (bypass RLS sécurisé)

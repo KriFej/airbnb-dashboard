@@ -1,101 +1,65 @@
-# locpilote — Airbnb & Booking Net Profit Dashboard
+# locpilote
 
-A modern, dark-mode SaaS dashboard for Airbnb & Booking.com hosts who want to
-see their **real net profit** after platform fees and operating expenses.
+Tableau de bord de rentabilité pour les hôtes Airbnb & Booking.com.  
+Bénéfice net réel, synchronisation iCal, gestion multi-biens, abonnements.
 
-- Landing marketing page at `/`
-- App dashboard at `/dashboard` with KPIs, expense inputs, iCal sync and a
-  visual bookings calendar
-- No backend — every value persists in `localStorage`
-- iCal fetch with `api.allorigins.win` CORS proxy fallback
+## Stack
 
-Stack: **Next.js 14 (App Router) · TypeScript · Tailwind CSS · lucide-react · date-fns**.
+- **Next.js 14** App Router
+- **Supabase** Auth + RLS (tables : `properties`, `subscriptions`)
+- **Tailwind CSS** — light mode, tokens indigo (`#6366F1`)
+- **Lemon Squeezy** — paiements & abonnements
+- **Resend** — emails transactionnels
+- **Vercel** — déploiement
 
----
-
-## Quick start
+## Démarrage local
 
 ```bash
+cp .env.local.example .env.local   # puis remplir les valeurs
 npm install
 npm run dev
 ```
 
-Open:
-- http://localhost:3000 — landing
-- http://localhost:3000/dashboard — the app
+- `http://localhost:3000` — landing
+- `http://localhost:3000/dashboard` — tableau de bord
 
-Build for production:
+## Setup Supabase
 
-```bash
-npm run build
-npm run start
-```
+Voir `supabase/README.md`.
 
----
+## Variables d'environnement
 
-## How to use the dashboard
+Voir `.env.local` (toutes les variables sont documentées avec leur source).
 
-1. Click **Open Dashboard** from the landing.
-2. Fill your **revenues** (Airbnb, Booking.com, future stays).
-3. Fill your **expenses** (mortgage, electricity, water, internet, cleaning).
-4. Set your **platform fees** (`14%` Airbnb default, `15%` Booking).
-5. Paste your **iCal URL** (Airbnb → Calendar → Availability → Export) and
-   click **Sync** — your bookings appear in the calendar and the list.
-
-All inputs save automatically. Reload and they're still there.
-
----
-
-## Project structure
+## Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx        # Inter font + SEO metadata
-│   ├── globals.css       # dark theme + grid/glow utilities
-│   ├── page.tsx          # landing
-│   └── dashboard/page.tsx
+│   ├── page.tsx                  # landing
+│   ├── dashboard/page.tsx        # tableau de bord
+│   ├── api/
+│   │   ├── ical/                 # proxy fetch iCal (whitelist domaines)
+│   │   ├── checkout/             # redirect Lemon Squeezy
+│   │   ├── webhooks/lemonsqueezy/# mise à jour plan après paiement
+│   │   └── notify/signup/        # email bienvenue + notif propriétaire
+│   └── simulateur/               # calculateur loi Le Meur 2025 (SEO)
 ├── components/
-│   ├── landing/          # Nav, Hero, ProductMockup, FAQ, …
-│   ├── dashboard/        # Sidebar, KpiCard, ICalImport, BookingsCalendar, …
-│   └── ui/               # Button, Card, Input, Chip, Logo, GridBackground
+│   ├── landing/                  # Nav, Hero, HowItWorks, Pricing, FAQ…
+│   ├── dashboard/                # Sidebar, KpiCard, ICalImport…
+│   └── ui/                       # Button, Input, Logo, BarChart…
 └── lib/
-    ├── calc.ts           # revenue / fees / profit / forecast math
-    ├── ical.ts           # fetch (+ proxy) and parse VEVENT blocks
-    ├── storage.ts        # SSR-safe localStorage wrapper
-    └── types.ts
+    ├── calc.ts                   # calculs KPI (bénéfice net, rendement)
+    ├── ical.ts                   # parse fichiers .ics
+    ├── plan.ts                   # limites par plan
+    └── types.ts                  # types TypeScript
 ```
 
----
+## Plans
 
-## Customising the brand
-
-Tokens live in `tailwind.config.ts` and `src/app/globals.css`:
-
-| Token            | Value            |
-| ---------------- | ---------------- |
-| `brand-500`      | `#22C55E` (accent) |
-| `bg`             | `#000000`        |
-| `surface`        | `#0A0A0A`        |
-| `card`           | `#111111`        |
-| `border`         | `#1F1F1F`        |
-
-Change the hex values in `tailwind.config.ts` → `theme.extend.colors` and the
-whole UI updates.
-
----
-
-## iCal support
-
-- **Direct fetch** first. If the endpoint blocks CORS, we automatically retry
-  through `https://api.allorigins.win/raw?url=…`.
-- Parser understands `SUMMARY`, `DTSTART`, `DTEND`, `UID` for all-day events
-  and timestamped events.
-- Works with Airbnb, Booking.com, Vrbo, Google Calendar and any iCal-compatible
-  source.
-
----
-
-## License
-
-MIT. Use it, ship it, profit from it.
+| Plan | Biens | iCal | Prix |
+|---|---|---|---|
+| Gratuit | 1 | — | 0 € |
+| Starter | 3 | ✓ | 9,90 €/mois |
+| Pro | 10 | ✓ | 19,90 €/mois |
+| Unlimited | ∞ | ✓ | Sur devis |
