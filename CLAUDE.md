@@ -14,6 +14,8 @@
 - `/estimation` — estimation de temps pour une tâche
 - `/sync-md` — met à jour et commite CLAUDE.md
 
+> Skills définis dans `~/.claude/skills/` (global) et `.claude/commands/` (projet)
+
 ## Stack technique
 
 - Next.js 14 App Router
