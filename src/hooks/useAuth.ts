@@ -8,6 +8,8 @@ type AuthResult = { ok: true } | { ok: false; error: string };
 function translateError(message: string | undefined): string {
   if (!message) return "Une erreur est survenue.";
   const m = message.toLowerCase();
+  if (m.includes("failed to fetch") || m.includes("fetch"))
+    return "Connexion impossible — vérifiez votre connexion internet.";
   if (m.includes("invalid login credentials"))
     return "Email ou mot de passe incorrect.";
   if (m.includes("user already registered"))

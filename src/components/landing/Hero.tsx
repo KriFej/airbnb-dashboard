@@ -9,7 +9,7 @@ export function Hero() {
             ✦ Automatisation IA
           </div>
 
-          <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tighter text-fg sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="mt-6 text-5xl font-black leading-[1.05] tracking-tighter text-fg sm:text-6xl md:text-7xl">
             Vos biens,<br />
             <span className="text-brand-500">vos vrais chiffres</span>,<br />
             automatiquement.
@@ -20,10 +20,10 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/signup" size="lg">
+            <Button href="/signup" size="md">
               Commencer gratuitement →
             </Button>
-            <Button href="#how-it-works" variant="secondary" size="lg">
+            <Button href="#how-it-works" variant="secondary" size="md">
               Voir comment ça marche
             </Button>
           </div>

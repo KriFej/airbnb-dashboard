@@ -21,7 +21,7 @@ const FEATURES = [
   },
   {
     icon: RefreshCw,
-    title: "Synchro iCal",
+    title: "Synchronisation iCal",
     body: "Collez votre URL iCal une fois. Vos réservations apparaissent automatiquement.",
   },
   {

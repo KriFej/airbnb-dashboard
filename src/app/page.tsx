@@ -16,9 +16,9 @@ export default function LandingPage() {
       <main>
         <Hero />
         <HowItWorks />
-        <FeatureSplit />
         <StatsGrid />
         <FeaturesGrid />
+        <FeatureSplit />
         <Pricing />
         <FAQ />
         <FinalCTA />
