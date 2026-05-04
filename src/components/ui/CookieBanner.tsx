@@ -37,13 +37,6 @@ export function CookieBanner() {
         <div className="flex shrink-0 gap-2">
           <button
             type="button"
-            onClick={decline}
-            className="h-9 rounded-full border border-border px-4 text-xs text-muted hover:text-fg"
-          >
-            Refuser
-          </button>
-          <button
-            type="button"
             onClick={accept}
             className="h-9 rounded-full bg-brand-500 px-4 text-xs font-medium text-white hover:bg-brand-600"
           >
