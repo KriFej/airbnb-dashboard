@@ -81,12 +81,46 @@ Géré via `[data-theme="dark"]` dans `globals.css`. Le ThemeProvider est conser
 - `Sparkline.tsx` — couleur défaut `#6366F1`
 - `Logo.tsx` — texte seul : "loc" (fg) + "pilote" (brand-500), pas d'icône
 
-### Logique métier (ne pas toucher)
+#### Logique métier (ne pas toucher)
 - `src/lib/calc.ts` — calculs KPI
 - `src/lib/types.ts` — types TypeScript
-- `src/lib/plan.ts` — limites par plan
-- `src/hooks/` — useAuth, usePlan, useProperties
-- `src/app/api/` — routes API
+- `src/lib/plan.ts` — limites par plan (Gratuit=1, Starter=3, Pro=10, Unlimited=∞)
+- `src/hooks/useAuth.ts` — signup/login/logout via Supabase Auth
+- `src/hooks/usePlan.ts` — lit table `subscriptions` → plan actif
+- `src/hooks/useProperties.ts` — CRUD biens, sync Supabase + cache localStorage
+- `src/app/api/ical/` — proxy serveur pour fetcher les URLs iCal (CORS)
+- `src/app/api/checkout/` — redirige vers Lemon Squeezy avec user_id
+- `src/app/api/webhooks/lemonsqueezy/` — reçoit les événements paiement, met à jour `subscriptions`
+- `src/app/api/notify/signup/` — envoie email bienvenue (Resend) + notif propriétaire
+
+## Architecture — flux complet
+
+```
+Prospect → Landing → /signup
+  → Supabase Auth (email confirmation)
+  → Dashboard (/dashboard)
+    → useProperties charge biens depuis Supabase (cache localStorage)
+    → InputsPanel : revenus / charges / frais plateforme
+    → ICalImport → /api/ical (proxy) → parse .ics → bookings dans Supabase
+    → calc.ts : bénéfice net, rendement, prévision → KpiCard affiche
+    → Bouton upgrade → /api/checkout?plan=starter
+      → Lemon Squeezy (checkout avec user_id en custom_data)
+      → Paiement OK → webhook POST /api/webhooks/lemonsqueezy
+        → vérifie signature HMAC → upsert table `subscriptions`
+        → usePlan re-lit → nouveau plan actif → UI débloquée
+```
+
+### Tables Supabase
+| Table | Contenu |
+|---|---|
+| `properties` | Biens de l'utilisateur (inputs, URLs iCal, réservations) |
+| `subscriptions` | Plan actif par user_id (mis à jour par webhook LS) |
+
+### Sécurité
+- RLS Supabase : chaque user ne voit que ses propres lignes
+- iCal proxy : whitelist de domaines autorisés (Airbnb, Booking, etc.)
+- Webhook LS : vérification signature HMAC SHA-256
+- Rate limiting sur toutes les routes API
 
 ## Rappels permanents
 
