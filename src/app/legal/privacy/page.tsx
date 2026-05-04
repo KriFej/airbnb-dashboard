@@ -41,9 +41,9 @@ export default function PrivacyPage() {
 
       <Section title="6. Sous-traitants">
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong className="text-fg">Supabase</strong> — hébergement base de données (UE)</li>
-          <li><strong className="text-fg">Vercel</strong> — hébergement application (UE)</li>
-          <li><strong className="text-fg">Stripe</strong> — paiements</li>
+          <li><strong className="text-fg">Supabase</strong> — hébergement base de données (USA)</li>
+          <li><strong className="text-fg">Vercel</strong> — hébergement application (USA)</li>
+          <li><strong className="text-fg">Lemon Squeezy</strong> — paiements</li>
           <li><strong className="text-fg">Resend</strong> — envoi d&apos;emails transactionnels</li>
         </ul>
       </Section>
