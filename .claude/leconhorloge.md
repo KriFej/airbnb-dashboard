@@ -28,3 +28,4 @@
 | 2026-05-03 | parcours prospect | 3 min | 1 min | -2 min |
 
 **Tendance générale : surestimation systématique de 50-80%. Diviser toutes les estimations par 2.**
+| 2026-05-04 | fix ical lock | 3-5 min | 0 min | -3 min | À analyser |
