@@ -6,6 +6,7 @@
 - **AVANT chaque estimation** : lire `.claude/leconhorloge.md`
 - **DÉBUT de chaque tâche** : `.claude/chrono.sh start "nom tâche"`
 - **FIN de chaque tâche** : `.claude/chrono.sh stop "nom tâche" "estimation_min"`
+- **Si estimation mauvaise** : analyser pourquoi → noter leçon dans `.claude/leconhorloge.md`
 - **APRÈS chaque modification** : mettre à jour ce fichier (todo, structure) et commiter
 - **TOUJOURS** conclure : `⏱ Réel : Xm Xs — Estimé : X-Y min`
 
