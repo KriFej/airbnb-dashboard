@@ -10,7 +10,7 @@
 - **TOUJOURS** conclure : `⏱ Réel : Xm Xs — Estimé : X-Y min`
 
 ## Slash commands
-- `/topo` — état du projet, ce qui reste à faire
+- `/todo` — état du projet, ce qui reste à faire
 - `/estimation` — estimation de temps pour une tâche
 - `/sync-md` — met à jour et commite CLAUDE.md
 
