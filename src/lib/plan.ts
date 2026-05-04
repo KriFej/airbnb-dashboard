@@ -27,7 +27,7 @@ export function canAddProperty(plan: Plan, currentCount: number): boolean {
 }
 
 export function canUseICal(plan: Plan): boolean {
-  return true;
+  return plan === "starter" || plan === "pro" || plan === "unlimited";
 }
 
 export function isValidPlan(value: string | null): value is NonNullable<Plan> {
