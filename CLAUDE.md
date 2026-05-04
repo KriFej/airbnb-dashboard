@@ -135,13 +135,15 @@ Prospect → Landing → /signup
 - [ ] Templates emails welcome/notif — mettre à jour dark→light/indigo
 - [ ] Décider : remettre `/simulateur` dans le nav ou laisser SEO uniquement
 
-### Config Vercel (user)
-- [ ] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` — **bloquant** (cause "Failed to fetch")
-- [ ] `RESEND_API_KEY` — emails welcome + notif propriétaire
-- [ ] Supabase → Settings → Auth → SMTP → activer Resend SMTP (enlève la limite 3/h → 3 000/mois partagés)
-- [ ] `LEMONSQUEEZY_CHECKOUT_*` — URLs vraies des plans
-- [ ] `LEMONSQUEEZY_VARIANT_*` — IDs variantes
-- [ ] `LEMONSQUEEZY_WEBHOOK_SECRET`
-- [ ] `NEXT_PUBLIC_CLARITY_ID` — Microsoft Clarity
-- [ ] `NEXT_PUBLIC_GA_ID` — Google Analytics
-- [ ] Nom de domaine → DNS Vercel
+### Config Vercel (user) — dans l'ordre de priorité
+- [ ] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `SUPABASE_SERVICE_ROLE_KEY` — **bloquant** (cause "Failed to fetch")
+- [ ] Nom de domaine → DNS Vercel (records A/CNAME indiqués dans Vercel → Domains)
+- [ ] `RESEND_API_KEY` + `OWNER_EMAIL` — emails welcome + notif propriétaire
+- [ ] Supabase → Settings → Auth → SMTP → activer Resend SMTP (host: smtp.resend.com, port: 465, user: resend, password: RESEND_API_KEY)
+- [ ] `LEMONSQUEEZY_WEBHOOK_SECRET` — LS → Settings → Webhooks → Signing Secret
+- [ ] `LEMONSQUEEZY_CHECKOUT_STARTER` / `_STARTER_ANNUAL` / `_PRO` / `_PRO_ANNUAL` — URLs checkout LS
+- [ ] `LEMONSQUEEZY_VARIANT_STARTER` / `_STARTER_ANNUAL` / `_PRO` / `_PRO_ANNUAL` — IDs numériques variantes LS
+- [ ] `NEXT_PUBLIC_CLARITY_ID` — clarity.microsoft.com → New project → copier l'ID
+- [ ] `NEXT_PUBLIC_GA_ID` — analytics.google.com → Measurement ID (G-XXXXXXXX)
+- [ ] `NEXT_PUBLIC_GOOGLE_VERIFICATION` — Search Console → Balise HTML → valeur content=""
+- [ ] `MAKE_WEBHOOK_URL` — optionnel, Make.com pour Google Sheets
