@@ -14,6 +14,8 @@
 - `/todo` — état du projet, ce qui reste à faire
 - `/estimation` — estimation de temps pour une tâche
 - `/sync-md` — met à jour et commite CLAUDE.md
+- `/tldr` — résume un texte long en bullet points
+- `/bref` — rappel à l'ordre : réponses ultra-courtes
 
 > Skills définis dans `~/.claude/skills/` (global) et `.claude/commands/` (projet)
 
