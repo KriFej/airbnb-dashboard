@@ -111,6 +111,8 @@ Prospect → Landing → /signup
 
 ### Code (Claude)
 - [ ] Favicon/logo onglet navigateur — améliorer le petit logo
+- [x] iCal verrouillé plan Gratuit — `canUseICal` corrigé dans `plan.ts`
+- [x] CTAs upgrade → `/#pricing` (Lemon Squeezy pas encore configuré)
 - [x] Bannière cookies — widget bas-gauche, boutons équipolents CNIL 2026
 - [x] Bannière PC — affichée sur landing + dashboard mobile
 - [x] Privacy — Stripe→Lemon Squeezy, Supabase/Vercel USA corrigé
@@ -121,10 +123,10 @@ Prospect → Landing → /signup
 
 ### Config Vercel (toi) — par ordre de priorité
 - [x] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `SUPABASE_SERVICE_ROLE_KEY` — fait
-- [ ] `RESEND_API_KEY` + `OWNER_EMAIL` — **bloquant emails**
-- [ ] Nom de domaine → DNS Vercel
-- [ ] `RESEND_API_KEY` à corriger dans Vercel (valeur = email au lieu de clé re_...)
+- [x] `OWNER_EMAIL` — fait
+- [ ] `RESEND_API_KEY` — clé `re_...` à coller (valeur actuelle = email, pas la clé)
 - [ ] Supabase SMTP → Resend (host: smtp.resend.com, port: 465, user: resend)
+- [ ] Nom de domaine → DNS Vercel
 - [ ] `LEMONSQUEEZY_WEBHOOK_SECRET`
 - [ ] `LEMONSQUEEZY_CHECKOUT_*` et `LEMONSQUEEZY_VARIANT_*`
 - [ ] `NEXT_PUBLIC_CLARITY_ID`
