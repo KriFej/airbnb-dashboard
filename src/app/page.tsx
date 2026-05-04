@@ -8,10 +8,12 @@ import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Nav } from "@/components/landing/Nav";
 import { Pricing } from "@/components/landing/Pricing";
 import { StatsGrid } from "@/components/landing/StatsGrid";
+import { PcBanner } from "@/components/ui/PcBanner";
 
 export default function LandingPage() {
   return (
     <>
+      <PcBanner />
       <Nav />
       <main>
         <Hero />
