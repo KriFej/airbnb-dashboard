@@ -31,7 +31,7 @@ export function CookieBanner() {
             onClick={decline}
             className="flex-1 h-9 rounded-xl border border-border text-xs font-medium text-muted hover:bg-surface transition-colors"
           >
-            Refuser
+            Obligatoires uniquement
           </button>
           <button
             type="button"
