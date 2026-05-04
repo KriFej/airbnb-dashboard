@@ -109,6 +109,8 @@ Prospect → Landing → /signup
 ### Code (Claude)
 - [ ] Templates emails welcome/notif — mettre à jour dark→light/indigo
 - [ ] Décider : remettre `/simulateur` dans le nav ou SEO uniquement
+- [x] `/forgot-password` + `/auth/reset` — panneau dark supprimé, design v2
+- [x] Dashboard onboarding modal — s'affichait à chaque visite → localStorage fix
 
 ### Config Vercel (toi) — par ordre de priorité
 - [ ] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `SUPABASE_SERVICE_ROLE_KEY` — **bloquant**
