@@ -32,7 +32,7 @@ export function PlanBanner({
           </span>
         </div>
         <Link
-          href="/api/checkout?plan=starter"
+          href="/#pricing"
           className="shrink-0 rounded-full bg-purple-500 px-4 py-1.5 text-xs font-medium text-white hover:bg-purple-400"
         >
           Passer à Starter — 9,90 €/mois

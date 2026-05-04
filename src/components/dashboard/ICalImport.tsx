@@ -67,7 +67,7 @@ export function ICalImport({
           <p className="text-sm font-medium text-fg">iCal disponible dès l&apos;offre Starter</p>
           <p className="text-xs text-muted">Synchronisez Airbnb &amp; Booking.com automatiquement</p>
           <Link
-            href="/api/checkout?plan=starter"
+            href="/#pricing"
             className="mt-1 inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-5 text-sm font-medium text-white hover:bg-brand-600"
           >
             Débloquer — 9,90 €/mois
