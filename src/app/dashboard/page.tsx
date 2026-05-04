@@ -61,7 +61,13 @@ export default function DashboardPage() {
   const [active, setActive] = useState("overview");
   const [showAdd, setShowAdd] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !localStorage.getItem("onboarding_done")) {
+      setShowOnboarding(true);
+    }
+  }, []);
 
   // Sélectionne le premier bien dès que les données sont prêtes
   useEffect(() => {
@@ -519,7 +525,10 @@ export default function DashboardPage() {
         limit={limit}
       />
       {showOnboarding && (
-        <OnboardingModal onDone={() => setShowOnboarding(false)} />
+        <OnboardingModal onDone={() => {
+          localStorage.setItem("onboarding_done", "1");
+          setShowOnboarding(false);
+        }} />
       )}
     </div>
   );
