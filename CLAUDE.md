@@ -110,6 +110,7 @@ Prospect → Landing → /signup
 ## Todo restant
 
 ### Code (Claude)
+- [ ] Favicon/logo onglet navigateur — améliorer le petit logo
 - [x] Templates emails welcome/notif — mis à jour light/indigo
 - [x] `/simulateur` — SEO-only, pas dans le nav (décision finale)
 - [x] `/forgot-password` + `/auth/reset` — panneau dark supprimé, design v2
