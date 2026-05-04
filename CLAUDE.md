@@ -111,15 +111,19 @@ Prospect → Landing → /signup
 
 ### Code (Claude)
 - [ ] Favicon/logo onglet navigateur — améliorer le petit logo
+- [x] Bannière cookies — widget bas-gauche, boutons équipolents CNIL 2026
+- [x] Bannière PC — affichée sur landing + dashboard mobile
+- [x] Privacy — Stripe→Lemon Squeezy, Supabase/Vercel USA corrigé
 - [x] Templates emails welcome/notif — mis à jour light/indigo
 - [x] `/simulateur` — SEO-only, pas dans le nav (décision finale)
 - [x] `/forgot-password` + `/auth/reset` — panneau dark supprimé, design v2
 - [x] Dashboard onboarding modal — s'affichait à chaque visite → localStorage fix
 
 ### Config Vercel (toi) — par ordre de priorité
-- [ ] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `SUPABASE_SERVICE_ROLE_KEY` — **bloquant**
+- [x] `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` + `SUPABASE_SERVICE_ROLE_KEY` — fait
+- [ ] `RESEND_API_KEY` + `OWNER_EMAIL` — **bloquant emails**
 - [ ] Nom de domaine → DNS Vercel
-- [ ] `RESEND_API_KEY` + `OWNER_EMAIL`
+- [ ] `RESEND_API_KEY` à corriger dans Vercel (valeur = email au lieu de clé re_...)
 - [ ] Supabase SMTP → Resend (host: smtp.resend.com, port: 465, user: resend)
 - [ ] `LEMONSQUEEZY_WEBHOOK_SECRET`
 - [ ] `LEMONSQUEEZY_CHECKOUT_*` et `LEMONSQUEEZY_VARIANT_*`
