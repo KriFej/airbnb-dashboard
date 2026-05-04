@@ -9,6 +9,12 @@
 - **FIN de chaque tâche** : lancer `.claude/chrono.sh stop "nom tâche" "estimation_min"`
 - Si écart > 2 min : automatiquement loggé dans `leconhorloge.md`
 - **TOUJOURS** conclure en affichant : `⏱ Réel : Xm Xs — Estimé : X-Y min`
+- **APRÈS chaque modification de fichier(s)** : mettre à jour `CLAUDE.md` (todo, structure, architecture) et commiter
+
+## Slash commands disponibles
+- `/topo` — état du projet, ce qui reste à faire (toi vs Claude)
+- `/estimation` — estimation de temps pour une tâche
+- `/sync-md` — met à jour et commite `CLAUDE.md` manuellement
 
 ## Stack technique
 
