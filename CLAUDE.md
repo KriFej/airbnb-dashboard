@@ -111,6 +111,7 @@ Prospect → Landing → /signup
 
 ### Code (Claude)
 - [ ] Favicon/logo onglet navigateur — améliorer le petit logo
+- [ ] Popup mobile "utilise un PC" — arrondi, centré, apparaît après 20s
 - [x] iCal verrouillé plan Gratuit — `canUseICal` corrigé dans `plan.ts`
 - [x] CTAs upgrade → `/#pricing` (Lemon Squeezy pas encore configuré)
 - [x] Bannière cookies — widget bas-gauche, boutons équipolents CNIL 2026
