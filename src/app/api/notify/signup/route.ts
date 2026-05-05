@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit, getIp } from "@/lib/rateLimit";
+import { sendEmail } from "@/lib/resend";
 
 const OWNER_HTML = (email: string, date: string) => `
 <!DOCTYPE html>
@@ -57,14 +58,12 @@ const WELCOME_HTML = (email: string) => `
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">
     <tr><td align="center">
       <table width="520" cellpadding="0" cellspacing="0" style="background:#111;border:1px solid #222;border-radius:16px;overflow:hidden;">
-        <!-- Header vert -->
         <tr>
           <td style="background:linear-gradient(135deg,#16a34a,#22c55e);padding:40px 32px;text-align:center;">
             <p style="margin:0;font-size:28px;font-weight:700;color:#fff;letter-spacing:-0.03em;">locpilote</p>
             <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.75);">Votre copilote financier Airbnb</p>
           </td>
         </tr>
-        <!-- Body -->
         <tr>
           <td style="padding:36px 32px 24px;">
             <p style="margin:0;font-size:22px;font-weight:600;color:#fff;">Bienvenue 👋</p>
@@ -73,7 +72,6 @@ const WELCOME_HTML = (email: string) => `
             </p>
           </td>
         </tr>
-        <!-- CTA -->
         <tr>
           <td style="padding:0 32px 32px;">
             <table cellpadding="0" cellspacing="0">
@@ -85,7 +83,6 @@ const WELCOME_HTML = (email: string) => `
             </table>
           </td>
         </tr>
-        <!-- Steps -->
         <tr>
           <td style="padding:0 32px 32px;">
             <table cellpadding="0" cellspacing="0" style="background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;width:100%;">
@@ -108,7 +105,6 @@ const WELCOME_HTML = (email: string) => `
             </table>
           </td>
         </tr>
-        <!-- Footer -->
         <tr>
           <td style="padding:0 32px 32px;border-top:1px solid #1e1e1e;">
             <p style="margin:20px 0 0;font-size:12px;color:#444;">
@@ -130,60 +126,42 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { email } = await req.json();
-    if (!email || typeof email !== "string" || !email.includes("@")) {
-      return NextResponse.json({ ok: true }); // silent reject
+    const { email: rawEmail } = await req.json();
+    if (!rawEmail || typeof rawEmail !== "string" || !rawEmail.includes("@")) {
+      return NextResponse.json({ ok: true });
     }
+    const email = rawEmail.trim().toLowerCase();
     const date = new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" });
 
     const resendKey = process.env.RESEND_API_KEY;
     const ownerEmail = process.env.OWNER_EMAIL;
     const makeUrl = process.env.MAKE_WEBHOOK_URL;
 
+    const tasks: Promise<unknown>[] = [];
+
     if (resendKey) {
-      // Email au propriétaire
       if (ownerEmail) {
-        await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${resendKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            from: "locpilote <hello@locpilote.com>",
-            to: ownerEmail,
-            subject: `Nouvel inscrit — ${email}`,
-            html: OWNER_HTML(email, date),
-          }),
-        });
+        tasks.push(sendEmail(ownerEmail, `Nouvel inscrit — ${email}`, OWNER_HTML(email, date)));
       }
-
-      // Email de bienvenue à l'utilisateur
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${resendKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "locpilote <hello@locpilote.com>",
-          to: email,
-          subject: "Bienvenue sur locpilote 🎉",
-          html: WELCOME_HTML(email),
-        }),
-      });
+      tasks.push(sendEmail(email, "Bienvenue sur locpilote 🎉", WELCOME_HTML(email)));
     }
 
-    // Webhook Make.com → Google Sheet
     if (makeUrl) {
-      await fetch(makeUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, date, event: "inscription" }),
-      });
+      tasks.push(
+        fetch(makeUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, date, event: "inscription" }),
+        }),
+      );
     }
-  } catch {
-    // Ne jamais bloquer l'inscription pour une erreur de notification
+
+    const results = await Promise.allSettled(tasks);
+    for (const r of results) {
+      if (r.status === "rejected") console.error("[notify/signup]", r.reason);
+    }
+  } catch (err) {
+    console.error("[notify/signup]", err);
   }
 
   return NextResponse.json({ ok: true });

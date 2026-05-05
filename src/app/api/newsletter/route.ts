@@ -7,18 +7,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Email invalide." }, { status: 400 });
     }
 
-    // Resend integration — active une fois RESEND_API_KEY configuré
     const apiKey = process.env.RESEND_API_KEY;
-    if (apiKey) {
-      await fetch("https://api.resend.com/audiences/subscribers", {
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    if (apiKey && audienceId) {
+      const res = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
         method: "POST",
         headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim().toLowerCase(), unsubscribed: false }),
       });
+      if (!res.ok) console.error("[newsletter] Resend error:", res.status);
     }
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("[newsletter]", err);
     return NextResponse.json({ error: "Erreur serveur." }, { status: 500 });
   }
 }

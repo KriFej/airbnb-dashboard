@@ -1,6 +1,6 @@
 import { createHmac } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient as createAdminClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { Plan } from "@/lib/plan";
 import { rateLimit, getIp } from "@/lib/rateLimit";
 
@@ -79,10 +79,7 @@ export async function POST(req: NextRequest) {
   const plan = variantToPlan(attrs.variant_id);
   const currentPeriodEnd = attrs.ends_at ?? null;
 
-  const admin = createAdminClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
+  const admin = createAdminClient();
 
   const { error } = await admin.from("subscriptions").upsert(
     {
