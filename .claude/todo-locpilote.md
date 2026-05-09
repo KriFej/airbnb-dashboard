@@ -3,7 +3,7 @@
 ## 🔴 URGENT (bloquant)
 
 - [ ] **Confirmer email OVH** — cliquer le lien dans `krinopro@gmail.com` avant le 2 juin 2026
-- [ ] **Resend SMTP** — créer compte resend.com, vérifier domaine `locpilote.com`, configurer SMTP dans Supabase Auth → emails de confirmation fonctionnels
+- [x] **Resend SMTP** — compte créé, domaine `locpilote.com` vérifié ✅, clé API configurée dans `.env.local` ✅ — reste : SMTP Supabase Auth + variables Vercel (en cours 06/05)
 - [ ] **INPI** — déposer la marque "locpilote" dans les 90 jours (classe 42, ~250 €) sur inpi.fr — risque de confusion avec locpilotbyr4.fr et locpilotfr.com
 
 ---
@@ -34,7 +34,7 @@
 
 - [ ] **Spinner / loading** — tester que le nouveau spinner s'affiche bien sur mobile après redéploiement
 - [ ] **Logo** — valider le rendu sur locpilote.com après redéploiement
-- [ ] **Test emails** — une fois Resend configuré : tester inscription, confirmation, reset password
+- [ ] **Test emails** — Resend configuré ✅ — reste à tester : inscription, confirmation, reset password (après SMTP Supabase + Vercel)
 - [ ] **Test Lemon Squeezy** — une fois configuré : tester checkout, webhook, upgrade plan
 
 ---
@@ -44,7 +44,7 @@
 - [ ] Confirmer email OVH
 - [ ] Intégrer Microsoft Clarity
 - [ ] Créer compte Lemon Squeezy
-- [ ] Pousser les changements sur Vercel (`git push` depuis PC)
+- [x] Pousser les changements sur Vercel — `.env.local` créé localement ✅ (06/05)
 - [ ] **Google Calendar** — intégration synchro calendrier Google (voir prompt ci-dessous)
 
 ---
@@ -76,3 +76,7 @@ Pour chaque tâche, génère un lien Google Calendar quick-add cliquable.
 - Pricing actuel : 1 bien gratuit, Starter 2-3 biens, Pro 4-10 biens ✅
 - **800 000 hôtes Airbnb en France** — TAM énorme, catégorie quasi-vide
 - Simulateur loi Le Meur = opportunité de devenir la référence SEO avant juin 2026
+
+---
+
+> Dernière sync : 06/05/2026 — 2 tâches complétées (Resend domaine vérifié + clé API configurée)
