@@ -1,71 +1,46 @@
-export type Inputs = {
-  airbnb: number;
-  booking: number;
-  future: number;
-  credit: number;
-  elec: number;
-  eau: number;
-  internet: number;
-  menage: number;
-  airbnbFeePct: number;
-  bookingFeePct: number;
-  prixAchat: number;
-};
-
-export const DEFAULT_INPUTS: Inputs = {
-  airbnb: 0,
-  booking: 0,
-  future: 0,
-  credit: 0,
-  elec: 0,
-  eau: 0,
-  internet: 0,
-  menage: 0,
-  airbnbFeePct: 14,
-  bookingFeePct: 15,
-  prixAchat: 0,
-};
-
-export type Booking = {
-  uid: string;
-  summary: string;
-  start: string; // ISO date (yyyy-MM-dd)
-  end: string; // ISO date (yyyy-MM-dd, exclusive end per iCal spec)
-  source?: "airbnb" | "booking" | "other";
-};
-
-export type Property = {
+export type Document = {
   id: string;
-  name: string;
-  inputs: Inputs;
-  airbnbUrl: string;
-  bookingUrl: string;
-  airbnbBookings: Booking[];
-  bookingBookings: Booking[];
+  user_id: string;
+  title: string;
+  content: string;
+  summary: string | null;
+  flashcard_count: number | null;
+  quiz_count: number | null;
+  created_at: string;
+  updated_at: string;
 };
 
-export type KpiData = {
-  grossRevenue: number;
-  platformFees: number;
-  totalExpenses: number;
-  netProfit: number;
-  feesLostPct: number;
-  forecast: number;
-  yieldGross: number | null;
-  yieldNet: number | null;
+export type Flashcard = {
+  id: string;
+  document_id: string;
+  user_id: string;
+  question: string;
+  answer: string;
+  created_at: string;
 };
 
-export function makeProperty(name: string): Property {
-  return {
-    id:
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : Math.random().toString(36).slice(2),
-    name,
-    inputs: { ...DEFAULT_INPUTS },
-    airbnbUrl: "",
-    bookingUrl: "",
-    airbnbBookings: [],
-    bookingBookings: [],
-  };
-}
+export type QuizQuestion = {
+  id: string;
+  document_id: string;
+  user_id: string;
+  question: string;
+  options: string[];
+  correct_index: number;
+  explanation: string | null;
+  created_at: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  document_id: string;
+  user_id: string;
+  role: "user" | "assistant";
+  content: string;
+  created_at: string;
+};
+
+export type GenerateResult = {
+  flashcards: Pick<Flashcard, "question" | "answer">[];
+  quiz: Pick<QuizQuestion, "question" | "options" | "correct_index" | "explanation">[];
+  summary: string;
+};

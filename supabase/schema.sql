@@ -1,114 +1,88 @@
--- =============================================================
---  locpilote — schéma Supabase
--- =============================================================
---  À coller dans Supabase → SQL Editor → Run.
---  Idempotent : peut être rejoué plusieurs fois sans casser.
--- =============================================================
+-- ============================================================
+-- StudyPilot — Supabase Schema
+-- ============================================================
 
--- -----------------------------------------------------------------
---  Table: properties
--- -----------------------------------------------------------------
-create table if not exists public.properties (
-  id           uuid primary key default gen_random_uuid(),
-  user_id      uuid not null references auth.users(id) on delete cascade,
-  name         text not null,
-  inputs       jsonb not null default '{
-    "airbnbRevenue": 0,
-    "bookingRevenue": 0,
-    "futureRevenue": 0,
-    "credit": 0,
-    "elec": 0,
-    "eau": 0,
-    "internet": 0,
-    "menage": 0,
-    "airbnbFeePct": 3,
-    "bookingFeePct": 15
-  }'::jsonb,
-  airbnb_url      text not null default '',
-  booking_url     text not null default '',
-  airbnb_bookings jsonb not null default '[]'::jsonb,
-  booking_bookings jsonb not null default '[]'::jsonb,
-  created_at   timestamptz not null default now(),
-  updated_at   timestamptz not null default now()
+-- Enable UUID extension
+create extension if not exists "uuid-ossp";
+
+-- ── Documents ──────────────────────────────────────────────
+create table if not exists documents (
+  id              uuid primary key default uuid_generate_v4(),
+  user_id         uuid not null references auth.users(id) on delete cascade,
+  title           text not null,
+  content         text not null,
+  summary         text,
+  flashcard_count int  default 0,
+  quiz_count      int  default 0,
+  created_at      timestamptz default now(),
+  updated_at      timestamptz default now()
 );
 
-create index if not exists properties_user_id_idx on public.properties(user_id);
-
--- -----------------------------------------------------------------
---  Table: subscriptions
---  Source de vérité pour le plan actif. Alimentée par le webhook
---  Lemon Squeezy — jamais par le client.
--- -----------------------------------------------------------------
-create table if not exists public.subscriptions (
-  user_id              uuid primary key references auth.users(id) on delete cascade,
-  plan                 text check (plan in ('starter','pro','unlimited')),
-  status               text not null default 'inactive'
-                       check (status in ('active','inactive','past_due','canceled')),
-  ls_customer_id       text,
-  ls_subscription_id   text,
-  ls_variant_id        text,
-  current_period_end   timestamptz,
-  updated_at           timestamptz not null default now()
+-- ── Flashcards ─────────────────────────────────────────────
+create table if not exists flashcards (
+  id          uuid primary key default uuid_generate_v4(),
+  document_id uuid not null references documents(id) on delete cascade,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  question    text not null,
+  answer      text not null,
+  created_at  timestamptz default now()
 );
 
--- Migration : supprime les anciennes colonnes Stripe si elles existent encore
-do $$ begin
-  if exists (select 1 from information_schema.columns where table_schema='public' and table_name='subscriptions' and column_name='stripe_customer_id') then
-    alter table public.subscriptions drop column stripe_customer_id;
-  end if;
-  if exists (select 1 from information_schema.columns where table_schema='public' and table_name='subscriptions' and column_name='stripe_subscription_id') then
-    alter table public.subscriptions drop column stripe_subscription_id;
-  end if;
-end $$;
+-- ── Quiz Questions (QCM) ───────────────────────────────────
+create table if not exists quiz_questions (
+  id            uuid primary key default uuid_generate_v4(),
+  document_id   uuid not null references documents(id) on delete cascade,
+  user_id       uuid not null references auth.users(id) on delete cascade,
+  question      text not null,
+  options       jsonb not null,
+  correct_index int  not null,
+  explanation   text,
+  created_at    timestamptz default now()
+);
 
--- -----------------------------------------------------------------
---  Trigger: updated_at auto
--- -----------------------------------------------------------------
-create or replace function public.touch_updated_at()
-returns trigger
-language plpgsql
-as $$
+-- ── Chat Messages ──────────────────────────────────────────
+create table if not exists chat_messages (
+  id          uuid primary key default uuid_generate_v4(),
+  document_id uuid not null references documents(id) on delete cascade,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  role        text not null check (role in ('user', 'assistant')),
+  content     text not null,
+  created_at  timestamptz default now()
+);
+
+-- ── Indexes ────────────────────────────────────────────────
+create index if not exists documents_user_id_idx      on documents(user_id);
+create index if not exists flashcards_document_id_idx  on flashcards(document_id);
+create index if not exists quiz_document_id_idx        on quiz_questions(document_id);
+create index if not exists chat_document_id_idx        on chat_messages(document_id);
+
+-- ── Row Level Security ─────────────────────────────────────
+alter table documents      enable row level security;
+alter table flashcards     enable row level security;
+alter table quiz_questions enable row level security;
+alter table chat_messages  enable row level security;
+
+create policy "documents_owner" on documents
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+create policy "flashcards_owner" on flashcards
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+create policy "quiz_owner" on quiz_questions
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+create policy "chat_owner" on chat_messages
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ── Trigger: updated_at ────────────────────────────────────
+create or replace function update_updated_at()
+returns trigger language plpgsql as $$
 begin
   new.updated_at = now();
   return new;
 end;
 $$;
 
-drop trigger if exists properties_touch on public.properties;
-create trigger properties_touch
-  before update on public.properties
-  for each row execute function public.touch_updated_at();
-
-drop trigger if exists subscriptions_touch on public.subscriptions;
-create trigger subscriptions_touch
-  before update on public.subscriptions
-  for each row execute function public.touch_updated_at();
-
--- -----------------------------------------------------------------
---  RLS — chaque user n'accède qu'à ses propres lignes
--- -----------------------------------------------------------------
-alter table public.properties     enable row level security;
-alter table public.subscriptions  enable row level security;
-
--- properties
-drop policy if exists "properties_select_own" on public.properties;
-create policy "properties_select_own" on public.properties
-  for select using (auth.uid() = user_id);
-
-drop policy if exists "properties_insert_own" on public.properties;
-create policy "properties_insert_own" on public.properties
-  for insert with check (auth.uid() = user_id);
-
-drop policy if exists "properties_update_own" on public.properties;
-create policy "properties_update_own" on public.properties
-  for update using (auth.uid() = user_id);
-
-drop policy if exists "properties_delete_own" on public.properties;
-create policy "properties_delete_own" on public.properties
-  for delete using (auth.uid() = user_id);
-
--- subscriptions : lecture seule côté client, écriture réservée au
--- service role (utilisé par le webhook Stripe).
-drop policy if exists "subscriptions_select_own" on public.subscriptions;
-create policy "subscriptions_select_own" on public.subscriptions
-  for select using (auth.uid() = user_id);
+create trigger documents_updated_at
+  before update on documents
+  for each row execute procedure update_updated_at();

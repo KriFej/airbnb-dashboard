@@ -2,8 +2,7 @@ import { Suspense } from "react";
 import { AuthForm } from "@/components/auth/AuthForm";
 
 export const metadata = {
-  title: "Connexion — locpilote",
-  description: "Connectez-vous à votre tableau de bord locpilote pour suivre vos revenus Airbnb et Booking.com.",
+  title: "Connexion — StudyPilot",
 };
 
 export default function LoginPage() {
