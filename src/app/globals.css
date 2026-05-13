@@ -106,6 +106,43 @@ details > summary::-webkit-details-marker {
   border-radius: 8px;
 }
 
+/* ==================== VAULT SMP STORE ANIMATIONS ==================== */
+
+@keyframes vault-float {
+  0%, 100% { transform: translateY(0px) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+@keyframes vault-float-alt {
+  0%, 100% { transform: translateY(0px) rotate(3deg); }
+  50% { transform: translateY(-10px) rotate(-3deg); }
+}
+
+@keyframes vault-particle {
+  0% { opacity: 0.9; transform: translateY(0px) scale(1); }
+  100% { opacity: 0; transform: translateY(-90px) scale(0.1); }
+}
+
+@keyframes vault-beam {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50% { opacity: 0.6; transform: scaleY(1.08); }
+}
+
+@keyframes vault-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes vault-glow-ring {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.06); }
+}
+
+@keyframes vault-orbit {
+  from { transform: rotate(0deg) translateX(32px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(32px) rotate(-360deg); }
+}
+
 /* Remove arrows from number inputs */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
