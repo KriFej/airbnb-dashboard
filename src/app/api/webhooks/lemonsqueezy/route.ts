@@ -1,103 +1,72 @@
-import { createHmac } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient as createAdminClient } from "@supabase/supabase-js";
-import { Plan } from "@/lib/plan";
-import { rateLimit, getIp } from "@/lib/rateLimit";
+import crypto from "crypto";
+import { createServerClient } from "@supabase/ssr";
 
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+type LSPlan = "free" | "pro" | "max";
 
-type LSStatus = "active" | "cancelled" | "expired" | "past_due" | "paused" | "unpaid";
+const VARIANT_TO_PLAN: Record<string, LSPlan> = {
+  [process.env.NEXT_PUBLIC_LS_PRO_VARIANT_ID ?? ""]: "pro",
+  [process.env.NEXT_PUBLIC_LS_MAX_VARIANT_ID ?? ""]: "max",
+};
 
-function lsStatusToDb(status: LSStatus): string {
-  if (status === "active") return "active";
-  if (status === "past_due" || status === "unpaid") return "past_due";
-  if (status === "cancelled" || status === "expired") return "canceled";
-  return "inactive";
-}
-
-function variantToPlan(variantId: number): Plan {
-  const ids: Record<string, Plan> = {
-    [process.env.LEMONSQUEEZY_VARIANT_STARTER ?? ""]: "starter",
-    [process.env.LEMONSQUEEZY_VARIANT_STARTER_ANNUAL ?? ""]: "starter",
-    [process.env.LEMONSQUEEZY_VARIANT_PRO ?? ""]: "pro",
-    [process.env.LEMONSQUEEZY_VARIANT_PRO_ANNUAL ?? ""]: "pro",
-  };
-  return ids[String(variantId)] ?? null;
-}
-
-const HANDLED_EVENTS = new Set([
-  "subscription_created",
-  "subscription_updated",
-  "subscription_cancelled",
-  "subscription_expired",
-  "subscription_resumed",
-  "subscription_paused",
-]);
-
-export async function POST(req: NextRequest) {
-  const ip = getIp(req);
-  if (!rateLimit(`lswh:${ip}`, 30, 60_000)) {
-    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
-  }
-
-  const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET;
-  if (!secret) {
-    return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
-  }
-
-  const rawBody = await req.text();
-  const signature = req.headers.get("X-Signature") ?? "";
-
-  const hmac = createHmac("sha256", secret).update(rawBody).digest("hex");
-  if (hmac !== signature) {
-    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-  }
-
-  let payload: {
-    meta: { event_name: string; custom_data?: { user_id?: string } };
-    data: { attributes: { status: LSStatus; variant_id: number; ends_at: string | null; user_email: string } };
-  };
-
-  try {
-    payload = JSON.parse(rawBody);
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
-  }
-
-  const eventName = payload.meta.event_name;
-  if (!HANDLED_EVENTS.has(eventName)) {
-    return NextResponse.json({ ok: true, skipped: true });
-  }
-
-  const userId = payload.meta.custom_data?.user_id;
-  if (!userId || !UUID_RE.test(userId)) {
-    return NextResponse.json({ error: "Invalid or missing user_id" }, { status: 400 });
-  }
-
-  const attrs = payload.data.attributes;
-  const status = lsStatusToDb(attrs.status);
-  const plan = variantToPlan(attrs.variant_id);
-  const currentPeriodEnd = attrs.ends_at ?? null;
-
-  const admin = createAdminClient(
+function adminClient() {
+  return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { cookies: { getAll: () => [], setAll: () => {} } }
   );
+}
 
-  const { error } = await admin.from("subscriptions").upsert(
-    {
+export async function POST(req: NextRequest) {
+  const raw = await req.text();
+  const signature = req.headers.get("x-signature") ?? "";
+  const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET ?? "";
+
+  const digest = crypto.createHmac("sha256", secret).update(raw).digest("hex");
+  if (!crypto.timingSafeEqual(Buffer.from(digest), Buffer.from(signature))) {
+    return NextResponse.json({ error: "Signature invalide" }, { status: 401 });
+  }
+
+  const event = JSON.parse(raw);
+  const eventName: string = event.meta?.event_name ?? "";
+  const data = event.data?.attributes ?? {};
+  const userEmail: string = data.user_email ?? "";
+  const variantId = String(data.variant_id ?? "");
+  const subscriptionId = String(event.data?.id ?? "");
+  const customerId = String(data.customer_id ?? "");
+  const endsAt: string | null = data.ends_at ?? null;
+
+  if (!userEmail) return NextResponse.json({ ok: true });
+
+  const supabase = adminClient();
+  const { data: { users } } = await supabase.auth.admin.listUsers();
+  const authUser = users.find((u) => u.email === userEmail);
+  if (!authUser) return NextResponse.json({ ok: true });
+
+  const userId = authUser.id;
+  const plan: LSPlan = VARIANT_TO_PLAN[variantId] ?? "pro";
+
+  if (eventName === "subscription_created" || eventName === "subscription_updated" || eventName === "subscription_resumed") {
+    await supabase.from("subscriptions").upsert({
       user_id: userId,
       plan,
-      status,
-      current_period_end: currentPeriodEnd,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: "user_id" },
-  );
+      status: "active",
+      lemon_squeezy_subscription_id: subscriptionId,
+      lemon_squeezy_customer_id: customerId,
+      current_period_end: endsAt,
+    }, { onConflict: "user_id" });
+  }
 
-  if (error) {
-    console.error("[LS webhook] Supabase error:", error.message);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (eventName === "subscription_cancelled") {
+    await supabase.from("subscriptions")
+      .update({ status: "cancelled", current_period_end: endsAt })
+      .eq("lemon_squeezy_subscription_id", subscriptionId);
+  }
+
+  if (eventName === "subscription_expired") {
+    await supabase.from("subscriptions")
+      .update({ status: "expired", plan: "free" })
+      .eq("lemon_squeezy_subscription_id", subscriptionId);
   }
 
   return NextResponse.json({ ok: true });

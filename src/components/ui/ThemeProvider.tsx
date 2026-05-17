@@ -13,22 +13,23 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const stored = localStorage.getItem("locpilote-theme") as Theme | null;
-    if (stored === "light") {
-      setTheme("light");
-      document.documentElement.setAttribute("data-theme", "light");
-    }
+    const stored = localStorage.getItem("sp-theme") as Theme | null;
+    const initial = stored ?? "dark";
+    setTheme(initial);
+    applyTheme(initial);
   }, []);
+
+  function applyTheme(t: Theme) {
+    const root = document.documentElement;
+    root.classList.remove("dark", "light");
+    root.classList.add(t);
+  }
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("locpilote-theme", next);
-    if (next === "light") {
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
+    localStorage.setItem("sp-theme", next);
+    applyTheme(next);
   }
 
   return (

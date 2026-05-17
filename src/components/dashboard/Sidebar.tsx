@@ -1,154 +1,130 @@
 "use client";
 
-import {
-  Calendar,
-  Home,
-  LogOut,
-  LucideIcon,
-  Settings,
-  Building2,
-  Wallet,
-  Zap,
-} from "lucide-react";
-import { Logo } from "../ui/Logo";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { BookOpen, Upload, Settings, LogOut, Sun, Moon, LayoutDashboard, Zap, Crown, ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/components/ui/ThemeProvider";
 
-type Item = { id: string; icon: LucideIcon; label: string };
-
-const NAV: Item[] = [
-  { id: "overview", icon: Home, label: "Vue d'ensemble" },
-  { id: "properties", icon: Building2, label: "Biens" },
-  { id: "agenda", icon: Calendar, label: "Agenda" },
-  { id: "expenses", icon: Wallet, label: "Dépenses" },
-  { id: "settings", icon: Settings, label: "Paramètres" },
+const NAV = [
+  { href: "/dashboard", icon: LayoutDashboard, label: "Tableau de bord" },
+  { href: "/dashboard/upload", icon: Upload, label: "Nouveau document" },
+  { href: "/dashboard/settings", icon: Settings, label: "Paramètres" },
 ];
 
-export function Sidebar({
-  active,
-  onNavigate,
-  userEmail,
-  planLabel,
-  onLogout,
-}: {
-  active: string;
-  onNavigate: (id: string) => void;
-  userEmail?: string;
-  planLabel?: string;
-  onLogout?: () => void;
-}) {
-  const initials = userEmail
-    ? userEmail.slice(0, 2).toUpperCase()
-    : "YO";
+type PlanInfo = {
+  plan: "free" | "pro" | "max";
+  docs: { count: number; limit: number | null };
+};
 
-  const isFree = !planLabel || planLabel === "Gratuit" || planLabel === "Sans offre";
+const BADGE = {
+  free: { label: "Gratuit", color: "bg-surface text-muted border-border", icon: null },
+  pro:  { label: "Pro",     color: "bg-primary-500/10 text-primary-400 border-primary-500/30", icon: <Zap size={10} /> },
+  max:  { label: "Max",     color: "bg-accent-500/10 text-accent-400 border-accent-500/30",   icon: <Crown size={10} /> },
+};
+
+export function Sidebar() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { logout, userId } = useAuth();
+  const { theme, toggle } = useTheme();
+  const [planInfo, setPlanInfo] = useState<PlanInfo | null>(null);
+
+  useEffect(() => {
+    if (!userId) return;
+    fetch("/api/user/plan").then((r) => r.json()).then(setPlanInfo);
+  }, [userId, pathname]);
+
+  async function handleLogout() {
+    await logout();
+    router.push("/login");
+  }
+
+  const badge = planInfo ? BADGE[planInfo.plan] : BADGE.free;
+  const showUsage = planInfo?.plan === "free" && planInfo.docs.limit !== null;
+  const pct = showUsage ? Math.min((planInfo!.docs.count / planInfo!.docs.limit!) * 100, 100) : 0;
 
   return (
-    <>
-      {/* Desktop sidebar */}
-      <aside className="hidden md:flex md:flex-col w-[220px] shrink-0 border-r border-border bg-surface">
-        {/* Logo */}
-        <div className="flex h-16 items-center px-5">
-          <Link href="/">
-            <Logo />
-          </Link>
+    <aside className="flex h-screen w-56 shrink-0 flex-col border-r border-border bg-surface">
+      <div className="flex h-16 items-center gap-2.5 border-b border-border px-5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-brand">
+          <BookOpen size={15} className="text-white" />
         </div>
+        <span className="font-semibold text-fg">StudyPilot</span>
+      </div>
 
-        {/* Nav */}
-        <nav className="flex-1 space-y-0.5 px-3 pt-2">
-          {NAV.map((item) => {
-            const Icon = item.icon;
-            const isActive = active === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => onNavigate(item.id)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
-                  isActive
-                    ? "bg-brand-500/12 text-brand-400"
-                    : "text-muted hover:bg-fg/5 hover:text-fg"
-                }`}
-              >
-                <Icon
-                  size={16}
-                  className={isActive ? "text-brand-400" : "text-dim"}
-                />
-                {item.label}
-                {isActive && (
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-brand-500" />
-                )}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Upgrade banner for free users */}
-        {isFree && (
-          <div className="mx-3 mb-3 overflow-hidden rounded-xl bg-brand-500/8 border border-brand-500/20 p-4">
-            <div className="flex items-center gap-2 text-brand-400">
-              <Zap size={13} fill="currentColor" />
-              <span className="text-xs font-semibold">Passer à Pro</span>
-            </div>
-            <p className="mt-1.5 text-xs text-muted leading-relaxed">
-              Jusqu&apos;à 10 biens, synchro automatique et plus.
-            </p>
-            <Link
-              href="/#pricing"
-              className="mt-3 flex items-center justify-center rounded-lg bg-brand-500 py-2 text-xs font-semibold text-black transition-colors hover:bg-brand-400"
-            >
-              Voir les offres
-            </Link>
-          </div>
-        )}
-
-        {/* User */}
-        <div className="border-t border-border p-3">
-          <div className="flex items-center gap-3 rounded-xl px-3 py-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-semibold text-black">
-              {initials}
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <div className="truncate text-xs font-medium text-fg">
-                {userEmail ?? "Votre hôte"}
-              </div>
-              <div className="truncate text-[11px] text-muted">
-                {planLabel ?? "Sans offre"}
-              </div>
-            </div>
-            {onLogout && (
-              <button
-                type="button"
-                onClick={onLogout}
-                className="text-dim hover:text-fg transition-colors"
-                aria-label="Se déconnecter"
-              >
-                <LogOut size={13} />
-              </button>
-            )}
-          </div>
-        </div>
-      </aside>
-
-      {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden border-t border-border bg-surface/95 backdrop-blur">
-        {NAV.map((item) => {
-          const Icon = item.icon;
-          const isActive = active === item.id;
+      <nav className="flex-1 space-y-1 p-3">
+        {NAV.map(({ href, icon: Icon, label }) => {
+          const active = pathname === href;
           return (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => onNavigate(item.id)}
-              className={`flex flex-1 flex-col items-center gap-1 py-3 text-[10px] transition-colors ${
-                isActive ? "text-brand-400" : "text-dim"
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium transition-all ${
+                active ? "bg-primary-tint text-primary-400" : "text-muted hover:bg-card hover:text-fg"
               }`}
             >
-              <Icon size={20} />
-              {item.label}
-            </button>
+              <Icon size={16} />
+              {label}
+            </Link>
           );
         })}
       </nav>
-    </>
+
+      {/* Plan card */}
+      {planInfo && (
+        <div className="px-3">
+          <div className="rounded-2xl border border-border bg-card p-3">
+            <div className="flex items-center justify-between">
+              <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold ${badge.color}`}>
+                {badge.icon}
+                {badge.label}
+              </span>
+              {showUsage && (
+                <span className="text-[10px] text-muted">
+                  {planInfo.docs.count}/{planInfo.docs.limit}
+                </span>
+              )}
+            </div>
+
+            {showUsage && (
+              <>
+                <div className="mt-2 h-1.5 w-full rounded-full bg-surface">
+                  <div
+                    className={`h-1.5 rounded-full transition-all ${pct >= 80 ? "bg-amber-400" : "bg-primary-500"}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <Link
+                  href="/pricing"
+                  className="mt-2.5 flex items-center justify-between gap-1 rounded-xl bg-gradient-brand px-2.5 py-1.5 text-[10px] font-semibold text-white hover:opacity-90 transition-all"
+                >
+                  Passer à Pro
+                  <ArrowUpRight size={10} />
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-1 p-3 border-t border-border mt-3">
+        <button
+          onClick={toggle}
+          className="flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-muted hover:bg-card hover:text-fg transition-all"
+        >
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          {theme === "dark" ? "Mode clair" : "Mode sombre"}
+        </button>
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-muted hover:bg-red-500/10 hover:text-red-400 transition-all"
+        >
+          <LogOut size={16} />
+          Déconnexion
+        </button>
+      </div>
+    </aside>
   );
 }
